@@ -6,12 +6,19 @@ import styles from "./FaqList.module.css";
 export type FaqItem = { q: string; a: string };
 
 /**
- * FAQ accordion — reference M17 behavior, rebuilt dependency-free:
- * single-open list; opening animates body height (CSS grid rows 0fr→1fr)
- * and fades the body; closing reverses. Reduced-motion = instant.
+ * FAQ accordion — CSS grid 0fr → 1fr expand (no GSAP height fights).
+ *
+ * Pure CSS height avoids the open glitch where GSAP `height: auto`
+ * settlement + CSS `[data-open] { height: auto }` fought each other
+ * (content jumped down, then nudged up). Single-open item; reduced
+ * motion inherits the same transition:none path.
  */
 export function FaqList({ items }: { items: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number>(-1);
+
+  function toggle(i: number) {
+    setOpenIndex((prev) => (prev === i ? -1 : i));
+  }
 
   return (
     <ul className={styles.list}>
@@ -23,7 +30,7 @@ export function FaqList({ items }: { items: FaqItem[] }) {
               type="button"
               className={styles.question}
               aria-expanded={open}
-              onClick={() => setOpenIndex(open ? -1 : i)}
+              onClick={() => toggle(i)}
             >
               <span className={styles.index}>
                 {String(i + 1).padStart(2, "0")}
@@ -40,8 +47,10 @@ export function FaqList({ items }: { items: FaqItem[] }) {
               </span>
             </button>
             <div className={styles.bodyWrap}>
-              <div className={styles.body}>
-                <p>{item.a}</p>
+              <div className={styles.bodyInner}>
+                <div className={styles.body}>
+                  <p>{item.a}</p>
+                </div>
               </div>
             </div>
           </li>

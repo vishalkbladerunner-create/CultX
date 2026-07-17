@@ -1,74 +1,86 @@
+import Link from "next/link";
 import { GradientDome } from "@/components/background/GradientDome";
 import { DashedLine } from "@/components/chrome/DashedLine";
 import { UIButton } from "@/components/chrome/UIButton";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { MediaFrame } from "@/components/kit/MediaFrame";
 import { FaqList } from "./FaqList";
+import { LetterReveal } from "./LetterReveal";
+import { FormatStage } from "./FormatStage";
+import { StarCarousel } from "./StarCarousel";
 import styles from "./HomePage.module.css";
 
 /**
- * CultX home — reference Surface A architecture rebuilt with CultX content
- * and the poppy image set (verified twins of the reference assets):
+ * CultX home — "K-Cinema" design language (spec 2026-07-17).
  *
- *   1. Hero        — top dome (110%/200vh) + poster + heroOverlay PNG (M08)
- *   2. Problem     — editorial wash zone (fixed M04 radial shows through)
- *   3. Pillars     — tall band, bottom dome 100% (ref propositions field)
- *   4. Banner      — solid void panel + scroll-fill manifesto (L05 + M07)
- *   5. Monetize    — top dome 110% (ref opportunity-wrapper)
- *   6. Star IPs    — editorial wash zone
+ * The page plays like a K-drama title sequence on ONE continuous
+ * background canvas — every dome host bleeds past its section and
+ * mask-fades at both edges; no solid panels anywhere:
+ *
+ *   1. Hero        — title sequence: LetterReveal H1 (M06), dual CTAs,
+ *                    meta row, hover-expanding format rail
+ *   2. Formats     — FormatStage sticky set piece (M09 + M15), id="formats"
+ *   3. Tension     — full-viewport scroll-fill cinema panel (M07)
+ *   4. Manifesto   — Create. Watch. Engage. Own. scroll-fill panel
+ *   5. Monetize    — three revenue "screens" (M15), top dome host
+ *   6. Star IPs    — StarCarousel autoplay (M19)
  *   7. FAQ         — accordion (M17)
- *   8. AI Center   — editorial beat (dome band rises beneath it)
- *   9. Footer      — bottom dome calc(120% + 420px) + waitlist (L12)
+ *   8. AI Center   — editorial beat before the footer dome
+ *   9. Footer      — shared SiteFooter + waitlist
  *
- * Scroll story = document flow past image domes + fixed wash (never a
- * per-frame body recolor). Motion lives in ScrollDriver (GSAP + Lenis).
+ * Motion lives in ScrollDriver (GSAP + Lenis); copy verbatim from
+ * cult/content-strategy/03-home.md (tagline + hero meta per spec §2).
  */
 
-const PILLARS = [
+const RAIL = [
   {
     n: "01",
-    title: "AI Comic / Webtoon",
-    body: "Finished webtoons become premium AI comic animation — fast, and at scale.",
+    label: "AI Comic",
+    desc: "Finished webtoons become premium AI comic animation — fast, and at scale.",
+    href: "/pillars#comic",
   },
   {
     n: "02",
-    title: "AI Star IP Universe",
-    body: "Iconic characters brought to life with studio-level AI production and movie-length storytelling.",
+    label: "Star IP Universe",
+    desc: "Iconic characters brought to life with studio-level AI production and movie-length storytelling.",
+    href: "/pillars#universe",
   },
   {
     n: "03",
-    title: "AI Short",
-    body: "Viral short-form built for social platforms — TikTok, Reels, Shorts.",
+    label: "AI Short",
+    desc: "Viral short-form built for social platforms — TikTok, Reels, Shorts.",
+    href: "/pillars#short",
   },
   {
     n: "04",
-    title: "AI Drama",
-    body: "Cinematic long-form AI series with K-drama emotion and retention.",
+    label: "AI Drama",
+    desc: "Cinematic long-form AI series with K-drama emotion and retention.",
+    href: "/pillars#drama",
   },
 ];
 
 const EARN = [
   {
-    n: "01",
+    slot: "home-earn-sales",
+    frameLabel: "SALES SCENE",
+    label: "Sell content",
     title: "Direct sales",
-    body: "Sell characters, comics, and stories. Fans unlock paid content directly from creators.",
+    closer: "Earn from every sale.",
   },
   {
-    n: "02",
-    title: "Community IP tokens",
-    body: "Launch a token for a character or IP. Fans support, trade, and grow the legend together.",
+    slot: "home-earn-token",
+    frameLabel: "TOKEN SCENE",
+    label: "Community ownership",
+    title: "Launch an IP token",
+    closer: "Earn as your community grows.",
   },
   {
-    n: "03",
-    title: "Ad revenue",
-    body: "Earn from attention — when fans watch ads on your content, you get paid.",
+    slot: "home-earn-ads",
+    frameLabel: "ADS SCENE",
+    label: "Ad revenue",
+    title: "Earn from attention",
+    closer: "Earn from every view.",
   },
-];
-
-const STARS = [
-  { name: "Pucca", note: "~25-year Korean iconic brand" },
-  { name: "B.Duck", note: "~20-year global lifestyle brand" },
-  { name: "Ponke", note: "Web3-native IP, strong community" },
-  { name: "Mew", note: "Fast-growing cat IP" },
 ];
 
 const FAQ = [
@@ -97,122 +109,103 @@ const FAQ = [
 export function HomePage() {
   return (
     <main className={styles.main} id="top">
-      {/* ============ 1. HERO — dome image bg + overlay PNG (M08 + M05) ============ */}
+      {/* ============ 1. HERO — title sequence (M06 + M08 + hero intro) ============ */}
       <header className={styles.hero} data-theme-section="dark">
-        {/* z0 — hero background IS the poppy dome image (also the future
-            backdrop under the hero video slot; ref wraps video in this field) */}
+        {/* z0 — dome image bg, mask-faded at both edges (seam-free) */}
         <div className={styles.heroDomeHost} aria-hidden>
           <GradientDome position="top" />
         </div>
-        {/* z1 — hero overlay vignette PNG (twin of ref heroOverlay_homepage) */}
+        {/* z1 — hero overlay vignette PNG */}
         <div className={styles.heroOverlay} aria-hidden />
         {/* z2 — content */}
         <div className={styles.heroContent}>
           <p className={styles.eyebrow} data-hero-intro>
-            CultX Platform
+            CultX Platform — Seoul
           </p>
-          <h1 className={styles.heroTitle} data-hero-intro>
-            Where IPs
-            <br />
-            Become Legends.
-          </h1>
+          <LetterReveal
+            as="h1"
+            trigger="load"
+            delay={0.2}
+            text={"Made in Korea.\nBinged by the World."}
+            className={styles.heroTitle}
+          />
           <div className={styles.heroCtas} data-hero-intro>
             <UIButton href="#waitlist" label="Join the Waitlist" />
-            <UIButton href="#platform" label="Explore the Platform" variant="secondary" withIcon={false} />
+            <UIButton
+              href="#formats"
+              label="Explore the Platform"
+              variant="secondary"
+              withIcon={false}
+            />
           </div>
         </div>
-        <div className={styles.heroFooter} data-hero-intro>
-          <p className={styles.heroMeta}>Built in Korea — Powered for the World</p>
-          <p className={styles.heroBlurb}>
-            The all-in-one platform for AI-native IP creation and monetization.
-            Create · Publish · Grow · Earn.
-          </p>
+        <div className={styles.heroBottom}>
+          <div className={styles.heroFooter} data-hero-intro>
+            <p className={styles.heroMeta}>CultX AI Center · Gangnam, Seoul</p>
+            <p className={styles.heroBlurb}>
+              The all-in-one platform for AI-native IP creation and
+              monetization. Create · Publish · Grow · Earn.
+            </p>
+          </div>
+          {/* Format rail — hover-expanding strips (desktop) / 2×2 tiles
+              (mobile); each links to its /pillars chapter */}
+          <nav className={styles.formatRail} aria-label="Formats">
+            {RAIL.map((r) => (
+              <Link
+                key={r.n}
+                href={r.href}
+                className={styles.railItem}
+                data-hero-intro
+              >
+                <span className={styles.railNum}>{r.n}</span>
+                <span className={styles.railLabel}>{r.label}</span>
+                <span className={styles.railDesc}>{r.desc}</span>
+              </Link>
+            ))}
+          </nav>
         </div>
       </header>
 
-      {/* ============ 2. PROBLEM — editorial wash zone ============ */}
-      <section
-        className={styles.section}
-        id="platform"
-        data-theme-section="dark"
-      >
-        <div className={styles.layout}>
-          <div className={`${styles.sectionHead} ${styles.hasPinTopLeft}`}>
-            <DashedLine className={styles.lineTop} />
-            <p className={styles.eyebrow} data-reveal>
-              01 — The Market
-            </p>
-            <h2 className={styles.h2} data-reveal>
-              Massive creation.
-              <br />
-              Broken monetization.
-            </h2>
-          </div>
-          <p className={styles.lede} data-reveal>
-            The AI creator economy is enormous — but discovery and monetization
-            are broken. Most creators are never found, and almost none earn real
-            income. CultX is the all-in-one platform where AI-native IP gets
-            created, published, grown — and paid.
+      {/* ============ 2. FORMATS — sticky stage set piece (M09 + M15) ============ */}
+      <FormatStage />
+
+      {/* ============ 3. TENSION — full-viewport scroll-fill panel (M07) ============ */}
+      <section className={styles.cinemaPanel} data-theme-section="dark">
+        <div className={styles.cinemaInner}>
+          <p className={styles.fillLine} data-scroll-fill>
+            {["Massive", "creation.", "Broken", "monetization."].map((w) => (
+              <span key={w} className={styles.fillWord} data-fill-word>
+                {w}
+              </span>
+            ))}
+          </p>
+          <p className={styles.cinemaLede} data-reveal>
+            The AI creator economy is enormous — but discovery and
+            monetization are broken. Most creators are never found. Almost
+            none earn real income. CultX is the all-in-one platform where
+            AI-native IP gets created, published, grown — and paid.
           </p>
         </div>
       </section>
 
-      {/* ============ 3. PILLARS — tall band, bottom dome 100% ============ */}
-      <section
-        className={styles.pillarsBand}
-        id="pillars"
-        data-theme-section="dark"
-      >
-        <div className={styles.pillarsDomeHost} aria-hidden>
-          <GradientDome position="bottom" />
-        </div>
-        <div className={styles.layout}>
-          <div className={`${styles.sectionHead} ${styles.hasPinTopLeft}`}>
-            <DashedLine className={styles.lineTop} />
-            <p className={styles.eyebrow} data-reveal>
-              02 — Four Experiences
-            </p>
-            <h2 className={styles.h2} data-reveal>
-              Every major AI entertainment format.
-            </h2>
-          </div>
-          <ul className={styles.pillarList}>
-            {PILLARS.map((p) => (
-              <li key={p.n} className={styles.pillarRow} data-reveal>
-                <span className={styles.pillarNum}>{p.n}</span>
-                <div className={styles.pillarText}>
-                  <h3 className={styles.pillarTitle}>{p.title}</h3>
-                  <p className={styles.pillarBody}>{p.body}</p>
-                </div>
-                <DashedLine className={styles.lineRow} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ============ 4. BANNER — solid void panel + scroll fill (M07) ============ */}
-      <section
-        className={styles.banner}
-        id="banner"
-        data-theme-section="dark"
-      >
-        <div className={styles.layout}>
-          <p className={styles.bannerManifesto} data-scroll-fill>
+      {/* ============ 4. MANIFESTO — full-viewport scroll-fill panel ============ */}
+      <section className={styles.cinemaPanel} data-theme-section="dark">
+        <div className={styles.cinemaInner}>
+          <p className={styles.fillLine} data-scroll-fill>
             {["Create.", "Watch.", "Engage.", "Own."].map((w) => (
               <span key={w} className={styles.fillWord} data-fill-word>
                 {w}
               </span>
             ))}
           </p>
-          <p className={styles.bannerSub}>
+          <p className={styles.cinemaSub} data-reveal>
             One loop. One ecosystem. Creators and fans, building legends
             together.
           </p>
         </div>
       </section>
 
-      {/* ============ 5. MONETIZE — top dome 110% ============ */}
+      {/* ============ 5. MONETIZE — three revenue screens (M15) ============ */}
       <section
         className={styles.monetizeBand}
         id="monetize"
@@ -225,58 +218,65 @@ export function HomePage() {
           <div className={`${styles.sectionHead} ${styles.hasPinTopLeft}`}>
             <DashedLine className={styles.lineTop} />
             <p className={styles.eyebrow} data-reveal>
-              03 — Monetize
+              03 — MONETIZE
             </p>
-            <h2 className={styles.h2} data-reveal>
-              Turn AI creations into income.
-            </h2>
+            <div className={styles.maskH2} data-mask-reveal>
+              <h2 className={styles.h2}>Turn AI creations into income.</h2>
+            </div>
           </div>
-          <div className={styles.earnGrid}>
+          <div className={styles.screenRow} data-stagger>
             {EARN.map((e) => (
-              <article
-                key={e.n}
-                className={`${styles.earnCard} ${styles.hasPinTopLeft}`}
-                data-reveal
-              >
-                <span className={styles.pillarNum}>{e.n}</span>
-                <h3 className={styles.earnTitle}>{e.title}</h3>
-                <p className={styles.earnBody}>{e.body}</p>
+              <article key={e.slot} className={styles.screen}>
+                <span className={styles.goldRule} aria-hidden />
+                <MediaFrame
+                  slot={e.slot}
+                  label={e.frameLabel}
+                  spec="Product scene · 1600×1200 PNG/WebP"
+                  ratio="4/3"
+                />
+                <p className={styles.screenLabel}>{e.label}</p>
+                <h3 className={styles.screenTitle}>{e.title}</h3>
+                <p className={styles.screenCloser}>{e.closer}</p>
               </article>
             ))}
+          </div>
+          <p className={styles.microLine} data-reveal>
+            Crypto rewards. USDT cards. Merch. The earn surface extends beyond
+            the screen.
+          </p>
+          <div className={styles.linkRow} data-reveal>
+            <Link className={styles.textLink} href="/monetize">
+              How creators earn →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ============ 6. STAR IPs — editorial wash zone ============ */}
+      {/* ============ 6. STAR IPs — M19 carousel ============ */}
       <section className={styles.section} id="stars" data-theme-section="dark">
         <div className={styles.layout}>
           <div className={`${styles.sectionHead} ${styles.hasPinTopLeft}`}>
             <DashedLine className={styles.lineTop} />
             <p className={styles.eyebrow} data-reveal>
-              04 — Star IPs
+              04 — STAR IPs
             </p>
-            <h2 className={styles.h2} data-reveal>
-              Iconic characters.
-              <br />
-              Global fans.
-            </h2>
+            <div className={styles.maskH2} data-mask-reveal>
+              <h2 className={styles.h2}>
+                Iconic characters.
+                <br />
+                Global fans.
+              </h2>
+            </div>
           </div>
-          <div className={styles.starGrid}>
-            {STARS.map((s) => (
-              <div
-                key={s.name}
-                className={`${styles.starCard} ${styles.hasPinBottomRight}`}
-                data-reveal
-              >
-                <span className={styles.starName}>{s.name}</span>
-                <span className={styles.starNote}>{s.note}</span>
-              </div>
-            ))}
-          </div>
+          <StarCarousel />
+          <p className={styles.licensing} data-reveal>
+            Star IP appearances and partnerships are subject to licensing and
+            brand approvals. Marketing presentation follows deck language.
+          </p>
         </div>
       </section>
 
-      {/* ============ 7. FAQ ============ */}
+      {/* ============ 7. FAQ — M17 accordion ============ */}
       <section className={styles.section} id="faq" data-theme-section="dark">
         <div className={styles.layout}>
           <div className={`${styles.sectionHead} ${styles.hasPinTopLeft}`}>
@@ -284,12 +284,17 @@ export function HomePage() {
             <p className={styles.eyebrow} data-reveal>
               05 — FAQ
             </p>
-            <h2 className={styles.h2} data-reveal>
-              Questions, answered.
-            </h2>
+            <div className={styles.maskH2} data-mask-reveal>
+              <h2 className={styles.h2}>Questions, answered.</h2>
+            </div>
           </div>
           <div data-reveal>
             <FaqList items={FAQ} />
+          </div>
+          <div className={styles.linkRow} data-reveal>
+            <Link className={styles.textLink} href="/faq">
+              See all questions →
+            </Link>
           </div>
         </div>
       </section>
@@ -300,19 +305,27 @@ export function HomePage() {
           <div className={`${styles.sectionHead} ${styles.hasPinTopLeft}`}>
             <DashedLine className={styles.lineTop} />
             <p className={styles.eyebrow} data-reveal>
-              06 — The Hub
+              06 — THE HUB
             </p>
-            <h2 className={styles.h2} data-reveal>
-              From Korea
-              <br />
-              to the world.
-            </h2>
+            <div className={styles.maskH2} data-mask-reveal>
+              <h2 className={styles.h2}>
+                From Korea
+                <br />
+                to the world.
+              </h2>
+            </div>
           </div>
           <p className={styles.lede} data-reveal>
             The CultX AI Center in Gangnam, Seoul — a creator-first hub of
-            roughly 300 specialists, building the K-digital entertainment
-            empire with its community. K-culture, global impact.
+            roughly 300 specialists, building a K-digital entertainment empire
+            with its community. Inspired by Nonce community culture.
+            K-culture, global impact.
           </p>
+          <div className={styles.linkRow} data-reveal>
+            <Link className={styles.textLink} href="/about">
+              Inside the AI Center →
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -31,7 +31,7 @@ export function SiteFooter() {
           </div>
           <div className={styles.listingBox}>
             <p className={styles.listingLogo}>
-              Cult<span className={styles.listingK}>K</span>
+              Cult<span className={styles.listingX}>X</span>
             </p>
             <p className={styles.listingText}>
               CultX is built in Korea at the <strong>CultX AI Center</strong>,

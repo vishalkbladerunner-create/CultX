@@ -23,7 +23,8 @@ src/
   components/
     background/            # FixedAtmosphere · GradientDome · ScrollDriver (Lenis+GSAP)
     chrome/                # SiteHeader · SiteFooter · UIButton · DashedLine
-    home/                  # HomePage sections · FaqList · WaitlistForm · BackToTop · CultXWordmark
+    home/                  # HomePage (K-Cinema) · LetterReveal (M06) · FormatStage (M09 set piece)
+                           #   StarCarousel (M19) · FaqList (M17) · WaitlistForm · BackToTop · CultXWordmark
     kit/                   # Shared marketing kit (do not rebuild ad-hoc):
                            #   PageHero · SectionHeading · Card · CtaBand · MediaFrame · kit.module.css
     pages/<route>/         # One page module per route (StarsPage, AboutPage, …)
@@ -63,13 +64,27 @@ Header/footer NAV: Platform · Pillars · Monetize · Star IPs · **AI Center** 
 
 - Scroll color = document flow past **image domes** + fixed CSS wash — never a per-frame body recolor.
 - `GradientDome` = 1:1 port of reference `.gradient-bg-dark`; parallax via GSAP ScrollTrigger in `ScrollDriver`.
+- **Seam-free canvas (home):** every dome host carries `mask-image` vertical edge fades and bleeds past its section; no solid opaque panels (test-gated in `stages.test.ts`).
+- **Living atmosphere:** the fixed wash (`data-atmo`) drifts with scroll — gradient center `-30% → -14%` and hue `0 → 14deg`, scrubbed in `ScrollDriver`.
 - Hero = poppy transparent dome + homepage overlay mask-fade at the fold.
 - Footer = shared waitlist + `CultXWordmark`.
+
+## Home (K-Cinema) — current design language
+
+- Tagline: **"Made in Korea. Binged by the World."** (LetterReveal letter-cascade, M06).
+- Hero = title card + **format rail** (4 strips, hover-expand, → `/pillars#…`).
+- `FormatStage` = M09 sticky stage + M15 masked titles (poster slots `format-comic/universe/short/drama`).
+- Tension + manifesto = full-viewport transparent M07 fill panels (no solid black panels).
+- Monetize = 3 revenue screens (M15). Stars = `StarCarousel` (M19, 5s autoplay + progress + hover-pause). FAQ = M17 measured-height GSAP.
+- Spec: `docs/superpowers/specs/2026-07-17-home-redesign-k-cinema.md`. Subpages propagate this language next.
 
 ## MediaFrame slot inventory (asset drops)
 
 | Slot id | Spec (from page modules) |
 |---------|--------------------------|
+| `format-comic` / `format-universe` / `format-short` / `format-drama` | Home FormatStage posters · 1200×1800 (2:3) PNG/WebP |
+| `home-earn-sales` / `home-earn-token` / `home-earn-ads` | Home revenue scenes · 1600×1200 PNG/WebP |
+| `home-star-pucca` / `home-star-bduck` / `home-star-ponke` / `home-star-mew` | Home carousel portraits · 1200×1800 (2:3) |
 | `hero-video-stars` | 1920×1080 · WebM + MP4 · muted loop ≤8s |
 | `star-pucca` / `star-bduck` / `star-ponke` / `star-mew` | Licensed character art · 900×1200 |
 | `stars-product-cards` / `stars-product-robots` / `stars-product-merch` | Product packshot · 1200×900 |

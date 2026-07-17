@@ -150,37 +150,122 @@ export function ScrollDriver() {
         );
       });
 
-      /* ---- M09 — journey scrolly: sticky stage frames crossfade per step ---- */
-      const journey = document.querySelector<HTMLElement>("[data-journey]");
-      if (journey && !reduced) {
+      /* ---- M15 — masked title reveal: inner slides up out of its mask ---- */
+      gsap.utils.toArray<HTMLElement>("[data-mask-reveal]").forEach((wrap) => {
+        const inner = wrap.firstElementChild as HTMLElement | null;
+        if (!inner) return;
+        if (reduced) {
+          gsap.set(inner, { yPercent: 0, autoAlpha: 1 });
+          return;
+        }
+        gsap.fromTo(
+          inner,
+          { yPercent: 100, autoAlpha: 0 },
+          {
+            yPercent: 0,
+            autoAlpha: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: { trigger: wrap, start: "top 88%", once: true },
+          }
+        );
+      });
+
+      /* ---- M09 — sticky-stage scrolly: frames crossfade per step ----
+         One mechanism, two markup contracts:
+           [data-journey]      + [data-journey-frame]/[data-journey-step]  (platform)
+           [data-stage-scope]  + [data-stage-frame]/[data-stage-step]      (home FormatStage)
+         Optional [data-stage-caption] items under the poster swap via
+         data-active (kept off the art so titles never fight the visual). */
+      const bindStage = (
+        scope: HTMLElement,
+        frameSelector: string,
+        stepSelector: string
+      ) => {
+        if (reduced) return;
         const frames = gsap.utils.toArray<HTMLElement>(
-          "[data-journey-frame]",
-          journey
+          scope.querySelectorAll(frameSelector)
         );
         const steps = gsap.utils.toArray<HTMLElement>(
-          "[data-journey-step]",
-          journey
+          scope.querySelectorAll(stepSelector)
         );
-        if (frames.length && steps.length) {
-          gsap.set(frames, { autoAlpha: 0 });
-          gsap.set(frames[0], { autoAlpha: 1 });
-          steps.forEach((step, i) => {
-            const show = () =>
-              gsap.to(frames, {
-                autoAlpha: (f) => (f === i ? 1 : 0),
-                duration: 0.4,
-                ease: "power2.out",
-                overwrite: "auto",
-              });
-            ScrollTrigger.create({
-              trigger: step,
-              start: "top 55%",
-              end: "bottom 55%",
-              onEnter: show,
-              onEnterBack: show,
-            });
+        /* Prefer querySelectorAll — reliable under sticky/nested scope */
+        const captions = Array.from(
+          scope.querySelectorAll<HTMLElement>("[data-stage-caption]")
+        );
+        if (!frames.length || !steps.length) return;
+        gsap.set(frames, { autoAlpha: 0 });
+        gsap.set(frames[0], { autoAlpha: 1 });
+        const setCaption = (i: number) => {
+          captions.forEach((cap, ci) => {
+            if (ci === i) cap.setAttribute("data-active", "");
+            else cap.removeAttribute("data-active");
           });
-        }
+        };
+        setCaption(0);
+        steps.forEach((step, i) => {
+          const show = () => {
+            gsap.to(frames, {
+              autoAlpha: (f) => (f === i ? 1 : 0),
+              duration: 0.4,
+              ease: "power2.out",
+              overwrite: "auto",
+            });
+            setCaption(i);
+            const title =
+              frames[i]?.querySelector<HTMLElement>("[data-stage-title]");
+            if (title) {
+              gsap.fromTo(
+                title,
+                { yPercent: 100 },
+                {
+                  yPercent: 0,
+                  duration: 0.5,
+                  ease: "power3.out",
+                  overwrite: "auto",
+                }
+              );
+            }
+          };
+          ScrollTrigger.create({
+            trigger: step,
+            start: "top 55%",
+            end: "bottom 55%",
+            onEnter: show,
+            onEnterBack: show,
+          });
+        });
+      };
+
+      const journey = document.querySelector<HTMLElement>("[data-journey]");
+      if (journey) {
+        bindStage(journey, "[data-journey-frame]", "[data-journey-step]");
+      }
+      gsap.utils
+        .toArray<HTMLElement>("[data-stage-scope]")
+        .forEach((scope) =>
+          bindStage(scope, "[data-stage-frame]", "[data-stage-step]")
+        );
+
+      /* ---- Atmosphere drift — scrubbed CSS vars on the fixed wash ----
+         Gradient center sinks (-30% → -14%) and a faint hue tint
+         (0deg → 14deg) as the page scrolls. One fixed layer, cheap. */
+      const atmo = document.querySelector<HTMLElement>("[data-atmo]");
+      if (atmo && !reduced) {
+        const atmoY = gsap.utils.interpolate(-30, -14);
+        const atmoHue = gsap.utils.interpolate(0, 14);
+        const writeAtmo = (progress: number) => {
+          atmo.style.setProperty("--ck-atmo-y", `${atmoY(progress)}%`);
+          atmo.style.setProperty("--ck-atmo-hue", `${atmoHue(progress)}deg`);
+        };
+        writeAtmo(0);
+        ScrollTrigger.create({
+          trigger: document.body,
+          start: 0,
+          end: "max",
+          scrub: true,
+          onUpdate: (self) => writeAtmo(self.progress),
+        });
       }
 
       /* ---- M07 — scroll-scrubbed word fill ---- */

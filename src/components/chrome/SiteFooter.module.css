@@ -128,7 +128,7 @@
   color: var(--ck-off-white);
 }
 
-.listingK {
+.listingX {
   background: linear-gradient(
     100deg,
     var(--ck-purple-300),
@@ -140,15 +140,16 @@
   color: transparent;
 }
 
+/* Sentence case — brand stays "CultX", not all-caps CULTX */
 .listingText {
   margin: 16px 0 0;
   max-width: 320px;
-  font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  font-weight: 500;
-  letter-spacing: 1.04px;
-  line-height: 1.4;
-  text-transform: uppercase;
+  font-family: var(--ck-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.55;
+  text-transform: none;
   color: var(--ck-white-60);
 }
 
@@ -230,12 +231,12 @@
 
 .menuFooter {
   margin-top: auto;
-  font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  font-weight: 500;
-  letter-spacing: 1.04px;
-  line-height: 1.4;
-  text-transform: uppercase;
+  font-family: var(--ck-font-body);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  text-transform: none;
   color: var(--ck-white-60);
 }
 

@@ -129,6 +129,11 @@ describe("foundations — fonts, media slots, motion, nav", () => {
     assert.match(tsx, /\[data-stagger\]/);
     assert.match(tsx, /\[data-journey-frame\]/);
     assert.match(tsx, /\[data-journey-step\]/);
+    /* K-Cinema home primitives: M15 masked reveal, atmosphere drift,
+       generalized M09 stage scope (home FormatStage). */
+    assert.match(tsx, /\[data-mask-reveal\]/);
+    assert.match(tsx, /\[data-atmo\]/);
+    assert.match(tsx, /\[data-stage-scope\]/);
     /* Route changes must recalculate Lenis' cached scroll limit,
        or wheel scrolling clamps to the previous page's height. */
     assert.match(tsx, /__lenis\?\.resize\(\)/);

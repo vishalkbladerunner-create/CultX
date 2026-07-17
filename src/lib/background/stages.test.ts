@@ -187,29 +187,32 @@ describe("shipped ScrollDriver — reference motion stack", () => {
   });
 });
 
-describe("shipped HomePage — reference section hosts", () => {
-  it("carries ref dome heights + hero stack + solid banner", async () => {
+describe("shipped HomePage — K-Cinema section DNA", () => {
+  it("carries the hero dome stack, seam-free canvas, K-Cinema primitives + locked tagline", async () => {
     const css = await readWebFile(
       "src/components/home/HomePage.module.css"
     );
-    const footerCss = await readWebFile(
-      "src/components/chrome/SiteFooter.module.css"
-    );
+    const tsx = await readWebFile("src/components/home/HomePage.tsx");
     // Hero dome: 200vh mobile / 110% desktop (ref index=0 + wrapped hero)
     assert.match(css, /height:\s*200vh/);
     assert.match(css, /height:\s*110%/);
-    // Monetize dome: 130% mobile (ref opportunity-wrapper)
-    assert.match(css, /height:\s*130%/);
-    // Footer dome lives on shared SiteFooter (backbone for all pages)
-    assert.match(footerCss, /calc\(120% \+ 420px\)/);
-    assert.match(footerCss, /bottom:\s*-2px/);
     // Hero overlay PNG stack (ref .bg-overlay: background-size 100% 100%)
     assert.match(css, /heroOverlay-purple-poppy_homepage\.png/);
     assert.match(css, /background-size:\s*100% 100%/);
-    // Banner is a solid panel above the wash (ref .home-banner)
-    const banner = css.match(/\.banner\s*\{[^}]+\}/)?.[0] ?? "";
-    assert.match(banner, /background:\s*var\(--ck-black\)/);
-    assert.match(banner, /z-index:\s*var\(--ck-z-panel\)/);
+    // Seam-free canvas: EVERY *DomeHost block mask-fades at both edges
+    const domeBlocks = css.match(/\.\w*DomeHost\w*\s*\{[^}]+\}/g) ?? [];
+    assert.ok(domeBlocks.length > 0, "expected at least one DomeHost class");
+    for (const block of domeBlocks) {
+      assert.match(block, /mask-image/, block.slice(0, 48));
+    }
+    // No solid opaque void panels — one continuous canvas
+    assert.doesNotMatch(css, /background:\s*var\(--ck-black\)/);
+    // K-Cinema primitives wired into the home page
+    assert.match(tsx, /LetterReveal/);
+    assert.match(tsx, /FormatStage/);
+    assert.match(tsx, /StarCarousel/);
+    // Locked tagline (spec §2)
+    assert.match(tsx, /Binged by the World\./);
   });
 
   it("marks every section for the header theme system", async () => {

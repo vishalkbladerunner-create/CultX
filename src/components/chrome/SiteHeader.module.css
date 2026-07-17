@@ -78,8 +78,11 @@
   pointer-events: auto;
 }
 
-/* ---- Wordmark ---- */
+/* ---- Wordmark — vertically centered with the 34px nav pills ---- */
 .logo {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
   font-family: var(--ck-font-display);
   font-size: 22px;
   font-weight: 700;
@@ -87,21 +90,61 @@
   color: var(--ck-off-white);
   text-decoration: none;
   line-height: 1;
-  padding: 10px 0;
+  padding: 0;
   transition: color 0.35s var(--ck-ease-out-quad);
   flex-shrink: 0;
 }
 
-.logoK {
-  background: linear-gradient(
-    100deg,
-    var(--ck-purple-300),
-    var(--ck-purple-100) 55%,
-    var(--ck-magenta)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* SVG wordmark (M13) — CultX; stroke-draw once per session then fill. */
+.logoSvg {
+  display: block;
+  width: 72px; /* viewBox "0 -17 72 22" — room for CultX */
+  height: 22px;
+  overflow: visible;
+}
+
+.logoText {
+  font-family: var(--ck-font-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  fill: var(--ck-off-white);
+  stroke: var(--ck-off-white);
+  stroke-width: 0.7;
+  paint-order: stroke fill;
+  stroke-linejoin: round;
+  fill-opacity: 1;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 0;
+}
+
+.logoX {
+  fill: url(#ck-header-logo-x);
+  stroke: url(#ck-header-logo-x);
+}
+
+.logoSvg[data-draw] .logoText {
+  animation:
+    ck-logo-draw 0.9s var(--ck-ease-in-out-quad) both,
+    ck-logo-fill 0.4s var(--ck-ease-out-quad) 0.75s both;
+}
+
+@keyframes ck-logo-draw {
+  from {
+    stroke-dashoffset: 300;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ck-logo-fill {
+  from {
+    fill-opacity: 0;
+  }
+  to {
+    fill-opacity: 1;
+  }
 }
 
 /* ---- Segmented frosted menu (ref .navbar .menu + .ui-button.secondary) ---- */
@@ -293,6 +336,16 @@
   color: var(--ck-purple-950);
 }
 
+.header[data-theme="light"] .logoX {
+  fill: url(#ck-header-logo-x);
+  stroke: url(#ck-header-logo-x);
+}
+
+.header[data-theme="light"] .logoText {
+  fill: var(--ck-purple-950);
+  stroke: var(--ck-purple-950);
+}
+
 .header[data-theme="light"] .pill {
   color: var(--ck-purple-950);
   background: rgb(0 0 0 / 0.06);
@@ -311,5 +364,9 @@
 @media (prefers-reduced-motion: reduce) {
   .pillLabel > span {
     transition: none;
+  }
+
+  .logoSvg[data-draw] .logoText {
+    animation: none;
   }
 }

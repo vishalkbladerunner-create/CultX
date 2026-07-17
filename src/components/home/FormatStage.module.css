@@ -1,0 +1,325 @@
+/**
+ * FormatStage — K-Cinema formats set piece (spec §4.2).
+ *
+ * Chrome geometry mirrors HomePage.module.css (eyebrow / h2 / dashed
+ * line / pins). The stage + steps implement the [data-stage-scope]
+ * contract consumed by ScrollDriver's generalized M09 binding.
+ */
+
+.band {
+  position: relative;
+  padding: 22vh 0 20vh;
+  overflow: visible;
+}
+
+/* Bottom dome — bleeds 20% past the band, mask-faded at both edges
+   (seam-free canvas invariant, spec §1). */
+.domeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+.layout {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+}
+
+/* ---- Section head chrome (mirrors HomePage) ---- */
+
+.sectionHead {
+  position: relative;
+  padding-top: 28px;
+  margin-bottom: 8vh;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.maskH2 {
+  overflow: hidden;
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+  line-height: 1.05;
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .h2 {
+    max-width: 640px;
+    font-size: var(--ck-h2-size);
+    letter-spacing: var(--ck-h2-tracking);
+    line-height: var(--ck-h2-leading);
+  }
+}
+
+.lineTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--ck-stroke-light-subtle);
+}
+
+.hasPinTopLeft {
+  position: relative;
+}
+
+.hasPinTopLeft::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--ck-purple-300);
+  pointer-events: none;
+}
+
+/* ---- Grid: sticky stage left, steps right ---- */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 64px;
+  }
+}
+
+/* Sticky stage — hidden on mobile (per-step posters instead) */
+.stageWrap {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .stageWrap {
+    display: block;
+    position: relative;
+  }
+}
+
+.stage {
+  /* Full-viewport sticky shell so poster+caption center with equal
+     top/bottom breathing room (x = y while pinned). */
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  box-sizing: border-box;
+}
+
+/* Stacked posters — aspect box establishes height; frames absolute-fill it */
+.posterStack {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  /* Leave room for caption + equal vertical padding inside 100vh */
+  max-height: min(58vh, calc(100vh - 7rem));
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+}
+
+.posterHost {
+  position: absolute;
+  inset: 0;
+}
+
+/* Caption under the poster — one active at a time, never over art */
+.stageCaption {
+  position: relative;
+  min-height: 2.6em;
+  pointer-events: none;
+}
+
+.stageCaptionItem {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s var(--ck-ease-out-quad),
+    visibility 0s linear 0.4s;
+}
+
+.stageCaptionItem[data-active] {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s var(--ck-ease-out-quad);
+}
+
+.stageCaptionNum {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.1em;
+}
+
+.stageCaptionTitle {
+  font-family: var(--ck-font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.15;
+  color: var(--ck-off-white);
+}
+
+.accentRule {
+  display: block;
+  width: 88px;
+  height: 1px;
+}
+
+.accentCyan {
+  color: var(--ck-accent-cyan);
+}
+.accentMagenta {
+  color: var(--ck-magenta);
+}
+.accentPurple {
+  color: var(--ck-purple-300);
+}
+.accentOrange {
+  color: var(--ck-accent-orange);
+}
+
+.accentRule.accentCyan {
+  background: var(--ck-accent-cyan);
+  box-shadow: 0 0 16px rgb(0 212 255 / 0.45);
+}
+.accentRule.accentMagenta {
+  background: var(--ck-magenta);
+  box-shadow: 0 0 16px rgb(255 45 155 / 0.45);
+}
+.accentRule.accentPurple {
+  background: var(--ck-purple-300);
+  box-shadow: 0 0 16px rgb(216 0 224 / 0.45);
+}
+.accentRule.accentOrange {
+  background: var(--ck-accent-orange);
+  box-shadow: 0 0 16px rgb(255 106 0 / 0.45);
+}
+
+/* ---- Steps ---- */
+
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12vh;
+}
+
+.step {
+  position: relative;
+}
+
+@media (min-width: 800px) {
+  .step {
+    min-height: 72vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+/* Mobile-only poster above the step text (2:3, 48vh) */
+.stepPosterHost {
+  position: relative;
+  height: 48vh;
+  aspect-ratio: 2 / 3;
+  margin-bottom: 28px;
+}
+
+@media (min-width: 800px) {
+  .stepPosterHost {
+    display: none;
+  }
+}
+
+.stepNum {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.08em;
+}
+
+.stepTitle {
+  margin: 14px 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--ck-off-white);
+}
+
+@media (min-width: 800px) {
+  .stepTitle {
+    font-size: var(--ck-h4-size);
+    letter-spacing: var(--ck-h4-tracking);
+    line-height: var(--ck-h4-leading);
+  }
+}
+
+.stepBody {
+  margin: 0;
+  max-width: 480px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ck-muted);
+}
+
+.stepLink {
+  display: inline-block;
+  margin-top: 22px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ck-off-white);
+  border-bottom: 1px solid var(--ck-white-20);
+  padding-bottom: 4px;
+  transition:
+    color 0.35s var(--ck-ease-out-quad),
+    border-color 0.35s var(--ck-ease-out-quad);
+}
+
+.stepLink:hover {
+  color: var(--ck-purple-300);
+  border-color: var(--ck-purple-300);
+}

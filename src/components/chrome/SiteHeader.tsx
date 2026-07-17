@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./SiteHeader.module.css";
@@ -14,6 +14,11 @@ const NAV = [
   { href: "/faq", label: "FAQ" },
 ];
 
+/* M13 — logo stroke-draw plays once per JS session: on a fresh load the
+   SSR markup carries data-draw and the CSS keyframes run; client-side
+   remounts see the flag and render the static final state instead. */
+let logoDrawnThisSession = false;
+
 /**
  * Site header — reference L07 / site-header architecture:
  *   logo left · segmented secondary nav right (routes to sub-pages)
@@ -25,6 +30,11 @@ const NAV = [
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const [drawLogo] = useState(() => !logoDrawnThisSession);
+
+  useEffect(() => {
+    logoDrawnThisSession = true;
+  }, []);
 
   function goHome(e: React.MouseEvent<HTMLAnchorElement>) {
     if (pathname === "/") {
@@ -80,7 +90,32 @@ export function SiteHeader() {
           onClick={goHome}
           aria-label="CultX home"
         >
-          Cult<span className={styles.logoK}>K</span>
+          <svg
+            className={styles.logoSvg}
+            viewBox="0 -17 72 22"
+            data-draw={drawLogo || undefined}
+            aria-hidden
+          >
+            <defs>
+              <linearGradient
+                id="ck-header-logo-x"
+                x1="0"
+                y1="0"
+                x2="1"
+                y2="0.18"
+              >
+                <stop offset="0" style={{ stopColor: "var(--ck-purple-300)" }} />
+                <stop
+                  offset="0.55"
+                  style={{ stopColor: "var(--ck-purple-100)" }}
+                />
+                <stop offset="1" style={{ stopColor: "var(--ck-magenta)" }} />
+              </linearGradient>
+            </defs>
+            <text className={styles.logoText} x="0" y="0">
+              Cult<tspan className={styles.logoX}>X</tspan>
+            </text>
+          </svg>
         </Link>
 
         <ul className={styles.menu}>

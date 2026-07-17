@@ -19,14 +19,17 @@
   background: var(--ck-atmo-base);
 }
 
-/* Ref geometry: ellipse 100% 130% at 50% -30%, tint 45% → mid 85% → base */
+/* Ref geometry: ellipse 100% 130% at 50% -30%, tint 45% → mid 85% → base.
+   ScrollDriver drifts --ck-atmo-y / --ck-atmo-hue on [data-atmo] (the .root
+   above) with scroll; custom properties inherit down to this layer. */
 .wash {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse 100% 130% at 50% -30%,
+    ellipse 100% 130% at 50% var(--ck-atmo-y, -30%),
     var(--ck-atmo-tint) 45%,
     var(--ck-atmo-mid) 85%,
     var(--ck-atmo-base)
   );
+  filter: hue-rotate(var(--ck-atmo-hue, 0deg));
 }

@@ -1,4 +1,4 @@
-/* FAQ accordion — ref .section-faq / .faq-item mechanics (M17) */
+/* FAQ accordion — CSS grid-rows expand (smooth, no GSAP height jump) */
 
 .list {
   list-style: none;
@@ -61,29 +61,37 @@
   background: var(--ck-purple-500);
 }
 
-/* height expand — grid rows trick; body fades in slightly delayed (M17) */
+/*
+ * Height expand via grid-template-rows 0fr → 1fr (no measured height,
+ * no onComplete height:auto, no layout overshoot).
+ */
 .bodyWrap {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.55s var(--ck-ease-in-out-quad);
+  transition: grid-template-rows 0.42s var(--ck-ease-in-out-quad);
 }
 
 .item[data-open] .bodyWrap {
   grid-template-rows: 1fr;
 }
 
-.body {
+.bodyInner {
   overflow: hidden;
+  min-height: 0;
+}
+
+.body {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(8px);
   transition:
-    opacity 0.4s var(--ck-ease-out-quad) 0.08s,
-    transform 0.4s var(--ck-ease-out-quad) 0.08s;
+    opacity 0.32s var(--ck-ease-out-quad),
+    transform 0.32s var(--ck-ease-out-quad);
 }
 
 .item[data-open] .body {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  transition-delay: 0.06s;
 }
 
 .body p {
@@ -96,9 +104,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .toggle,
   .bodyWrap,
-  .body,
-  .toggle {
+  .body {
     transition: none;
   }
 }
