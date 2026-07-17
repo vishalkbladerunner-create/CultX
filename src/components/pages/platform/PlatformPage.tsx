@@ -93,7 +93,7 @@ export function PlatformPage() {
       <section className={styles.section} data-theme-section="dark">
         <div className={kit.layout}>
           <SectionHeading
-            eyebrow="01 — What is CultK"
+            eyebrow="01 — What is CultX"
             title={
               <>
                 AI-native IP creation
@@ -101,7 +101,7 @@ export function PlatformPage() {
                 and monetization.
               </>
             }
-            lede="CultK is the all-in-one platform for AI-native IP. Create characters, stories, and worlds. Publish as comic animation, star series, shorts, or drama. Grow an audience. Engage a community. Monetize — and earn."
+            lede="CultX is the all-in-one platform for AI-native IP. Create characters, stories, and worlds. Publish as comic animation, star series, shorts, or drama. Grow an audience. Engage a community. Monetize — and earn."
           />
         </div>
       </section>
@@ -112,7 +112,7 @@ export function PlatformPage() {
           <SectionHeading
             eyebrow="02 — The experience"
             title="A home for every format."
-            lede="Continue watching. Trending now. Star IP. AI Shorts. AI Drama. IP Token. The CultK surface feels like a premium entertainment hub — because legends need a stage, not a spreadsheet."
+            lede="Continue watching. Trending now. Star IP. AI Shorts. AI Drama. IP Token. The CultX surface feels like a premium entertainment hub — because legends need a stage, not a spreadsheet."
           />
           <div className={styles.uiMock} data-reveal>
             <MediaFrame
@@ -177,7 +177,7 @@ export function PlatformPage() {
             </ol>
           </div>
           <p className={styles.journeyClosing} data-reveal>
-            One platform. Endless possibilities. CultK empowers creators to
+            One platform. Endless possibilities. CultX empowers creators to
             build iconic IPs, connect with fans, and earn real income.
           </p>
           <ul className={styles.kitStrip} data-stagger>
@@ -260,12 +260,12 @@ export function PlatformPage() {
               <p className={styles.compareMeta}>Years · Millions in cost</p>
             </div>
             <div className={`${styles.compareCol} ${styles.compareColHot}`}>
-              <p className={styles.compareTag}>CultK way</p>
+              <p className={styles.compareTag}>CultX way</p>
               <p className={styles.compareLead}>Faster. Smarter. Game changer.</p>
               <ol className={styles.compareSteps}>
                 <li>Webtoon</li>
                 <li>AI drama</li>
-                <li>CultK</li>
+                <li>CultX</li>
                 <li>Viral global reach</li>
               </ol>
               <p className={styles.compareMeta}>
@@ -286,7 +286,7 @@ export function PlatformPage() {
           <SectionHeading
             eyebrow="06 — Inside the platform"
             title="Tools for legends."
-            lede="AI tools to create. A content hub to publish. Community to engage. Analytics to grow. Crypto rewards to earn. Not five separate apps — one CultK surface."
+            lede="AI tools to create. A content hub to publish. Community to engage. Analytics to grow. Crypto rewards to earn. Not five separate apps — one CultX surface."
           />
         </div>
       </section>

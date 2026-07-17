@@ -1,5 +1,5 @@
 /**
- * Pure helpers for CultK footer wordmark technical overlay.
+ * Pure helpers for CultX footer wordmark technical overlay.
  *
  * Port of reference LogoCanvas (scrap _nuxt/CfV00Epg.js):
  *   - 3 nearest grid-cell centers around cursor (own cell excluded)
@@ -7,7 +7,7 @@
  *
  * Cell sizes are tuned so 70px dashed squares do not overlap on a
  * desktop wordmark aspect (~1440×269). Raw ref Lh=0.25 / Ph=0.15 maps to
- * ~67×40 CSS-px between neighbors — too tight for CultK's shorter wordmark.
+ * ~67×40 CSS-px between neighbors — too tight for CultX's shorter wordmark.
  */
 
 /** Desktop grid cell in aspect-corrected UV (x scaled by width/height). */

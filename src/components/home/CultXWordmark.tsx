@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import styles from "./CultKWordmark.module.css";
+import styles from "./CultXWordmark.module.css";
 import {
   CELL_DESKTOP,
   CELL_MOBILE,
@@ -11,7 +11,7 @@ import {
 } from "@/lib/wordmark/grid";
 
 /**
- * CultK footer wordmark — SVG/CSS/rAF port of reference LogoCanvas
+ * CultX footer wordmark — SVG/CSS/rAF port of reference LogoCanvas
  * (scrap CfV00Epg.js + SiteFooter pointer wiring via graphify).
  *
  * Hit area (ref: pointer on whole footer, not just canvas):
@@ -38,7 +38,7 @@ const TOP_EDGE_FADE_PX = 5;
 /** ms after leave before hard-resetting spotlight / points */
 const LEAVE_RESET_MS = 560;
 
-export function CultKWordmark() {
+export function CultXWordmark() {
   const shellRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
   const triRef = useRef<SVGPolygonElement>(null);
@@ -354,7 +354,7 @@ export function CultKWordmark() {
               filter="url(#ckWmBlur2)"
               mask="url(#ckWmMaskBlur2)"
             >
-              CultK
+              CultX
             </text>
             <text
               className={styles.wmText}
@@ -365,7 +365,7 @@ export function CultKWordmark() {
               filter="url(#ckWmBlur1)"
               mask="url(#ckWmMaskBlur1)"
             >
-              CultK
+              CultX
             </text>
             <text
               className={styles.wmText}
@@ -375,7 +375,7 @@ export function CultKWordmark() {
               fill="url(#ckWmFill)"
               mask="url(#ckWmMaskSharp)"
             >
-              CultK
+              CultX
             </text>
           </g>
         </svg>
@@ -392,7 +392,7 @@ export function CultKWordmark() {
             y="248"
             textAnchor="middle"
           >
-            CultK
+            CultX
           </text>
         </svg>
       </div>

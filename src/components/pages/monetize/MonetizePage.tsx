@@ -121,9 +121,9 @@ export function MonetizePage() {
       <section className={styles.section} data-theme-section="dark">
         <div className={kit.layout}>
           <SectionHeading
-            eyebrow="01 — The earn layer"
+            eyebrow="01 — How you earn"
             title="CultX turns creations into income."
-            lede="CultX is how value moves on CultK. Publish premium episodes. Launch a community token around a character. Earn when attention shows up. One ecosystem — not a maze of side hustles."
+            lede="Value moves on CultX in three clear ways. Publish premium episodes. Launch a community token around a character. Earn when attention shows up. One ecosystem — not a maze of side hustles."
             accent="gold"
           />
         </div>
@@ -168,7 +168,7 @@ export function MonetizePage() {
                 Your success.
               </>
             }
-            lede="Every IP on CultK can have its own token. More popularity. More trading. More value for creators who build real audiences."
+            lede="Every IP on CultX can have its own token. More popularity. More trading. More value for creators who build real audiences."
           />
           <ol className={styles.loopChain} data-stagger>
             {LOOP_STEPS.map((s, i) => (
@@ -204,7 +204,7 @@ export function MonetizePage() {
           <SectionHeading
             eyebrow="04 — IP trading terminal"
             title="Trade. Grow. Own your IP."
-            lede="The all-in-one IP trading terminal vision on CultK — charts, top gainers, and community-driven markets around characters."
+            lede="The all-in-one IP trading terminal vision on CultX — charts, top gainers, and community-driven markets around characters."
           />
           <div className={styles.terminal} data-reveal>
             <div className={styles.terminalBar}>
@@ -276,7 +276,7 @@ export function MonetizePage() {
           <SectionHeading
             eyebrow="05 — Beyond the screen"
             title="Digital IP. Real-world value."
-            lede="Own it. Use it. Collect it. Live it. The CultK ecosystem extends into cards, robots, and merch."
+            lede="Own it. Use it. Collect it. Live it. The CultX ecosystem extends into cards, robots, and merch."
           />
           <div className={styles.productGrid} data-stagger>
             {PRODUCTS.map((p) => (

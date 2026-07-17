@@ -23,7 +23,7 @@ function readWeb(rel: string): string {
   return readFileSync(join(webRoot, rel), "utf8");
 }
 
-/** Desktop wordmark box used by CultK (matches .wordmark-placeholder aspect). */
+/** Desktop wordmark box used by CultX (matches .wordmark-placeholder aspect). */
 const DESKTOP = { width: 1440, height: 269 };
 
 describe("CELL sizes — non-overlapping 70px squares", () => {
@@ -250,9 +250,9 @@ describe("shipped BackToTop — single arrow at rest AND hover", () => {
   });
 });
 
-describe("shipped CultKWordmark — grid + strong hollow", () => {
+describe("shipped CultXWordmark — grid + strong hollow", () => {
   it("imports grid helpers (not inline Lh=0.25 / Ph=0.15)", () => {
-    const tsx = readWeb("components/home/CultKWordmark.tsx");
+    const tsx = readWeb("components/home/CultXWordmark.tsx");
     assert.match(tsx, /from ["']@\/lib\/wordmark\/grid["']/);
     assert.match(tsx, /CELL_DESKTOP/);
     assert.match(tsx, /nearestGridPoints/);
@@ -260,7 +260,7 @@ describe("shipped CultKWordmark — grid + strong hollow", () => {
   });
 
   it("solid mask has multi-stop hollow core + mid-ground spotlight size", () => {
-    const css = readWeb("components/home/CultKWordmark.module.css");
+    const css = readWeb("components/home/CultXWordmark.module.css");
     assert.match(css, /transparent\s+18%/);
     assert.match(css, /--wm-r:\s*290px/);
     assert.match(css, /font-size:\s*318px/);
@@ -268,7 +268,7 @@ describe("shipped CultKWordmark — grid + strong hollow", () => {
   });
 
   it("squares are solid mid-bright; letter dots readable mid-weight", () => {
-    const css = readWeb("components/home/CultKWordmark.module.css");
+    const css = readWeb("components/home/CultXWordmark.module.css");
     const sqBlock = css.match(/\.sq\s*\{[^}]+\}/s)?.[0] ?? "";
     assert.match(sqBlock, /stroke-dasharray:\s*none/);
     const dots = css.match(/\.wmDots\s*\{[^}]+\}/s)?.[0] ?? "";
@@ -284,8 +284,8 @@ describe("shipped CultKWordmark — grid + strong hollow", () => {
   });
 
   it("clips bottom, moderate blur, expanded hit shell + soft leave", () => {
-    const css = readWeb("components/home/CultKWordmark.module.css");
-    const tsx = readWeb("components/home/CultKWordmark.tsx");
+    const css = readWeb("components/home/CultXWordmark.module.css");
+    const tsx = readWeb("components/home/CultXWordmark.tsx");
     // Expanded hit shell through dashed-line padding
     assert.match(css, /\.shell\s*\{/s);
     assert.match(css, /margin-top:\s*-48px/);

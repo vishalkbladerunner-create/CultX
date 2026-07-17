@@ -19,19 +19,19 @@ const FAQ_GROUPS: {
     title: "Product basics",
     items: [
       {
-        q: "What is CultK?",
-        a: "CultK (CultK Platform) is the all-in-one platform for AI-native IP creation and monetization. Creators build characters, stories, and worlds; publish across major AI entertainment formats; grow audiences; engage communities; and earn. Fans watch, engage, and can own a stake in the legends they love.",
+        q: "What is CultX?",
+        a: "CultX is the all-in-one platform for AI-native IP creation and monetization. Creators build characters, stories, and worlds; publish across major AI entertainment formats; grow audiences; engage communities; and earn. Fans watch, engage, and can own a stake in the legends they love.",
       },
       {
         q: "What does “Where IPs Become Legends” mean?",
-        a: "It means IP is not disposable content. On CultK, characters and stories are built to travel across formats, communities, and real-world products — with a path to cultural scale.",
+        a: "It means IP is not disposable content. On CultX, characters and stories are built to travel across formats, communities, and real-world products — with a path to cultural scale.",
       },
       {
-        q: "Who is CultK for?",
+        q: "Who is CultX for?",
         a: "Creators (AI, webtoon, character, series), fans who want deeper ownership and engagement, and IP partners who want production + fan economy. One ecosystem.",
       },
       {
-        q: "Is CultK a streaming app, a creator tool, or a crypto app?",
+        q: "Is CultX a streaming app, a creator tool, or a crypto app?",
         a: "It’s a unified entertainment platform with creation tools, multi-format publishing, community, and CultX monetization (including crypto rewards and IP tokens). Think entertainment-first, with ownership built in.",
       },
     ],
@@ -41,7 +41,7 @@ const FAQ_GROUPS: {
     title: "Creation formats",
     items: [
       {
-        q: "What can I create on CultK?",
+        q: "What can I create on CultX?",
         a: "Four entertainment experiences: 1) AI Comic / Webtoon — finished webtoons to premium AI comic animation; 2) AI Star IP Universe — iconic characters with studio-grade AI production; 3) AI Short — viral short-form for social platforms; 4) AI Drama — cinematic long-form series with K-drama emotion.",
       },
       {
@@ -59,20 +59,20 @@ const FAQ_GROUPS: {
     title: "Monetization",
     items: [
       {
-        q: "How do creators earn on CultK?",
-        a: "Through CultX, in three primary ways: 1) Direct sales — sell characters, comics, stories; fans unlock paid content; 2) Community IP tokens — launch a token for a character/IP; fans support, trade, grow together; 3) Ad revenue — earn from attention when users watch ads on content.",
+        q: "How do creators earn on CultX?",
+        a: "In three primary ways: 1) Direct sales — sell characters, comics, stories; fans unlock paid content; 2) Community IP tokens — launch a token for a character/IP; fans support, trade, grow together; 3) Ad revenue — earn from attention when users watch ads on content. Rewards can include crypto in the ecosystem vision.",
       },
       {
-        q: "What is CultX?",
-        a: "CultX is the earn layer that turns AI creations into income — sales, community ownership, and attention revenue — with crypto rewards in the ecosystem vision.",
+        q: "How does monetization work on CultX?",
+        a: "CultX turns AI creations into income through sales, community ownership, and attention revenue — with crypto rewards in the ecosystem vision. One platform for create, publish, grow, and earn.",
       },
       {
         q: "Are IP tokens investments?",
-        a: "IP tokens can involve significant risk and volatility. Nothing on the CultK marketing site is financial advice. Illustrative prices and charts are mocks, not promises of profit.",
+        a: "IP tokens can involve significant risk and volatility. Nothing on the CultX marketing site is financial advice. Illustrative prices and charts are mocks, not promises of profit.",
       },
       {
         q: "What about USDT cards, robots, and merch?",
-        a: "They’re part of the real-world CultK ecosystem vision: collectible IP USDT cards, smart IP robots, and merchandise so fans can live with characters beyond the screen.",
+        a: "They’re part of the real-world CultX ecosystem vision: collectible IP USDT cards, smart IP robots, and merchandise so fans can live with characters beyond the screen.",
       },
     ],
   },
@@ -85,7 +85,7 @@ const FAQ_GROUPS: {
         a: "From the product deck: Pucca, B.Duck, Ponke, and Mew. Partnerships and brand use are subject to licensing and approval.",
       },
       {
-        q: "Can my brand partner with CultK?",
+        q: "Can my brand partner with CultX?",
         a: "Yes — use Partner With Us. We’re building a universe for iconic and emerging IPs with production ambition and community economics.",
       },
     ],
@@ -95,15 +95,15 @@ const FAQ_GROUPS: {
     title: "Place & team",
     items: [
       {
-        q: "Where is CultK based?",
-        a: "The CultK AI Center is in Gangnam, Seoul — a creator-first hub of roughly 300 specialists.",
+        q: "Where is CultX based?",
+        a: "The CultX AI Center is in Gangnam, Seoul — a creator-first hub of roughly 300 specialists.",
       },
       {
         q: "What is the Nonce connection?",
-        a: "CultK culture is inspired by Nonce community culture (co-living, co-working, creator-first). The deck describes continuity of team spirit and community values. Exact corporate claims should follow client-approved wording.",
+        a: "CultX culture is inspired by Nonce community culture (co-living, co-working, creator-first). The deck describes continuity of team spirit and community values. Exact corporate claims should follow client-approved wording.",
       },
       {
-        q: "Is CultK only for Korea?",
+        q: "Is CultX only for Korea?",
         a: "Built in Korea, powered for the world. K-culture craft with global distribution ambition.",
       },
     ],
@@ -121,7 +121,7 @@ const FAQ_GROUPS: {
         a: "High-level milestones include product build and launch, verified AI creators, large user targets, real-world product sales, and a major-exchange listing application trajectory. Dates are plans, not guarantees — see About/Roadmap.",
       },
       {
-        q: "Will there be a $CULTK token listing?",
+        q: "Will there be a $CULTX token listing?",
         a: "The deck includes a listing application milestone. That is a planned trajectory, not a confirmed listing. Do not treat marketing pages as exchange announcements.",
       },
     ],
@@ -149,7 +149,7 @@ export function FaqPage() {
       <PageHero
         eyebrow="FAQ"
         title="Straight answers."
-        blurb="What CultK is, what you can create, how creators earn, and where we’re building from."
+        blurb="What CultX is, what you can create, how creators earn, and where we’re building from."
         primary={{ href: "#waitlist", label: "Join the Waitlist" }}
         secondary={{ href: "/", label: "Back to Home" }}
       />

@@ -6,7 +6,7 @@
  *   never from this component.
  * - `--parallax-scale` is driven on scroll by ScrollDriver (GSAP ScrollTrigger,
  *   ref formula top: 1.3 − p×0.8 / bottom: 1.3 + p×0.8).
- * - Image: CultK poppy dome (hue-shifted twin of ref gradient-dark-transparent,
+ * - Image: CultX poppy dome (hue-shifted twin of ref gradient-dark-transparent,
  *   pixel-identical alpha ramp).
  */
 

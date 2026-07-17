@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Atmosphere preview — CultK dev",
+  title: "Atmosphere preview — CultX dev",
   robots: { index: false, follow: false },
 };
 
@@ -121,7 +121,7 @@ export default function AtmospherePreview() {
           <div className="ck-dome" />
           <div className="ck-vignette-home" />
           <div className={styles.heroText}>
-            <p className={styles.tag}>CultK Platform</p>
+            <p className={styles.tag}>CultX Platform</p>
             <p className={styles.headline}>
               Where IPs
               <br />

@@ -17,7 +17,7 @@ const archivoNarrow = Archivo_Narrow({
 });
 
 export const metadata: Metadata = {
-  title: "CultK — Where IPs Become Legends",
+  title: "CultX — Where IPs Become Legends",
   description:
     "AI-native IP creation and monetization. Webtoon, Star IP, Shorts, Drama — create, publish, grow, and earn. Built in Korea.",
 };

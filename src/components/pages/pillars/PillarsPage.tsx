@@ -60,7 +60,7 @@ export function PillarsPage() {
           <>
             Four formats.
             <br />
-            One CultK.
+            One CultX.
           </>
         }
         blurb="One platform that transforms IP into every major AI entertainment format — comic animation, star universes, viral shorts, and cinematic drama."
@@ -203,7 +203,7 @@ export function PillarsPage() {
             ))}
           </div>
           <p className={styles.proofLine} data-reveal>
-            The global short-video market is exploding — CultK is built for
+            The global short-video market is exploding — CultX is built for
             that feed.
           </p>
         </div>
@@ -255,7 +255,7 @@ export function PillarsPage() {
       {/* 7. CROSS-FORMAT CTA */}
       <CtaBand
         title="One IP. Every format."
-        body="Start in webtoon. Expand into shorts. Land a drama. Grow a star universe. CultK is the stage where formats reinforce each other."
+        body="Start in webtoon. Expand into shorts. Land a drama. Grow a star universe. CultX is the stage where formats reinforce each other."
         primary={{ href: "#waitlist", label: "Join the Waitlist" }}
         secondary={{ href: "/monetize", label: "Turn creations into income" }}
       />

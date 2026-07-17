@@ -6,7 +6,7 @@ import { FaqList } from "./FaqList";
 import styles from "./HomePage.module.css";
 
 /**
- * CultK home — reference Surface A architecture rebuilt with CultK content
+ * CultX home — reference Surface A architecture rebuilt with CultX content
  * and the poppy image set (verified twins of the reference assets):
  *
  *   1. Hero        — top dome (110%/200vh) + poster + heroOverlay PNG (M08)
@@ -73,11 +73,11 @@ const STARS = [
 
 const FAQ = [
   {
-    q: "What is CultK?",
-    a: "CultK is the all-in-one platform for AI-native IP creation and monetization. Create, publish, grow, and earn — one ecosystem for creators and fans.",
+    q: "What is CultX?",
+    a: "CultX is the all-in-one platform for AI-native IP creation and monetization. Create, publish, grow, and earn — one ecosystem for creators and fans.",
   },
   {
-    q: "What can I create on CultK?",
+    q: "What can I create on CultX?",
     a: "Four entertainment formats: AI Comic / Webtoon, AI Star IP Universe, AI Short, and AI Drama — from finished webtoons to cinematic long-form series.",
   },
   {
@@ -85,12 +85,12 @@ const FAQ = [
     a: "Three paths: direct sales of characters, comics and stories; community ownership through IP tokens; and ad revenue from attention on your content. Rewards can pay out in crypto, with USDT cards and merch in the ecosystem.",
   },
   {
-    q: "Which star IPs are on CultK?",
+    q: "Which star IPs are on CultX?",
     a: "Confirmed partner IPs from the deck: Pucca, B.Duck, Ponke, and Mew — with more to come.",
   },
   {
-    q: "Where is CultK built?",
-    a: "At the CultK AI Center in Gangnam, Seoul — a creator-first hub of roughly 300 specialists. Built in Korea, powered for the world.",
+    q: "Where is CultX built?",
+    a: "At the CultX AI Center in Gangnam, Seoul — a creator-first hub of roughly 300 specialists. Built in Korea, powered for the world.",
   },
 ];
 
@@ -109,7 +109,7 @@ export function HomePage() {
         {/* z2 — content */}
         <div className={styles.heroContent}>
           <p className={styles.eyebrow} data-hero-intro>
-            CultK Platform
+            CultX Platform
           </p>
           <h1 className={styles.heroTitle} data-hero-intro>
             Where IPs
@@ -151,7 +151,7 @@ export function HomePage() {
           <p className={styles.lede} data-reveal>
             The AI creator economy is enormous — but discovery and monetization
             are broken. Most creators are never found, and almost none earn real
-            income. CultK is the all-in-one platform where AI-native IP gets
+            income. CultX is the all-in-one platform where AI-native IP gets
             created, published, grown — and paid.
           </p>
         </div>
@@ -309,7 +309,7 @@ export function HomePage() {
             </h2>
           </div>
           <p className={styles.lede} data-reveal>
-            The CultK AI Center in Gangnam, Seoul — a creator-first hub of
+            The CultX AI Center in Gangnam, Seoul — a creator-first hub of
             roughly 300 specialists, building the K-digital entertainment
             empire with its community. K-culture, global impact.
           </p>

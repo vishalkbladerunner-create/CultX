@@ -78,7 +78,7 @@ export function SiteHeader() {
           href="/"
           className={styles.logo}
           onClick={goHome}
-          aria-label="CultK home"
+          aria-label="CultX home"
         >
           Cult<span className={styles.logoK}>K</span>
         </Link>

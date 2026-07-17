@@ -1,14 +1,14 @@
 /**
- * CultK tokens — purple-first cinema system.
+ * CultX tokens — purple-first cinema system.
  *
- * Reference mapping (SharpLink → CultK):
+ * Reference mapping (SharpLink → CultX):
  *   --surface-background #f7f7f5   →  --ck-void #000 (cinema base)
  *   fixed light CSS radial blues   →  fixed purple radial on void (M04)
  *   images/gradient-dark-transparent.png → /images/gradient-purple-poppy-transparent.png
  *   images/heroOverlay_*.avif      →  /images/heroOverlay-purple-poppy_*.png
  *
  * Wash discipline: void black + purple/magenta family only (see
- * cult/doc/cultk-color-system.md). Neon/cyan/orange/gold reserved for UI.
+ * cult/doc/cultx-color-system.md). Neon/cyan/orange/gold reserved for UI.
  */
 
 :root {

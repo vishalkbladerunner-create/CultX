@@ -1,4 +1,4 @@
-# CultK web app
+# CultX web app
 
 This is the **real marketing site** (`cult/web/`). Root project rules live in `../../AGENTS.md`.
 
@@ -23,7 +23,7 @@ src/
   components/
     background/            # FixedAtmosphere · GradientDome · ScrollDriver (Lenis+GSAP)
     chrome/                # SiteHeader · SiteFooter · UIButton · DashedLine
-    home/                  # HomePage sections · FaqList · WaitlistForm · BackToTop · CultKWordmark
+    home/                  # HomePage sections · FaqList · WaitlistForm · BackToTop · CultXWordmark
     kit/                   # Shared marketing kit (do not rebuild ad-hoc):
                            #   PageHero · SectionHeading · Card · CtaBand · MediaFrame · kit.module.css
     pages/<route>/         # One page module per route (StarsPage, AboutPage, …)
@@ -64,7 +64,7 @@ Header/footer NAV: Platform · Pillars · Monetize · Star IPs · **AI Center** 
 - Scroll color = document flow past **image domes** + fixed CSS wash — never a per-frame body recolor.
 - `GradientDome` = 1:1 port of reference `.gradient-bg-dark`; parallax via GSAP ScrollTrigger in `ScrollDriver`.
 - Hero = poppy transparent dome + homepage overlay mask-fade at the fold.
-- Footer = shared waitlist + `CultKWordmark`.
+- Footer = shared waitlist + `CultXWordmark`.
 
 ## MediaFrame slot inventory (asset drops)
 

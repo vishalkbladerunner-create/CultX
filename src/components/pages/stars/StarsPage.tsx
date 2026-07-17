@@ -105,7 +105,7 @@ export function StarsPage() {
         }}
       />
       <p className={`${kit.disclaimer} ${styles.heroDisclaimer}`}>
-        Character marks and partnerships are subject to licensing and brand approval. Presentation follows CultK deck language.
+        Character marks and partnerships are subject to licensing and brand approval. Presentation follows CultX deck language.
       </p>
 
       {/* 2. CONFIRMED STARS GRID */}
@@ -205,7 +205,7 @@ export function StarsPage() {
             ))}
           </div>
           <p className={styles.closingLine} data-reveal>
-            Your favorite IPs, now in your world. The CultK ecosystem turns IP
+            Your favorite IPs, now in your world. The CultX ecosystem turns IP
             into something you can hold.
           </p>
         </div>

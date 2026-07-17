@@ -92,7 +92,7 @@ export function elementScrollProgress(
 }
 
 /**
- * CultK purple-only atmosphere tokens (muted cinema — wash only).
+ * CultX purple-only atmosphere tokens (muted cinema — wash only).
  * Hot neon / blue / beige / multi-accent forbidden on wash.
  */
 export const PALETTE = {

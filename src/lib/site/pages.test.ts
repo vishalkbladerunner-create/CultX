@@ -106,7 +106,7 @@ describe("foundations — fonts, media slots, motion, nav", () => {
     for (const rel of [
       "src/app/globals.css",
       "src/styles/tokens.css",
-      "src/components/home/CultKWordmark.module.css",
+      "src/components/home/CultXWordmark.module.css",
       "src/components/chrome/SiteFooter.module.css",
       "src/components/home/WaitlistForm.module.css",
     ]) {

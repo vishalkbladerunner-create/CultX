@@ -22,7 +22,7 @@ declare global {
 const HEADER_THEME_OFFSET = 29; // ref BY-mI6BR.js: start/end "top 29px"
 
 /**
- * ScrollDriver — the reference motion stack, rebuilt for CultK.
+ * ScrollDriver — the reference motion stack, rebuilt for CultX.
  *
  * - M01 Lenis smooth scroll (mounted once for the app shell)
  * - M05 / M03 / M06 / M07 re-bind on every route so sub-pages get the same

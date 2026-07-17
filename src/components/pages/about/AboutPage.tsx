@@ -136,7 +136,7 @@ const ROADMAP = [
   {
     date: "Oct 2027",
     title: "Listing application",
-    body: "Apply to list $CULTK on a major exchange trajectory. Revenue, user & IP data ready. Full IP portfolio for submission.",
+    body: "Apply to list $CULTX on a major exchange trajectory. Revenue, user & IP data ready. Full IP portfolio for submission.",
   },
 ];
 
@@ -145,7 +145,7 @@ export function AboutPage() {
     <main className={styles.main} id="top">
       {/* 1. HERO */}
       <PageHero
-        eyebrow="About · CultK AI Center"
+        eyebrow="About · CultX AI Center"
         title={
           <>
             Built in Gangnam.
@@ -169,7 +169,7 @@ export function AboutPage() {
         <div className={kit.layout}>
           <SectionHeading
             eyebrow="01 — The hub"
-            title="The CultK AI Center."
+            title="The CultX AI Center."
             lede="Our AI creative hub in Gangnam, Seoul — where roughly 300 elite specialists in AI, animation, storytelling, design, and technology build iconic IPs together."
           />
           <dl className={styles.statGrid} data-stagger>
@@ -215,7 +215,7 @@ export function AboutPage() {
                 Powered by experience.
               </>
             }
-            lede="Nonce was created to empower blockchain and Web3 builders. Today, the same spirit — creator-first, community over competition — shapes how CultK builds. Same culture. Bigger mission."
+            lede="Nonce was created to empower blockchain and Web3 builders. Today, the same spirit — creator-first, community over competition — shapes how CultX builds. Same culture. Bigger mission."
           />
           <div className={styles.chipGrid} data-stagger>
             {VALUES.map((v) => (
@@ -243,7 +243,7 @@ export function AboutPage() {
           <SectionHeading
             eyebrow="03 — The model"
             title="Why this model works."
-            lede="CultK is built on the power of community and the spirit that made Nonce a leading builder community in Korea."
+            lede="CultX is built on the power of community and the spirit that made Nonce a leading builder community in Korea."
           />
           <div className={styles.chipGrid} data-stagger>
             {MODEL_STEPS.map((s) => (
@@ -256,7 +256,7 @@ export function AboutPage() {
           </p>
           <p className={styles.continuity} data-reveal>
             Built with the community DNA and veterans who helped make Nonce a
-            leader — now focused on making CultK the best AI creative platform
+            leader — now focused on making CultX the best AI creative platform
             it can be.
           </p>
         </div>
@@ -277,7 +277,7 @@ export function AboutPage() {
           </div>
           <p className={kit.disclaimer}>
             These titles illustrate Korea&apos;s export power. They are not
-            CultK products or partners.
+            CultX products or partners.
           </p>
           <div className={styles.chipGrid3} data-stagger>
             {KOREA_STRIP.map((c) => (
@@ -308,10 +308,10 @@ export function AboutPage() {
               </p>
             </div>
             <div className={`${styles.missionCol} ${styles.missionColHot}`}>
-              <p className={styles.missionTag}>CultK way</p>
+              <p className={styles.missionTag}>CultX way</p>
               <p className={styles.missionText}>
                 Weeks-scale ambition. Fraction of traditional cost. AI
-                production + CultK distribution.
+                production + CultX distribution.
               </p>
             </div>
           </div>

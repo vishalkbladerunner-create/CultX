@@ -3,7 +3,7 @@ import { GradientDome } from "@/components/background/GradientDome";
 import { DashedLine } from "@/components/chrome/DashedLine";
 import { WaitlistForm } from "@/components/home/WaitlistForm";
 import { BackToTop } from "@/components/home/BackToTop";
-import { CultKWordmark } from "@/components/home/CultKWordmark";
+import { CultXWordmark } from "@/components/home/CultXWordmark";
 import styles from "./SiteFooter.module.css";
 
 const NAV = [
@@ -25,7 +25,7 @@ export function SiteFooter() {
       <div className={styles.footerGrid}>
         <DashedLine className={styles.footerLineTop} />
         <div className={styles.footerCol}>
-          <h2 className={styles.newsTitle}>Join the CultK waitlist:</h2>
+          <h2 className={styles.newsTitle}>Join the CultX waitlist:</h2>
           <div className={styles.newsForm}>
             <WaitlistForm />
           </div>
@@ -34,7 +34,7 @@ export function SiteFooter() {
               Cult<span className={styles.listingK}>K</span>
             </p>
             <p className={styles.listingText}>
-              CultK is built in Korea at the <strong>CultK AI Center</strong>,
+              CultX is built in Korea at the <strong>CultX AI Center</strong>,
               Gangnam — powered for the world.
             </p>
           </div>
@@ -93,7 +93,7 @@ export function SiteFooter() {
               <BackToTop />
             </div>
             <div className={styles.menuFooter}>
-              © 2026 CultK Inc. All rights reserved
+              © 2026 CultX Inc. All rights reserved
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@ export function SiteFooter() {
       {/* ref: wordmark-wrapper (trigger) + wordmark-placeholder (y:200→0 scrub) */}
       <div className={styles.wordmarkZone} data-wordmark-trigger>
         <div className={styles.wordmarkSlide} data-wordmark-slide>
-          <CultKWordmark />
+          <CultXWordmark />
         </div>
       </div>
 
