@@ -31,7 +31,7 @@
   margin: 0;
   padding: 26px 22px 30px;
   background: var(--ck-white-5);
-  border-top: 1px solid var(--ck-neon-purple);
+  border-top: 1px solid var(--ck-neon-green);
 }
 
 .statKey {
@@ -110,7 +110,7 @@
   font-size: var(--ck-label-size);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ck-purple-300);
+  color: var(--ck-green-300);
 }
 
 .continuity {
@@ -142,8 +142,8 @@
 }
 
 .missionColHot {
-  background: rgb(59 7 116 / 0.18);
-  border-top: 1px solid var(--ck-neon-purple);
+  background: rgb(27 98 18 / 0.18);
+  border-top: 1px solid var(--ck-neon-green);
 }
 
 .missionTag {
@@ -206,7 +206,7 @@
   top: 6px;
   width: 7px;
   height: 7px;
-  background: var(--ck-purple-300);
+  background: var(--ck-green-300);
 }
 
 .timelineDate {
@@ -215,7 +215,7 @@
   font-size: var(--ck-label-size);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ck-purple-300);
+  color: var(--ck-green-300);
 }
 
 .timelineTitle {

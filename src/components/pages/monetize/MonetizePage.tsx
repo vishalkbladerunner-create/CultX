@@ -216,8 +216,8 @@ export function MonetizePage() {
                 <svg viewBox="0 0 600 240" preserveAspectRatio="none" aria-hidden>
                   <defs>
                     <linearGradient id="ckChartFill" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#a100e8" stopOpacity="0.35" />
-                      <stop offset="100%" stopColor="#a100e8" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#4ddb00" stopOpacity="0.35" />
+                      <stop offset="100%" stopColor="#4ddb00" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                   {[48, 96, 144, 192].map((y) => (
@@ -230,7 +230,7 @@ export function MonetizePage() {
                   <path
                     d="M0,190 L60,172 L120,178 L180,150 L240,158 L300,120 L360,128 L420,92 L480,100 L540,64 L600,72"
                     fill="none"
-                    stroke="#d800e0"
+                    stroke="#8be30b"
                     strokeWidth="2"
                   />
                 </svg>

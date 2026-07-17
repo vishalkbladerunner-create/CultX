@@ -34,7 +34,7 @@
   top: calc(10vh - 3px);
   width: 6px;
   height: 6px;
-  background: var(--ck-purple-300);
+  background: var(--ck-green-300);
   pointer-events: none;
 }
 
@@ -131,9 +131,9 @@
 .listingX {
   background: linear-gradient(
     100deg,
-    var(--ck-purple-300),
-    var(--ck-purple-100) 55%,
-    var(--ck-magenta)
+    var(--ck-green-300),
+    var(--ck-green-100) 55%,
+    var(--ck-chartreuse)
   );
   -webkit-background-clip: text;
   background-clip: text;

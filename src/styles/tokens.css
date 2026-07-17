@@ -1,13 +1,13 @@
 /**
- * CultX tokens — purple-first cinema system.
+ * CultX tokens — green-first cinema system.
  *
  * Reference mapping (SharpLink → CultX):
  *   --surface-background #f7f7f5   →  --ck-void #000 (cinema base)
- *   fixed light CSS radial blues   →  fixed purple radial on void (M04)
- *   images/gradient-dark-transparent.png → /images/gradient-purple-poppy-transparent.png
- *   images/heroOverlay_*.avif      →  /images/heroOverlay-purple-poppy_*.png
+ *   fixed light CSS radial blues   →  fixed green radial on void (M04)
+ *   images/gradient-dark-transparent.png → /images/gradient-green-poppy-transparent.png
+ *   images/heroOverlay_*.avif      →  /images/heroOverlay-green-poppy_*.png
  *
- * Wash discipline: void black + purple/magenta family only (see
+ * Wash discipline: void black + green family only (see
  * cult/doc/cultx-color-system.md). Neon/cyan/orange/gold reserved for UI.
  */
 
@@ -16,49 +16,51 @@
   --ck-void: #000000;
   --ck-black: #000000;
 
-  /* ---- Purple ramp (pixel-measured from the poppy dome PNGs) ---- */
-  --ck-purple-950: #05000c;
-  --ck-purple-900: #0e001c;
-  --ck-purple-800: #140d1e;
-  --ck-purple-700: #261544;
-  --ck-purple-600: #3b0774;
-  --ck-purple-500: #6b009e;
-  --ck-purple-400: #a600c3;
-  --ck-purple-300: #d800e0;
-  --ck-purple-200: #f900f6;
-  --ck-purple-100: #ff00fb;
+  /* ---- Green ramp (pixel-measured from the poppy dome PNGs) ---- */
+  --ck-green-950: #030603;
+  --ck-green-900: #0c190c;
+  --ck-green-800: #122510;
+  --ck-green-700: #1d4714;
+  --ck-green-600: #1b6212;
+  --ck-green-500: #2f8a06;
+  --ck-green-400: #51b109;
+  --ck-green-300: #8be30b;
+  --ck-green-200: #a6ff0d;
+  --ck-green-100: #c3ff3d;
 
-  /* Text */
-  --ck-off-white: #f3f0f7;
-  --ck-text: #f3f0f7;
-  --ck-muted: #9e91b0;
+  /* Text — neutral-green whites for contrast on dark green cinema wash.
+     Muted is deliberately lighter than the old purple-gray (#9e91b0), which
+     failed on green mid-tones (hero blurb, rail desc, eyebrows, ledes). */
+  --ck-off-white: #f2f5f0;
+  --ck-text: #f2f5f0;
+  --ck-muted: #c5d2c2;
 
-  /* Translucent ramps (ref black/off-white alpha pattern) */
-  --ck-white-5: rgb(243 240 247 / 0.05);
-  --ck-white-8: rgb(243 240 247 / 0.08);
-  --ck-white-10: rgb(243 240 247 / 0.1);
-  --ck-white-15: rgb(243 240 247 / 0.15);
-  --ck-white-20: rgb(243 240 247 / 0.2);
-  --ck-white-40: rgb(243 240 247 / 0.4);
-  --ck-white-60: rgb(243 240 247 / 0.6);
+  /* Translucent ramps (match off-white RGB so glass/strokes stay on-brand) */
+  --ck-white-5: rgb(242 245 240 / 0.05);
+  --ck-white-8: rgb(242 245 240 / 0.08);
+  --ck-white-10: rgb(242 245 240 / 0.1);
+  --ck-white-15: rgb(242 245 240 / 0.15);
+  --ck-white-20: rgb(242 245 240 / 0.2);
+  --ck-white-40: rgb(242 245 240 / 0.4);
+  --ck-white-60: rgb(242 245 240 / 0.6);
   --ck-black-20: rgb(0 0 0 / 0.2);
   --ck-black-40: rgb(0 0 0 / 0.4);
   --ck-black-60: rgb(0 0 0 / 0.6);
 
   /* Stroke tokens for dashed technical lines (L03) */
   --ck-stroke-dark-subtle: rgb(0 0 0 / 0.14);
-  --ck-stroke-light-subtle: rgb(243 240 247 / 0.14);
+  --ck-stroke-light-subtle: rgb(242 245 240 / 0.14);
 
   /* Brand accents — UI only, never wash fills */
-  --ck-magenta: #ff2d9b;
-  --ck-neon-purple: #a100e8;
+  --ck-chartreuse: #d4ff00;
+  --ck-neon-green: #4ddb00;
   --ck-accent-orange: #ff6a00;
   --ck-accent-cyan: #00d4ff;
   --ck-accent-gold: #ffd000;
 
   /* ---- Fixed atmosphere (M04, ref .gradient-bg-light geometry) ---- */
-  --ck-atmo-tint: #3b0774; /* 45% stop — purple pool from above the fold */
-  --ck-atmo-mid: #0e001c; /* 85% stop */
+  --ck-atmo-tint: #1b6212; /* 45% stop — green pool from above the fold */
+  --ck-atmo-mid: #0c190c; /* 85% stop */
   --ck-atmo-base: #000000; /* base */
 
   /* ---- Type scale (L09 — reference ladder) ---- */
@@ -111,8 +113,8 @@
   --ck-ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 
   /* ---- Dome asset ---- */
-  --ck-dome-image: url("/images/gradient-purple-poppy-transparent.png");
-  --ck-dome-opaque-image: url("/images/gradient-purple-poppy.png");
+  --ck-dome-image: url("/images/gradient-green-poppy-transparent.png");
+  --ck-dome-opaque-image: url("/images/gradient-green-poppy.png");
 }
 
 @media (min-width: 800px) {

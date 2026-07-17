@@ -3,8 +3,8 @@
  *
  * Every class here replaces a PNG/AVIF with code (verified feasible via
  * MDN gradient + mask-image docs). Stops are pixel-measured from the
- * brand poppy assets in /public/images (which were hue-shifted from the
- * SharpLink reference ramp — see cult/doc/reference-ingredients/01 §1).
+ * brand poppy assets in /public/images (green hue twins of the original
+ * ramp — see cult/doc/reference-ingredients/01 §1).
  *
  * Why code over images:
  *   - colors are tokens → recolor = edit one variable
@@ -12,40 +12,40 @@
  *   - no banding when paired with .ck-grain (feTurbulence dither)
  *
  * Measured source ramps (center column of the poppy PNGs):
- *   transparent dome: #010102 → #040306 → #140d1e → #261544 → #3b0774
- *     → #6b009e → #a600c3 → #d800e0 → #f900f6 → #ff00fb, alpha 255→0 (y45→90%)
- *   opaque dome: same head, hotter tail (#7800a7 → #c200d3 → #f300f2 → #ff00fb),
+ *   transparent dome: #010200 → #030603 → #0c190c → #183715 → #1b6212
+ *     → #2a8b06 → #51b109 → #74cf0a → #8be30b → #a6ff0d, alpha 255→0 (y45→90%)
+ *   opaque dome: same head, hotter tail (#44a709 → #79d20a → #9df30c → #a6ff0d),
  *     alpha holds until ~65% height
  */
 
 :root {
-  /* Dome ramp — violet/magenta "poppy" family on void black */
-  --ck-dome-0: #010102; /* void */
-  --ck-dome-1: #040306;
-  --ck-dome-2: #140d1e;
-  --ck-dome-3: #261544;
-  --ck-dome-4: #3b0774;
-  --ck-dome-5: #6b009e;
-  --ck-dome-6: #a600c3;
-  --ck-dome-7: #d800e0;
-  --ck-dome-8: #f900f6;
-  --ck-dome-9: #ff00fb; /* hot magenta rim */
+  /* Dome ramp — green "poppy" family on void black */
+  --ck-dome-0: #010200; /* void */
+  --ck-dome-1: #030603;
+  --ck-dome-2: #0c190c;
+  --ck-dome-3: #183715;
+  --ck-dome-4: #1b6212;
+  --ck-dome-5: #2a8b06;
+  --ck-dome-6: #51b109;
+  --ck-dome-7: #74cf0a;
+  --ck-dome-8: #8be30b;
+  --ck-dome-9: #a6ff0d; /* hot chartreuse rim */
 
   /* Opaque-variant hotter tail */
-  --ck-dome-op-5: #7800a7;
-  --ck-dome-op-6: #c200d3;
-  --ck-dome-op-7: #f300f2;
+  --ck-dome-op-5: #44a709;
+  --ck-dome-op-6: #79d20a;
+  --ck-dome-op-7: #9df30c;
 
-  /* Vignette tones (measured from heroOverlay-purple-poppy_*) */
-  --ck-vig-edge: rgb(19 12 32); /* #130c20 corners */
-  --ck-vig-mid: rgb(42 7 90); /* #2a075a mid edges */
-  --ck-vig-bottom: rgb(25 14 46); /* #190e2e bottom band */
-  --ck-vig-fill: rgb(89 0 142); /* #59008e investors corner fill */
-  --ck-vig-fill-2: rgb(124 0 169); /* #7c00a9 */
+  /* Vignette tones (measured from heroOverlay-green-poppy_*) */
+  --ck-vig-edge: rgb(13 32 12); /* #0d200c corners */
+  --ck-vig-mid: rgb(24 89 14); /* #18590e mid edges */
+  --ck-vig-bottom: rgb(17 46 15); /* #112e0f bottom band */
+  --ck-vig-fill: rgb(58 148 15); /* #3a940f investors corner fill */
+  --ck-vig-fill-2: rgb(80 172 17); /* #50ac11 */
 }
 
 /* ------------------------------------------------------------------ */
-/* Domes — replace gradient-purple-poppy-transparent.png / -poppy.png  */
+/* Domes — replace gradient-green-poppy-transparent.png / -poppy.png   */
 /* Use inside a sized host exactly like the <img> version (M05).       */
 /* ------------------------------------------------------------------ */
 
@@ -84,7 +84,7 @@
   );
 }
 
-/* opaque variant — no early fade, hotter magenta tail, soft bottom edge */
+/* opaque variant — no early fade, hotter green tail, soft bottom edge */
 .ck-dome-opaque {
   background-image: radial-gradient(
     ellipse 135% 105% at 50% 105%,
@@ -111,7 +111,7 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Hero vignettes — replace heroOverlay-purple-poppy_*.png             */
+/* Hero vignettes — replace heroOverlay-green-poppy_*.png              */
 /* Dark edge mask + clear window where hero media shows through.       */
 /* Layer 1 (last) = base tint, layer 2+ = window carve / extra fill.   */
 /* ------------------------------------------------------------------ */
@@ -131,14 +131,14 @@
     radial-gradient(
       ellipse 68% 58% at 56% 47%,
       transparent 38%,
-      rgb(19 12 32 / 0.78) 100%
+      rgb(13 32 12 / 0.78) 100%
     ),
     linear-gradient(
       to bottom,
-      rgb(19 12 32 / 0.66) 0%,
-      rgb(42 7 90 / 0.32) 32%,
-      rgb(42 7 90 / 0.18) 55%,
-      rgb(25 14 46 / 0.6) 100%
+      rgb(13 32 12 / 0.66) 0%,
+      rgb(24 89 14 / 0.32) 32%,
+      rgb(24 89 14 / 0.18) 55%,
+      rgb(17 46 15 / 0.6) 100%
     );
 }
 
@@ -148,36 +148,36 @@
     radial-gradient(
       ellipse 85% 95% at 95% 65%,
       transparent 48%,
-      rgb(19 12 32 / 0.72) 100%
+      rgb(13 32 12 / 0.72) 100%
     ),
     linear-gradient(
       to right,
-      rgb(20 13 33 / 0.72) 0%,
-      rgb(41 7 88 / 0.4) 32%,
-      rgb(41 7 88 / 0.12) 55%,
+      rgb(14 33 13 / 0.72) 0%,
+      rgb(23 89 12 / 0.4) 32%,
+      rgb(23 89 12 / 0.12) 55%,
       transparent 75%
     );
 }
 
-/* investors: window center + heavy magenta fill bottom-right */
+/* investors: window center + heavy green fill bottom-right */
 .ck-vignette-investors {
   background:
     radial-gradient(
       ellipse 52% 55% at 97% 88%,
-      rgb(89 0 142 / 0.92) 0%,
-      rgb(124 0 169 / 0.55) 45%,
+      rgb(58 148 15 / 0.92) 0%,
+      rgb(80 172 17 / 0.55) 45%,
       transparent 78%
     ),
     radial-gradient(
       ellipse 62% 55% at 50% 50%,
       transparent 40%,
-      rgb(19 12 32 / 0.74) 100%
+      rgb(13 32 12 / 0.74) 100%
     ),
     linear-gradient(
       to bottom,
-      rgb(19 12 32 / 0.64) 0%,
-      rgb(42 7 90 / 0.3) 32%,
-      rgb(25 14 46 / 0.55) 100%
+      rgb(13 32 12 / 0.64) 0%,
+      rgb(24 89 14 / 0.3) 32%,
+      rgb(17 46 15 / 0.55) 100%
     );
 }
 

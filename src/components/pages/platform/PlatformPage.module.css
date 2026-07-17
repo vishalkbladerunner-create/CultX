@@ -119,7 +119,7 @@
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
   letter-spacing: 0.08em;
-  color: var(--ck-purple-300);
+  color: var(--ck-green-300);
 }
 
 .journeyTitle {
@@ -255,7 +255,7 @@
   font-size: var(--ck-label-size);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ck-purple-300);
+  color: var(--ck-green-300);
 }
 
 /* ---- Pipeline contrast ---- */
@@ -279,8 +279,8 @@
 }
 
 .compareColHot {
-  background: rgb(59 7 116 / 0.18);
-  border-top: 1px solid var(--ck-neon-purple);
+  background: rgb(27 98 18 / 0.18);
+  border-top: 1px solid var(--ck-neon-green);
 }
 
 .compareTag {

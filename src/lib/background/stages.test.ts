@@ -108,7 +108,7 @@ describe("elementScrollProgress — ref trigger semantics", () => {
 });
 
 describe("palette constraints", () => {
-  it("wash palette excludes forbidden non-purple / neon fills", () => {
+  it("wash palette excludes forbidden off-family / neon fills", () => {
     const blob = JSON.stringify(PALETTE).toLowerCase();
     for (const f of FORBIDDEN_ON_BACKGROUND) {
       assert.equal(blob.includes(f.toLowerCase()), false, f);
@@ -156,7 +156,7 @@ describe("shipped GradientDome — reference .gradient-bg-dark CSS", () => {
     const tsx = await readWebFile(
       "src/components/background/GradientDome.tsx"
     );
-    assert.match(tsx, /gradient-purple-poppy-transparent\.png/);
+    assert.match(tsx, /gradient-green-poppy-transparent\.png/);
     assert.match(tsx, /data-dome-position/);
   });
 });
@@ -197,7 +197,7 @@ describe("shipped HomePage — K-Cinema section DNA", () => {
     assert.match(css, /height:\s*200vh/);
     assert.match(css, /height:\s*110%/);
     // Hero overlay PNG stack (ref .bg-overlay: background-size 100% 100%)
-    assert.match(css, /heroOverlay-purple-poppy_homepage\.png/);
+    assert.match(css, /heroOverlay-green-poppy_homepage\.png/);
     assert.match(css, /background-size:\s*100% 100%/);
     // Seam-free canvas: EVERY *DomeHost block mask-fades at both edges
     const domeBlocks = css.match(/\.\w*DomeHost\w*\s*\{[^}]+\}/g) ?? [];

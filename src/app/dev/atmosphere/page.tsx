@@ -28,9 +28,9 @@ export default function AtmospherePreview() {
           <figure className={styles.cell}>
             <div className={styles.stage}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${IMG}/gradient-purple-poppy-transparent.png`} alt="" />
+              <img src={`${IMG}/gradient-green-poppy-transparent.png`} alt="" />
             </div>
-            <figcaption>PNG · gradient-purple-poppy-transparent</figcaption>
+            <figcaption>PNG · gradient-green-poppy-transparent</figcaption>
           </figure>
           <figure className={styles.cell}>
             <div className={styles.stage}>
@@ -48,9 +48,9 @@ export default function AtmospherePreview() {
           <figure className={styles.cell}>
             <div className={styles.stage}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`${IMG}/gradient-purple-poppy.png`} alt="" />
+              <img src={`${IMG}/gradient-green-poppy.png`} alt="" />
             </div>
-            <figcaption>PNG · gradient-purple-poppy</figcaption>
+            <figcaption>PNG · gradient-green-poppy</figcaption>
           </figure>
           <figure className={styles.cell}>
             <div className={styles.stage}>
@@ -78,12 +78,12 @@ export default function AtmospherePreview() {
               <div className={`${styles.stage} ${styles.fakeVideo}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`${IMG}/heroOverlay-purple-poppy_${name}.png`}
+                  src={`${IMG}/heroOverlay-green-poppy_${name}.png`}
                   alt=""
                   className={styles.overlayImg}
                 />
               </div>
-              <figcaption>PNG · heroOverlay-purple-poppy_{name}</figcaption>
+              <figcaption>PNG · heroOverlay-green-poppy_{name}</figcaption>
             </figure>
             <figure className={styles.cell}>
               <div className={`${styles.stage} ${styles.fakeVideo}`}>

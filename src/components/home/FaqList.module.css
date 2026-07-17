@@ -58,7 +58,7 @@
 
 .item[data-open] .toggle {
   transform: rotate(45deg);
-  background: var(--ck-purple-500);
+  background: var(--ck-green-500);
 }
 
 /*

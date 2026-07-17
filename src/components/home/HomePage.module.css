@@ -75,7 +75,7 @@
   right: 0;
   height: 100%;
   z-index: 1;
-  background-image: url("/images/heroOverlay-purple-poppy_homepage.png");
+  background-image: url("/images/heroOverlay-green-poppy_homepage.png");
   background-size: 100% 100%;
   background-position: 50%;
   pointer-events: none;
@@ -248,7 +248,7 @@
 
   .railItem:hover .railNum,
   .railItem:focus-visible .railNum {
-    color: var(--ck-purple-300);
+    color: var(--ck-green-300);
   }
 
   /*
@@ -355,7 +355,7 @@
   left: 0;
   width: 6px;
   height: 6px;
-  background: var(--ck-purple-300);
+  background: var(--ck-green-300);
   pointer-events: none;
 }
 
@@ -381,8 +381,8 @@
 }
 
 .textLink:hover {
-  color: var(--ck-purple-300);
-  border-color: var(--ck-purple-300);
+  color: var(--ck-green-300);
+  border-color: var(--ck-green-300);
 }
 
 /* ---------------------------------------------------------------- */

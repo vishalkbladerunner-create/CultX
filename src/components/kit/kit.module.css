@@ -68,8 +68,8 @@
 
 /* Per-format accent eyebrows (one accent family per region) */
 .eyebrow[data-accent="cyan"] { color: var(--ck-accent-cyan); }
-.eyebrow[data-accent="magenta"] { color: var(--ck-magenta); }
-.eyebrow[data-accent="purple"] { color: var(--ck-purple-300); }
+.eyebrow[data-accent="magenta"] { color: var(--ck-chartreuse); }
+.eyebrow[data-accent="purple"] { color: var(--ck-neon-green); }
 .eyebrow[data-accent="orange"] { color: var(--ck-accent-orange); }
 .eyebrow[data-accent="gold"] { color: var(--ck-accent-gold); }
 
@@ -226,7 +226,7 @@
   position: absolute;
   width: 6px;
   height: 6px;
-  background: var(--ck-purple-300);
+  background: var(--ck-green-300);
   pointer-events: none;
 }
 
@@ -279,11 +279,11 @@
 }
 
 .card[data-accent="magenta"] {
-  border-top-color: var(--ck-magenta);
+  border-top-color: var(--ck-chartreuse);
 }
 
 .card[data-accent="purple"] {
-  border-top-color: var(--ck-neon-purple);
+  border-top-color: var(--ck-neon-green);
 }
 
 .card[data-accent="orange"] {

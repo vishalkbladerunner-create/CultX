@@ -3,8 +3,8 @@
   width: 100%;
   border: 1px dashed var(--ck-white-20);
   background:
-    radial-gradient(ellipse 90% 90% at 50% 0%, rgb(59 7 116 / 0.14), transparent 70%),
-    linear-gradient(180deg, rgb(14 0 28 / 0.35), rgb(5 0 12 / 0.55));
+    radial-gradient(ellipse 90% 90% at 50% 0%, rgb(27 98 18 / 0.14), transparent 70%),
+    linear-gradient(180deg, rgb(12 25 12 / 0.35), rgb(3 6 3 / 0.55));
   overflow: hidden;
 }
 
@@ -49,7 +49,7 @@
   position: absolute;
   width: 6px;
   height: 6px;
-  background: var(--ck-purple-300);
+  background: var(--ck-green-300);
   pointer-events: none;
 }
 

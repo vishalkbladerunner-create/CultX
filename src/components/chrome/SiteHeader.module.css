@@ -284,8 +284,8 @@
   background:
     radial-gradient(
       ellipse 120% 90% at 50% 110%,
-      var(--ck-purple-600) 0%,
-      var(--ck-purple-900) 45%,
+      var(--ck-green-600) 0%,
+      var(--ck-green-900) 45%,
       var(--ck-void) 100%
     ),
     var(--ck-void);
@@ -323,7 +323,7 @@
 }
 
 .mobileLink:hover {
-  color: var(--ck-purple-300);
+  color: var(--ck-green-300);
 }
 
 /* ---- Theme contexts (M03) ---- */
@@ -333,7 +333,7 @@
 }
 
 .header[data-theme="light"] .logo {
-  color: var(--ck-purple-950);
+  color: var(--ck-green-950);
 }
 
 .header[data-theme="light"] .logoX {
@@ -342,12 +342,12 @@
 }
 
 .header[data-theme="light"] .logoText {
-  fill: var(--ck-purple-950);
-  stroke: var(--ck-purple-950);
+  fill: var(--ck-green-950);
+  stroke: var(--ck-green-950);
 }
 
 .header[data-theme="light"] .pill {
-  color: var(--ck-purple-950);
+  color: var(--ck-green-950);
   background: rgb(0 0 0 / 0.06);
 }
 
@@ -358,7 +358,7 @@
 .header[data-theme="light"] .menuLines,
 .header[data-theme="light"] .menuLines::before,
 .header[data-theme="light"] .menuLines::after {
-  background: var(--ck-purple-950);
+  background: var(--ck-green-950);
 }
 
 @media (prefers-reduced-motion: reduce) {

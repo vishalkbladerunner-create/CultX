@@ -50,7 +50,7 @@
 .starCard {
   background: var(--ck-white-5);
   backdrop-filter: blur(6px);
-  border-top: 1px solid var(--ck-neon-purple);
+  border-top: 1px solid var(--ck-neon-green);
   padding: 22px;
   display: grid;
   grid-template-columns: 1fr;
@@ -77,7 +77,7 @@
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ck-purple-300);
+  color: var(--ck-green-300);
   border: 1px dashed var(--ck-white-20);
   padding: 5px 10px;
 }
@@ -94,7 +94,7 @@
   margin: 16px 0 0;
   font-size: 13px;
   line-height: 1.55;
-  color: var(--ck-purple-300);
+  color: var(--ck-green-300);
 }
 
 .chipGrid {

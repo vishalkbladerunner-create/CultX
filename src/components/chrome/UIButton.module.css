@@ -81,10 +81,10 @@
 }
 .primary .icon {
   color: var(--ck-off-white);
-  background: var(--ck-purple-500);
+  background: var(--ck-green-500);
 }
 .primary:hover .icon {
-  background: var(--ck-purple-400);
+  background: var(--ck-green-400);
 }
 
 .secondary .content {

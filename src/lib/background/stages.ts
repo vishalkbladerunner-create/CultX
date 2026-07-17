@@ -92,16 +92,16 @@ export function elementScrollProgress(
 }
 
 /**
- * CultX purple-only atmosphere tokens (muted cinema — wash only).
+ * CultX green-only atmosphere tokens (muted cinema — wash only).
  * Hot neon / blue / beige / multi-accent forbidden on wash.
  */
 export const PALETTE = {
   void: "#000000",
-  purpleDeep: "#0c0018",
-  purpleMid: "#30105a",
-  purple: "#5c2888",
-  purpleSoft: "#b8a0d4",
-  surface: "#05000c",
+  greenDeep: "#041008",
+  greenMid: "#123a08",
+  green: "#3f8a10",
+  greenSoft: "#b9ec8a",
+  surface: "#030603",
 } as const;
 
 export const FORBIDDEN_ON_BACKGROUND = [
@@ -114,9 +114,10 @@ export const FORBIDDEN_ON_BACKGROUND = [
   "#ffd000",
   "#00e676",
   "#2b6bff",
-  "#ff2d9b",
-  "#a100e8",
   "#b84dff",
+  /* Retired pre-green brand accents are banned by omission — they no longer
+     exist in tokens.css, and the repo purple-grep gate keeps them out of
+     the background for good. */
 ] as const;
 
 /** Continuity helper for tests: max |Δscale| across a fine progress grid */

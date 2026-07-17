@@ -33,7 +33,7 @@ src/
     background/            # Pure stage math (tested)
     site/pages.test.ts     # Executable definition of done for routes
     wordmark/              # Wordmark grid helpers (tested)
-  styles/tokens.css        # Brand tokens (purple atmosphere)
+  styles/tokens.css        # Brand tokens (green atmosphere)
 public/images/             # Poppy image set
 ```
 
@@ -101,9 +101,10 @@ Header/footer NAV: Platform · Pillars · Monetize · Star IPs · **AI Center** 
 
 ## Color discipline
 
-Background uses **only** void black + magenta + purple.  
+Background uses **only** void black + the green family (`--ck-green-*` ramp, pixel-measured from the green poppy assets in `public/images/`).  
+`--ck-chartreuse` is the hot sparse accent (CTAs, progress fills, wordmark tails) — never a wash fill.  
 Do not dump cyan/orange/gold onto the atmosphere. Reserve those for sparse UI accents.  
-`FORBIDDEN_ON_BACKGROUND` in `stages.ts` encodes banned reference blues/beiges (including `#0e76ff`) for tests — not product chrome.
+`FORBIDDEN_ON_BACKGROUND` in `stages.ts` encodes banned reference blues/beiges (including `#0e76ff`) plus the retired magenta/neon-purple accents for tests — not product chrome.
 
 ## Fonts
 

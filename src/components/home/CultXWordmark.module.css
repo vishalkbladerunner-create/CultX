@@ -91,7 +91,7 @@
 
 .wmDots {
   fill: none;
-  stroke: rgb(220 210 240 / 0.78);
+  stroke: rgb(197 210 194 / 0.78);
   stroke-width: 2;
   stroke-dasharray: 0.2 7.5;
   stroke-linecap: round;
@@ -160,7 +160,7 @@
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.06em;
-  color: rgb(220 210 240 / 0.68);
+  color: rgb(197 210 194 / 0.78);
   pointer-events: none;
   white-space: nowrap;
   will-change: transform, opacity;

@@ -1,6 +1,6 @@
 import styles from "./GradientDome.module.css";
 
-const DOME_SRC = "/images/gradient-purple-poppy-transparent.png";
+const DOME_SRC = "/images/gradient-green-poppy-transparent.png";
 
 type Props = {
   position?: "top" | "bottom";

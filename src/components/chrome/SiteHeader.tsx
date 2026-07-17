@@ -104,12 +104,12 @@ export function SiteHeader() {
                 x2="1"
                 y2="0.18"
               >
-                <stop offset="0" style={{ stopColor: "var(--ck-purple-300)" }} />
+                <stop offset="0" style={{ stopColor: "var(--ck-green-300)" }} />
                 <stop
                   offset="0.55"
-                  style={{ stopColor: "var(--ck-purple-100)" }}
+                  style={{ stopColor: "var(--ck-green-100)" }}
                 />
-                <stop offset="1" style={{ stopColor: "var(--ck-magenta)" }} />
+                <stop offset="1" style={{ stopColor: "var(--ck-chartreuse)" }} />
               </linearGradient>
             </defs>
             <text className={styles.logoText} x="0" y="0">

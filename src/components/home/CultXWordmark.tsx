@@ -285,11 +285,11 @@ export function CultXWordmark() {
         >
           <defs>
             <linearGradient id="ckWmFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#f4eefc" />
-              <stop offset="38%" stopColor="#c9a9ea" />
-              <stop offset="62%" stopColor="#7a3db8" />
-              <stop offset="82%" stopColor="#2a0d48" />
-              <stop offset="100%" stopColor="#030108" />
+              <stop offset="0%" stopColor="#f3fde6" />
+              <stop offset="38%" stopColor="#b9ec8a" />
+              <stop offset="62%" stopColor="#4d9e12" />
+              <stop offset="82%" stopColor="#123a08" />
+              <stop offset="100%" stopColor="#010300" />
             </linearGradient>
 
             <linearGradient id="ckWmFadeSharp" x1="0" y1="0" x2="0" y2="1">
