@@ -1,0 +1,347 @@
+.main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  position: relative;
+  padding: 16vh 0;
+  overflow: visible;
+}
+
+/* ---- Three earn paths ---- */
+
+.pathsBand {
+  position: relative;
+  padding: 22vh 0 18vh;
+  overflow: visible;
+}
+
+.pathsDomeHost {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pathsGrid {
+  position: relative;
+  z-index: var(--ck-z-content);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .pathsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pathCard {
+  padding: 26px 22px 30px;
+  background: var(--ck-white-5);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+}
+
+.pathLabel {
+  margin: 14px 0 4px;
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-accent-gold);
+}
+
+.pathMedia {
+  margin: 22px 0 0;
+}
+
+.pathCloser {
+  margin: 22px 0 0;
+  font-family: var(--ck-font-display);
+  font-size: 18px;
+  letter-spacing: -0.2px;
+  color: var(--ck-off-white);
+}
+
+/* ---- Token growth loop ---- */
+
+.loopChain {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 8vh 0 0;
+  padding: 0;
+}
+
+@media (min-width: 800px) {
+  .loopChain {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.loopStep {
+  padding: 18px 16px;
+  border: 1px dashed var(--ck-white-20);
+  background: var(--ck-white-5);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loopNum {
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ck-accent-gold);
+}
+
+.loopLabel {
+  font-family: var(--ck-font-display);
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  color: var(--ck-off-white);
+}
+
+.vectorGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .vectorGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.loopLine {
+  margin: 10vh 0 0;
+  max-width: 720px;
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  letter-spacing: -0.24px;
+  line-height: 1.3;
+  color: var(--ck-off-white);
+}
+
+.mantra {
+  margin: 32px 0 0;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-accent-gold);
+}
+
+/* ---- Trading terminal ---- */
+
+.terminal {
+  margin-top: 8vh;
+  border: 1px dashed var(--ck-white-20);
+  background: rgb(5 0 12 / 0.72);
+}
+
+.terminalBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px dashed var(--ck-white-20);
+}
+
+.terminalTitle {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--ck-off-white);
+}
+
+.terminalBadge {
+  font-family: var(--ck-font-label);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ck-muted);
+  border: 1px dashed var(--ck-white-20);
+  padding: 4px 8px;
+}
+
+.terminalBody {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 800px) {
+  .terminalBody {
+    grid-template-columns: 7fr 3fr;
+  }
+}
+
+.terminalChart {
+  padding: 18px;
+  border-bottom: 1px dashed var(--ck-white-20);
+}
+
+@media (min-width: 800px) {
+  .terminalChart {
+    border-bottom: none;
+    border-right: 1px dashed var(--ck-white-20);
+  }
+}
+
+.terminalChart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.chartGridLine {
+  stroke: var(--ck-white-8);
+  stroke-dasharray: 3 5;
+}
+
+.terminalStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+@media (min-width: 800px) {
+  .terminalStats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.terminalStats span {
+  display: block;
+  font-family: var(--ck-font-label);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ck-muted);
+  margin-bottom: 4px;
+}
+
+.terminalStats strong {
+  font-family: var(--ck-font-display);
+  font-size: 20px;
+  letter-spacing: -0.2px;
+  color: var(--ck-off-white);
+}
+
+.statUp {
+  color: #00e676 !important;
+}
+
+.terminalSide {
+  padding: 18px;
+}
+
+.sideTitle {
+  margin: 0 0 14px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.gainerList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gainerRow {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--ck-font-label);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--ck-off-white);
+}
+
+.terminalFeatures {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin: 8vh 0 0;
+  padding: 0;
+}
+
+@media (min-width: 800px) {
+  .terminalFeatures {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.terminalFeature {
+  padding: 22px 20px 26px;
+  background: var(--ck-white-5);
+}
+
+.terminalFeatureTitle {
+  margin: 0 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 20px;
+  letter-spacing: -0.2px;
+  color: var(--ck-off-white);
+}
+
+/* ---- Real-world products ---- */
+
+.productGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .productGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.productCard {
+  padding: 22px;
+  background: var(--ck-white-5);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.productTag {
+  margin: 0 0 6px;
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-purple-300);
+}
+
+/* ---- Summary strip ---- */
+
+.summary {
+  position: relative;
+  padding: 10vh 0;
+  overflow: visible;
+}
+
+.summary h2 {
+  margin-bottom: 24px;
+}

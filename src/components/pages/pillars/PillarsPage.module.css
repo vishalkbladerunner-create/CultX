@@ -1,0 +1,217 @@
+.main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  position: relative;
+  padding: 16vh 0;
+  overflow: visible;
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .overviewGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.overviewLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* ---- Chapters ---- */
+
+.chapter {
+  position: relative;
+  padding: 20vh 0;
+  overflow: visible;
+}
+
+.chapterDomeHost {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.chapterGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .chapterGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+}
+
+.chapterMedia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.stageMedia {
+  margin-top: 8vh;
+}
+
+.stepList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.stepTitle {
+  margin: 12px 0 8px;
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  color: var(--ck-off-white);
+}
+
+.winList {
+  list-style: none;
+  margin: 40px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.winItem {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  padding-left: 18px;
+  border-left: 1px dashed var(--ck-white-20);
+}
+
+.chipGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .chipGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.phoneRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 8vh;
+  max-width: 900px;
+}
+
+.benefitGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .benefitGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.cardMicro {
+  margin: 16px 0 0;
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ck-off-white);
+}
+
+.playerWrap {
+  margin-top: 8vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+@media (min-width: 800px) {
+  .playerWrap {
+    grid-template-columns: 7fr 4fr;
+    align-items: stretch;
+  }
+}
+
+.seriesCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 28px 24px;
+  background: var(--ck-white-5);
+  border-top: 1px solid var(--ck-accent-orange);
+}
+
+.seriesTitle {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 32px;
+  letter-spacing: -0.4px;
+  color: var(--ck-off-white);
+}
+
+.seriesTag {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ck-muted);
+}
+
+.seriesMeta {
+  margin: 8px 0 0;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.seriesCta {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 12px 20px;
+  border: 1px dashed var(--ck-white-20);
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-off-white);
+}
+
+.proofLine {
+  margin: 10vh 0 0;
+  max-width: 620px;
+  font-size: var(--ck-lede-size);
+  font-weight: 500;
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
+}

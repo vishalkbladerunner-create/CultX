@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Archivo, Archivo_Narrow } from "next/font/google";
+import { Space_Grotesk, Archivo_Narrow } from "next/font/google";
 import { ScrollBackground } from "@/components/background/ScrollBackground";
 import { SiteHeader } from "@/components/chrome/SiteHeader";
 import "./globals.css";
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
   display: "swap",
 });
@@ -19,7 +19,7 @@ const archivoNarrow = Archivo_Narrow({
 export const metadata: Metadata = {
   title: "CultK — Where IPs Become Legends",
   description:
-    "AI-native IP creation and monetization platform. Create, publish, grow, and earn.",
+    "AI-native IP creation and monetization. Webtoon, Star IP, Shorts, Drama — create, publish, grow, and earn. Built in Korea.",
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${archivoNarrow.variable} h-full`}
+      className={`${spaceGrotesk.variable} ${archivoNarrow.variable} h-full`}
     >
       <body className="min-h-full antialiased">
         <ScrollBackground />

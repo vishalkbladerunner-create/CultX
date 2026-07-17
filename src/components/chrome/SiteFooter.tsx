@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { GradientDome } from "@/components/background/GradientDome";
 import { DashedLine } from "@/components/chrome/DashedLine";
 import { WaitlistForm } from "@/components/home/WaitlistForm";
@@ -10,6 +11,7 @@ const NAV = [
   { href: "/pillars", label: "Pillars" },
   { href: "/monetize", label: "Monetize" },
   { href: "/stars", label: "Star IPs" },
+  { href: "/about", label: "AI Center" },
   { href: "/faq", label: "FAQ" },
 ];
 
@@ -44,9 +46,9 @@ export function SiteFooter() {
               <ul className={styles.menuLinks}>
                 {NAV.map((item) => (
                   <li key={item.href}>
-                    <a className={styles.menuLink} href={item.href}>
+                    <Link className={styles.menuLink} href={item.href}>
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

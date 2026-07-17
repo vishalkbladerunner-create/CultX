@@ -12,7 +12,7 @@ import {
 } from "./stages.ts";
 
 describe("DOME_DEFAULTS — reference GradientBgDark constants", () => {
-  it("matches reference _nuxt/dome parallax module props (1.3 / 0.8)", () => {
+  it("matches scrap _nuxt/C167zuj8.js props (1.3 / 0.8)", () => {
     assert.equal(DOME_DEFAULTS.parallaxInitialScale, 1.3);
     assert.equal(DOME_DEFAULTS.parallaxSpeed, 0.8);
   });
@@ -179,7 +179,7 @@ describe("shipped ScrollDriver — reference motion stack", () => {
     assert.match(src, /lagSmoothing\(0\)/);
     // Reduced-motion contract (M16)
     assert.match(src, /prefers-reduced-motion/);
-    // Footer wordmark scrub (SiteFooter reference: y 200→0, scrub 0.8)
+    // Footer wordmark scrub (SiteFooter CfV00Epg: y 200→0, scrub 0.8)
     assert.match(src, /data-wordmark-slide/);
     assert.match(src, /y:\s*200/);
     assert.match(src, /scrub:\s*0\.8/);
@@ -221,30 +221,5 @@ describe("shipped HomePage — reference section hosts", () => {
   it("home uses shared SiteFooter backbone", async () => {
     const tsx = await readWebFile("src/components/home/HomePage.tsx");
     assert.match(tsx, /SiteFooter/);
-  });
-});
-
-describe("shipped sub-pages — shared backbone", () => {
-  it("header routes to /platform /pillars /monetize /stars /faq", async () => {
-    const hdr = await readWebFile("src/components/chrome/SiteHeader.tsx");
-    for (const path of ["/platform", "/pillars", "/monetize", "/stars", "/faq"]) {
-      assert.match(hdr, new RegExp(path.replace("/", "\\/")));
-    }
-  });
-
-  it("SubPage mirrors home scroll architecture (domes + sections + footer)", async () => {
-    const tsx = await readWebFile("src/components/page/SubPage.tsx");
-    assert.match(tsx, /HomePage\.module\.css/);
-    assert.match(tsx, /SiteFooter/);
-    assert.match(tsx, /heroDomeHost/);
-    assert.match(tsx, /pillarsDomeHost/);
-    assert.match(tsx, /monetizeDomeHost/);
-    assert.match(tsx, /pillarsBand/);
-    assert.match(tsx, /monetizeBand/);
-    assert.match(tsx, /data-scroll-fill/);
-    assert.match(tsx, /data-theme-section/);
-    // Same section count spirit as home (≥7 theme sections + footer)
-    const themes = (tsx.match(/data-theme-section=/g) || []).length;
-    assert.ok(themes >= 7, `expected ≥7 theme sections, got ${themes}`);
   });
 });

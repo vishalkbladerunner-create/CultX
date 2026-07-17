@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test src/lib/background/stages.test.ts src/lib/wordmark/grid.test.ts"
+    "test": "tsx --test src/lib/background/stages.test.ts src/lib/wordmark/grid.test.ts src/lib/site/pages.test.ts"
   },
   "dependencies": {
     "gsap": "^3.15.0",

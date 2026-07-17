@@ -1,7 +1,7 @@
 /**
  * Pure helpers for CultK footer wordmark technical overlay.
  *
- * Port of reference wordmark canvas (reference):
+ * Port of reference LogoCanvas (scrap _nuxt/CfV00Epg.js):
  *   - 3 nearest grid-cell centers around cursor (own cell excluded)
  *   - aspect-corrected UV: x_aspect = uv.x * (width/height)
  *

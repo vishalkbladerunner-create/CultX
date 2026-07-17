@@ -1,0 +1,330 @@
+/* Shared section chrome — geometry mirrors HomePage.module.css (ref L01–L09). */
+
+.layout {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+}
+
+/* ---- Hero (full viewport, ref .home-hero stack) ---- */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  min-height: 100lvh;
+  padding-top: calc(110px + var(--ck-layout-margin));
+  padding-bottom: 24px;
+  color: var(--ck-off-white);
+  overflow: visible;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Percentage-only dome host — safe on any page length (spec D6). */
+.heroDomeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 130%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (min-width: 800px) {
+  .heroDomeHost {
+    height: 110%;
+  }
+}
+
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, black 72%, transparent 97%);
+}
+
+.heroContent {
+  margin: 0 var(--ck-layout-margin);
+  max-width: 720px;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+/* Per-format accent eyebrows (one accent family per region) */
+.eyebrow[data-accent="cyan"] { color: var(--ck-accent-cyan); }
+.eyebrow[data-accent="magenta"] { color: var(--ck-magenta); }
+.eyebrow[data-accent="purple"] { color: var(--ck-purple-300); }
+.eyebrow[data-accent="orange"] { color: var(--ck-accent-orange); }
+.eyebrow[data-accent="gold"] { color: var(--ck-accent-gold); }
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: var(--ck-h3-size);
+  font-weight: 400;
+  letter-spacing: var(--ck-h3-tracking);
+  line-height: var(--ck-h3-leading);
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .heroTitle {
+    font-size: var(--ck-h1-size);
+    letter-spacing: var(--ck-h1-tracking);
+    line-height: var(--ck-h1-leading);
+  }
+}
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 34px;
+}
+
+.heroFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 64px var(--ck-layout-margin) 0;
+}
+
+@media (min-width: 800px) {
+  .heroFooter {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.heroMeta {
+  margin: 0;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-off-white);
+}
+
+.heroBlurb {
+  margin: 0;
+  max-width: 380px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}
+
+/* ---- Section heading (eyebrow + H2 + optional lede, L03 dashed top) ---- */
+
+.sectionHeadWrap {
+  position: relative;
+}
+
+.sectionHead {
+  position: relative;
+  padding-top: 28px;
+  margin-bottom: 40px;
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+  line-height: 1.05;
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .h2 {
+    font-size: var(--ck-h2-size);
+    letter-spacing: var(--ck-h2-tracking);
+    line-height: var(--ck-h2-leading);
+  }
+}
+
+.h3 {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .h3 {
+    font-size: var(--ck-h3-size);
+    letter-spacing: var(--ck-h3-tracking);
+    line-height: var(--ck-h3-leading);
+  }
+}
+
+.lede {
+  margin: 0;
+  max-width: 620px;
+  font-size: var(--ck-lede-size);
+  font-weight: 500;
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
+}
+
+.body {
+  margin: 0;
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+}
+
+.lineTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--ck-stroke-light-subtle);
+}
+
+.lineBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--ck-stroke-light-subtle);
+}
+
+/* ---- Corner pins (L02) ---- */
+
+.hasPinTopLeft,
+.hasPinBottomRight {
+  position: relative;
+}
+
+.hasPinTopLeft::before,
+.hasPinBottomRight::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--ck-purple-300);
+  pointer-events: none;
+}
+
+.hasPinTopLeft::before {
+  top: -3px;
+  left: 0;
+}
+
+.hasPinBottomRight::after {
+  bottom: 0;
+  right: 0;
+}
+
+/* ---- CTA band ---- */
+
+.ctaBand {
+  position: relative;
+  padding: 14vh 0;
+  overflow: visible;
+}
+
+.ctaInner {
+  position: relative;
+  padding: 56px 0 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+}
+
+.ctaBody {
+  margin: 0;
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+}
+
+/* ---- Card (pins + dashed base, optional accent) ---- */
+
+.card {
+  padding: 26px 22px 30px;
+  background: var(--ck-white-5);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid transparent;
+}
+
+.card[data-accent="cyan"] {
+  border-top-color: var(--ck-accent-cyan);
+}
+
+.card[data-accent="magenta"] {
+  border-top-color: var(--ck-magenta);
+}
+
+.card[data-accent="purple"] {
+  border-top-color: var(--ck-neon-purple);
+}
+
+.card[data-accent="orange"] {
+  border-top-color: var(--ck-accent-orange);
+}
+
+.card[data-accent="gold"] {
+  border-top-color: var(--ck-accent-gold);
+}
+
+.cardNum {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.08em;
+  color: var(--ck-off-white);
+}
+
+.cardTitle {
+  margin: 18px 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  line-height: 1.2;
+  color: var(--ck-off-white);
+}
+
+.cardBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+}
+
+/* ---- Small-type disclaimer (mandatory legal lines) ---- */
+
+.disclaimer {
+  margin: 24px 0 0;
+  max-width: 640px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  opacity: 0.75;
+}

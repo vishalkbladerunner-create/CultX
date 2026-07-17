@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { SubPage } from "@/components/page/SubPage";
+import { FaqPage } from "@/components/pages/faq/FaqPage";
 
 export const metadata: Metadata = {
   title: "FAQ — CultK",
-  description: "Frequently asked questions about the CultK platform.",
+  description:
+    "What CultK is, how creators earn, star IPs, the Gangnam AI Center, and how to join the waitlist.",
 };
 
-export default function FaqPage() {
-  return (
-    <SubPage
-      title="FAQ"
-      eyebrow="Answers"
-      description="Common questions about CultK. Placeholder page — full FAQ content next (home still carries the accordion)."
-    />
-  );
+export default function Page() {
+  return <FaqPage />;
 }

@@ -105,7 +105,7 @@
 /* Newsletter column — ref .footer-newsletter */
 .newsTitle {
   margin: 0 0 26px;
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-body);
   font-size: 24px;
   font-weight: 500;
   letter-spacing: -0.24px;
@@ -121,7 +121,7 @@
 /* Listing block — ref .nasdaq-content (CultK placeholder) */
 .listingLogo {
   margin: 0;
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-body);
   font-size: 26px;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -205,7 +205,7 @@
   position: relative;
   display: block;
   width: max-content;
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-body);
   font-size: 19px;
   font-weight: 500;
   line-height: 1.35;

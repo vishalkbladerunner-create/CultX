@@ -11,8 +11,8 @@ import {
 } from "@/lib/wordmark/grid";
 
 /**
- * CultK footer wordmark — SVG/CSS/rAF port of reference wordmark canvas
- * (reference).
+ * CultK footer wordmark — SVG/CSS/rAF port of reference LogoCanvas
+ * (scrap CfV00Epg.js + SiteFooter pointer wiring via graphify).
  *
  * Hit area (ref: pointer on whole footer, not just canvas):
  *   - shell extends up through the dashed line above the wordmark

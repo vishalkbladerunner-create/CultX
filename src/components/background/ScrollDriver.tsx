@@ -128,6 +128,61 @@ export function ScrollDriver() {
         );
       });
 
+      /* ---- M11 — staggered list reveals: direct children of [data-stagger] ---- */
+      gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((wrap) => {
+        const items = Array.from(wrap.children) as HTMLElement[];
+        if (!items.length) return;
+        if (reduced) {
+          gsap.set(items, { autoAlpha: 1, y: 0 });
+          return;
+        }
+        gsap.fromTo(
+          items,
+          { autoAlpha: 0, y: 24 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "power2.out",
+            stagger: 0.08,
+            scrollTrigger: { trigger: wrap, start: "top 82%" },
+          }
+        );
+      });
+
+      /* ---- M09 — journey scrolly: sticky stage frames crossfade per step ---- */
+      const journey = document.querySelector<HTMLElement>("[data-journey]");
+      if (journey && !reduced) {
+        const frames = gsap.utils.toArray<HTMLElement>(
+          "[data-journey-frame]",
+          journey
+        );
+        const steps = gsap.utils.toArray<HTMLElement>(
+          "[data-journey-step]",
+          journey
+        );
+        if (frames.length && steps.length) {
+          gsap.set(frames, { autoAlpha: 0 });
+          gsap.set(frames[0], { autoAlpha: 1 });
+          steps.forEach((step, i) => {
+            const show = () =>
+              gsap.to(frames, {
+                autoAlpha: (f) => (f === i ? 1 : 0),
+                duration: 0.4,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+            ScrollTrigger.create({
+              trigger: step,
+              start: "top 55%",
+              end: "bottom 55%",
+              onEnter: show,
+              onEnterBack: show,
+            });
+          });
+        }
+      }
+
       /* ---- M07 — scroll-scrubbed word fill ---- */
       gsap.utils.toArray<HTMLElement>("[data-scroll-fill]").forEach((block) => {
         const words = block.querySelectorAll<HTMLElement>("[data-fill-word]");
@@ -173,7 +228,7 @@ export function ScrollDriver() {
       }
 
       /*
-       * Footer wordmark slide-in — exact footer wordmark DNA:
+       * Footer wordmark slide-in — exact SiteFooter DNA (CfV00Epg.js):
        *   gsap.set(placeholder, { y: 200 })
        *   gsap.to(placeholder, { y: 0 })
        *   ScrollTrigger: trigger=wordmark-wrapper,
@@ -204,9 +259,21 @@ export function ScrollDriver() {
       }
     });
 
-    const t1 = window.setTimeout(() => ScrollTrigger.refresh(), 50);
-    const t2 = window.setTimeout(() => ScrollTrigger.refresh(), 300);
-    const t3 = window.setTimeout(() => ScrollTrigger.refresh(), 1200);
+    /*
+     * Route change = new page height. Lenis caches its scroll `limit`
+     * internally, so without an explicit resize it clamps wheel scrolling
+     * to the PREVIOUS page's height (users got "stuck" before the bottom
+     * on any page longer than the one they came from). Recalculate on
+     * every navigation and again after content settles.
+     */
+    window.__lenis?.resize();
+    const refreshAll = () => {
+      window.__lenis?.resize();
+      ScrollTrigger.refresh();
+    };
+    const t1 = window.setTimeout(refreshAll, 50);
+    const t2 = window.setTimeout(refreshAll, 300);
+    const t3 = window.setTimeout(refreshAll, 1200);
 
     return () => {
       window.clearTimeout(t1);

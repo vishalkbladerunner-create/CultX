@@ -1,7 +1,7 @@
 /**
- * Pure math for scroll-driven GradientBgDark parallax.
+ * Pure math for SharpLink-style GradientBgDark parallax.
  *
- * Reference (reference):
+ * Reference (scrap GradientBgDark):
  *   top:    scale = initialScale - progress * parallaxSpeed
  *   bottom: scale = initialScale + progress * parallaxSpeed
  *   defaults: initialScale=1.3, parallaxSpeed=0.8
@@ -30,8 +30,8 @@ export function damp(
 }
 
 /**
- * Defaults — reference GradientBgDark exact values (verified in reference
- * `_nuxt/dome parallax module`: props parallaxSpeed 0.8, parallaxInitialScale 1.3).
+ * Defaults — reference GradientBgDark exact values (verified in scrap
+ * `_nuxt/C167zuj8.js`: props parallaxSpeed 0.8, parallaxInitialScale 1.3).
  */
 export const DOME_DEFAULTS = {
   parallaxInitialScale: 1.3,

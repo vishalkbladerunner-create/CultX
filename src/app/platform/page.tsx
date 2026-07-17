@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { SubPage } from "@/components/page/SubPage";
+import { PlatformPage } from "@/components/pages/platform/PlatformPage";
 
 export const metadata: Metadata = {
   title: "Platform — CultK",
   description:
-    "CultK platform overview — AI-native IP creation and monetization.",
+    "Create IP → publish → grow → engage → monetize. One platform for AI entertainment and CultX earn paths.",
 };
 
-export default function PlatformPage() {
-  return (
-    <SubPage
-      title="Platform"
-      eyebrow="Create · Publish · Grow · Earn"
-      description="The all-in-one CultK platform loop. Placeholder page — product sections will land here."
-    />
-  );
+export default function Page() {
+  return <PlatformPage />;
 }

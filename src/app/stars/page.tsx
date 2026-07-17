@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { SubPage } from "@/components/page/SubPage";
+import { StarsPage } from "@/components/pages/stars/StarsPage";
 
 export const metadata: Metadata = {
   title: "Star IPs — CultK",
-  description: "CultK star IPs — Pucca, B.Duck, Ponke, Mew, and more.",
+  description:
+    "Iconic characters on CultK: Pucca, B.Duck, Ponke, Mew — plus USDT cards, IP robots, and merch.",
 };
 
-export default function StarsPage() {
-  return (
-    <SubPage
-      title="Star IPs"
-      eyebrow="Partners & legends"
-      description="Pucca, B.Duck, Ponke, Mew — and more to come. Placeholder page — partner stories next."
-    />
-  );
+export default function Page() {
+  return <StarsPage />;
 }

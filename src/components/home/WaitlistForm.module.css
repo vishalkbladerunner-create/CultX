@@ -43,7 +43,7 @@
   outline: none;
   background: transparent;
   color: var(--ck-off-white);
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-body);
   font-size: 19px;
   font-weight: 500;
   line-height: 1.35;
@@ -136,7 +136,7 @@
 
 .success {
   margin: 0;
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-body);
   font-size: 19px;
   font-weight: 500;
   line-height: 1.35;

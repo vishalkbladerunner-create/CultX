@@ -4,7 +4,7 @@
  * Every class here replaces a PNG/AVIF with code (verified feasible via
  * MDN gradient + mask-image docs). Stops are pixel-measured from the
  * brand poppy assets in /public/images (which were hue-shifted from the
- * Atmosphere ramp —  §1).
+ * SharpLink reference ramp — see cult/doc/reference-ingredients/01 §1).
  *
  * Why code over images:
  *   - colors are tokens → recolor = edit one variable

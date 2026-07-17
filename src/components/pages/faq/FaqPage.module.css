@@ -1,0 +1,31 @@
+.main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Short page: one content section, compact rhythm */
+.section {
+  position: relative;
+  padding: 12vh 0 16vh;
+  overflow: visible;
+}
+
+.groups {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  margin-top: 6vh;
+  max-width: 860px;
+}
+
+.groupTitle {
+  margin: 0 0 20px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-purple-300);
+}

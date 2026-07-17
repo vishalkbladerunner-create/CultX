@@ -1,5 +1,5 @@
 /**
- * CultK footer wordmark — wordmark canvas port (ref SiteFooter pointer + fade).
+ * CultK footer wordmark — LogoCanvas port (ref SiteFooter pointer + fade).
  *
  * Hit shell extends up through the wordmarkZone dashed line (like ref footer
  * receiving pointermove above the canvas). Geometry fades near the top edge
@@ -38,7 +38,7 @@
 }
 
 .wmText {
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-display);
   font-weight: 700;
   font-size: 318px;
   letter-spacing: -0.03em;

@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { SubPage } from "@/components/page/SubPage";
+import { PillarsPage } from "@/components/pages/pillars/PillarsPage";
 
 export const metadata: Metadata = {
-  title: "Pillars — CultK",
+  title: "Four Experiences — CultK",
   description:
-    "Four entertainment pillars: AI Comic, Star IP, Short, and Drama.",
+    "AI Comic / Webtoon, Star IP Universe, AI Short, and AI Drama — every major AI entertainment format on one platform.",
 };
 
-export default function PillarsPage() {
-  return (
-    <SubPage
-      title="Pillars"
-      eyebrow="Four entertainment formats"
-      description="AI Comic / Webtoon, AI Star IP Universe, AI Short, and AI Drama. Placeholder page — format deep-dives next."
-    />
-  );
+export default function Page() {
+  return <PillarsPage />;
 }

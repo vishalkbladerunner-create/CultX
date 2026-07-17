@@ -1,7 +1,7 @@
 /**
  * CultK tokens — purple-first cinema system.
  *
- * Reference mapping (legacy → CultK):
+ * Reference mapping (SharpLink → CultK):
  *   --surface-background #f7f7f5   →  --ck-void #000 (cinema base)
  *   fixed light CSS radial blues   →  fixed purple radial on void (M04)
  *   images/gradient-dark-transparent.png → /images/gradient-purple-poppy-transparent.png
@@ -62,8 +62,8 @@
   --ck-atmo-base: #000000; /* base */
 
   /* ---- Type scale (L09 — reference ladder) ---- */
-  --ck-font-display: var(--font-archivo), "Arial Narrow", Arial, sans-serif;
-  --ck-font-body: var(--font-archivo), Arial, sans-serif;
+  --ck-font-display: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
+  --ck-font-body: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
   --ck-font-label: var(--font-archivo-narrow), "Arial Narrow", sans-serif;
 
   --ck-h1-size: 88px;

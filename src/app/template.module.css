@@ -1,0 +1,26 @@
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ck-z-transition);
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 100% 130% at 50% -30%, var(--ck-atmo-tint) 0%, var(--ck-atmo-mid) 45%, var(--ck-atmo-base) 85%);
+  animation: ck-route-wipe 0.55s var(--ck-ease-in-out-cubic) both;
+}
+
+@keyframes ck-route-wipe {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .veil {
+    animation: none;
+    opacity: 0;
+  }
+}

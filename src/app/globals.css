@@ -19,7 +19,7 @@ body {
 }
 
 body {
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-body);
   overflow-x: clip;
 }
 
@@ -27,7 +27,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-archivo), Arial, sans-serif;
+  font-family: var(--ck-font-display);
 }
 
 ::selection {
