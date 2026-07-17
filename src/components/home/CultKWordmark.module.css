@@ -1,0 +1,181 @@
+/**
+ * CultK footer wordmark — wordmark canvas port (ref SiteFooter pointer + fade).
+ *
+ * Hit shell extends up through the wordmarkZone dashed line (like ref footer
+ * receiving pointermove above the canvas). Geometry fades near the top edge
+ * (ref 0.4×(1−y) + marker y-falloff) so leave feels smooth, not a hard cut.
+ */
+
+/* Expanded hit target: covers the dashed line zone above the glyphs.
+   margin-top pulls into .wordmarkZone padding-top (48px). */
+.shell {
+  position: relative;
+  width: 100%;
+  margin-top: -48px;
+  padding-top: 48px;
+  z-index: 5;
+  /* Clip geometry at the dashed-line edge (shell top) */
+  overflow: hidden;
+  --wm-x: -500px;
+  --wm-y: -500px;
+  --wm-r: 290px;
+}
+
+/* Letter canvas only — bottom ~10% glyph clip */
+.visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 269;
+  overflow: hidden;
+}
+
+.wordmark {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wmText {
+  font-family: var(--font-archivo), Arial, sans-serif;
+  font-weight: 700;
+  font-size: 318px;
+  letter-spacing: -0.03em;
+}
+
+.solid {
+  mask-image: radial-gradient(
+    circle var(--wm-r) at var(--wm-x) var(--wm-y),
+    transparent 0%,
+    transparent 18%,
+    rgba(0, 0, 0, 0.18) 45%,
+    rgba(0, 0, 0, 0.65) 72%,
+    black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--wm-r) at var(--wm-x) var(--wm-y),
+    transparent 0%,
+    transparent 18%,
+    rgba(0, 0, 0, 0.18) 45%,
+    rgba(0, 0, 0, 0.65) 72%,
+    black 100%
+  );
+}
+
+.dotted {
+  opacity: 0;
+  /* Smooth hide when data-hover clears (ref soft leave feel) */
+  transition: opacity 0.55s var(--ck-ease-out-cubic);
+  mask-image: radial-gradient(
+    circle var(--wm-r) at var(--wm-x) var(--wm-y),
+    black 0%,
+    black 18%,
+    rgba(0, 0, 0, 0.82) 45%,
+    rgba(0, 0, 0, 0.35) 72%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--wm-r) at var(--wm-x) var(--wm-y),
+    black 0%,
+    black 18%,
+    rgba(0, 0, 0, 0.82) 45%,
+    rgba(0, 0, 0, 0.35) 72%,
+    transparent 100%
+  );
+}
+
+.shell[data-hover] .dotted {
+  opacity: 0.78;
+}
+
+.wmDots {
+  fill: none;
+  stroke: rgb(220 210 240 / 0.78);
+  stroke-width: 2;
+  stroke-dasharray: 0.2 7.5;
+  stroke-linecap: round;
+  paint-order: stroke;
+}
+
+/*
+ * Technical overlay: full width of shell (L/R edges), aligned with visual.
+ * Only a hairline fade (~5px) at the very top edge — not a tall dissolve band.
+ */
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 48px; /* align with .visual (after shell padding) */
+  width: 100%;
+  aspect-ratio: 1440 / 269;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.55s var(--ck-ease-out-cubic);
+  /* ~5px top edge only */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 5px,
+    black 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 5px,
+    black 100%
+  );
+}
+
+.shell[data-hover] .overlay {
+  opacity: 1;
+}
+
+.tri {
+  fill: none;
+  stroke: rgb(236 228 255 / 0.82);
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5.5;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Slightly brighter than 0.4 base — user asked for a little more presence */
+.sq {
+  fill: none;
+  stroke: rgb(236 228 255 / 0.88);
+  stroke-width: 1.25;
+  stroke-dasharray: none;
+  vector-effect: non-scaling-stroke;
+  transition: opacity 0.35s var(--ck-ease-out-cubic);
+}
+
+.marker {
+  position: absolute;
+  top: 48px; /* same origin as visual / overlay */
+  left: 0;
+  margin-left: -27px;
+  margin-top: 17px;
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: rgb(220 210 240 / 0.68);
+  pointer-events: none;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  transition: opacity 0.35s var(--ck-ease-out-cubic);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dotted,
+  .overlay {
+    display: none;
+  }
+  .dotted,
+  .overlay,
+  .sq,
+  .marker {
+    transition: none;
+  }
+}

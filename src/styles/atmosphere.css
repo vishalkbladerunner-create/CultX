@@ -1,0 +1,206 @@
+/**
+ * CultK atmosphere — pure-CSS replicas of the image assets.
+ *
+ * Every class here replaces a PNG/AVIF with code (verified feasible via
+ * MDN gradient + mask-image docs). Stops are pixel-measured from the
+ * brand poppy assets in /public/images (which were hue-shifted from the
+ * Atmosphere ramp —  §1).
+ *
+ * Why code over images:
+ *   - colors are tokens → recolor = edit one variable
+ *   - ~3 MB less payload
+ *   - no banding when paired with .ck-grain (feTurbulence dither)
+ *
+ * Measured source ramps (center column of the poppy PNGs):
+ *   transparent dome: #010102 → #040306 → #140d1e → #261544 → #3b0774
+ *     → #6b009e → #a600c3 → #d800e0 → #f900f6 → #ff00fb, alpha 255→0 (y45→90%)
+ *   opaque dome: same head, hotter tail (#7800a7 → #c200d3 → #f300f2 → #ff00fb),
+ *     alpha holds until ~65% height
+ */
+
+:root {
+  /* Dome ramp — violet/magenta "poppy" family on void black */
+  --ck-dome-0: #010102; /* void */
+  --ck-dome-1: #040306;
+  --ck-dome-2: #140d1e;
+  --ck-dome-3: #261544;
+  --ck-dome-4: #3b0774;
+  --ck-dome-5: #6b009e;
+  --ck-dome-6: #a600c3;
+  --ck-dome-7: #d800e0;
+  --ck-dome-8: #f900f6;
+  --ck-dome-9: #ff00fb; /* hot magenta rim */
+
+  /* Opaque-variant hotter tail */
+  --ck-dome-op-5: #7800a7;
+  --ck-dome-op-6: #c200d3;
+  --ck-dome-op-7: #f300f2;
+
+  /* Vignette tones (measured from heroOverlay-purple-poppy_*) */
+  --ck-vig-edge: rgb(19 12 32); /* #130c20 corners */
+  --ck-vig-mid: rgb(42 7 90); /* #2a075a mid edges */
+  --ck-vig-bottom: rgb(25 14 46); /* #190e2e bottom band */
+  --ck-vig-fill: rgb(89 0 142); /* #59008e investors corner fill */
+  --ck-vig-fill-2: rgb(124 0 169); /* #7c00a9 */
+}
+
+/* ------------------------------------------------------------------ */
+/* Domes — replace gradient-purple-poppy-transparent.png / -poppy.png  */
+/* Use inside a sized host exactly like the <img> version (M05).       */
+/* ------------------------------------------------------------------ */
+
+.ck-dome,
+.ck-dome-opaque {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+}
+
+/* transparent variant — alpha fades across bottom third */
+.ck-dome {
+  background-image: radial-gradient(
+    ellipse 135% 105% at 50% 105%,
+    var(--ck-dome-9) 0%,
+    var(--ck-dome-8) 10%,
+    var(--ck-dome-7) 21%,
+    var(--ck-dome-6) 32%,
+    var(--ck-dome-5) 43%,
+    var(--ck-dome-4) 55%,
+    var(--ck-dome-3) 66%,
+    var(--ck-dome-2) 76%,
+    var(--ck-dome-1) 87%,
+    var(--ck-dome-0) 100%
+  );
+  /* measured alpha: 255→y40, .92→y50, .71→y60, .38→y70, .13→y80, 0→y90 */
+  mask-image: linear-gradient(
+    to bottom,
+    black 40%,
+    rgb(0 0 0 / 0.92) 50%,
+    rgb(0 0 0 / 0.71) 60%,
+    rgb(0 0 0 / 0.38) 70%,
+    rgb(0 0 0 / 0.13) 80%,
+    transparent 90%
+  );
+}
+
+/* opaque variant — no early fade, hotter magenta tail, soft bottom edge */
+.ck-dome-opaque {
+  background-image: radial-gradient(
+    ellipse 135% 105% at 50% 105%,
+    var(--ck-dome-9) 0%,
+    var(--ck-dome-9) 11%,
+    var(--ck-dome-op-7) 21%,
+    var(--ck-dome-op-6) 32%,
+    var(--ck-dome-op-5) 43%,
+    var(--ck-dome-4) 55%,
+    var(--ck-dome-3) 66%,
+    var(--ck-dome-2) 76%,
+    var(--ck-dome-1) 87%,
+    var(--ck-dome-0) 100%
+  );
+  /* measured alpha: holds to ~65%, .62→y70, .29→y80, .08→y90, 0→y98 */
+  mask-image: linear-gradient(
+    to bottom,
+    black 65%,
+    rgb(0 0 0 / 0.62) 72%,
+    rgb(0 0 0 / 0.29) 82%,
+    rgb(0 0 0 / 0.08) 91%,
+    transparent 98%
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero vignettes — replace heroOverlay-purple-poppy_*.png             */
+/* Dark edge mask + clear window where hero media shows through.       */
+/* Layer 1 (last) = base tint, layer 2+ = window carve / extra fill.   */
+/* ------------------------------------------------------------------ */
+
+.ck-vignette,
+.ck-vignette-home,
+.ck-vignette-about,
+.ck-vignette-investors {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* home: window center-right (α0 at ~x56% y47%), edge α up to .78 */
+.ck-vignette-home {
+  background:
+    radial-gradient(
+      ellipse 68% 58% at 56% 47%,
+      transparent 38%,
+      rgb(19 12 32 / 0.78) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(19 12 32 / 0.66) 0%,
+      rgb(42 7 90 / 0.32) 32%,
+      rgb(42 7 90 / 0.18) 55%,
+      rgb(25 14 46 / 0.6) 100%
+    );
+}
+
+/* about: window on right half (α0 for x>60%, lower half) */
+.ck-vignette-about {
+  background:
+    radial-gradient(
+      ellipse 85% 95% at 95% 65%,
+      transparent 48%,
+      rgb(19 12 32 / 0.72) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgb(20 13 33 / 0.72) 0%,
+      rgb(41 7 88 / 0.4) 32%,
+      rgb(41 7 88 / 0.12) 55%,
+      transparent 75%
+    );
+}
+
+/* investors: window center + heavy magenta fill bottom-right */
+.ck-vignette-investors {
+  background:
+    radial-gradient(
+      ellipse 52% 55% at 97% 88%,
+      rgb(89 0 142 / 0.92) 0%,
+      rgb(124 0 169 / 0.55) 45%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 62% 55% at 50% 50%,
+      transparent 40%,
+      rgb(19 12 32 / 0.74) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(19 12 32 / 0.64) 0%,
+      rgb(42 7 90 / 0.3) 32%,
+      rgb(25 14 46 / 0.55) 100%
+    );
+}
+
+/* ------------------------------------------------------------------ */
+/* Grain — anti-banding dither overlay (SVG feTurbulence, zero-dep).   */
+/* Add .ck-grain to any dome/vignette host (needs positioned element). */
+/* ------------------------------------------------------------------ */
+
+.ck-grain {
+  position: relative;
+}
+
+.ck-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* atmosphere is static; nothing to pause — keep grain subtle as-is */
+}

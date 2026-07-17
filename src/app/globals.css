@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/atmosphere.css";
+
+html {
+  scroll-behavior: auto; /* Lenis owns scroll smoothing (M01) */
+  background: var(--ck-void);
+  /* Domes are calc(100% + 200px) by design — clip the bleed, not the story */
+  overflow-x: clip;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--ck-void);
+  color: var(--ck-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-archivo), Arial, sans-serif;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-archivo), Arial, sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--ck-purple-400) 55%, transparent);
+  color: #fff;
+}

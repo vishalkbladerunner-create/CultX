@@ -1,0 +1,104 @@
+/* FAQ accordion — ref .section-faq / .faq-item mechanics (M17) */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  border-top: 1px solid var(--ck-white-10);
+}
+
+.item:last-child {
+  border-bottom: 1px solid var(--ck-white-10);
+}
+
+.question {
+  display: grid;
+  grid-template-columns: 48px 1fr 44px;
+  align-items: center;
+  width: 100%;
+  padding: 22px 0;
+  border: 0;
+  background: none;
+  color: var(--ck-text);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--ck-font-body);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.index {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.08em;
+  color: var(--ck-muted);
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  justify-self: end;
+  color: var(--ck-off-white);
+  background: var(--ck-white-5);
+  transition:
+    transform 0.4s var(--ck-ease-in-out-quad),
+    background-color 0.3s var(--ck-ease-out-quad);
+}
+
+.question:hover .toggle {
+  background: var(--ck-white-10);
+}
+
+.item[data-open] .toggle {
+  transform: rotate(45deg);
+  background: var(--ck-purple-500);
+}
+
+/* height expand — grid rows trick; body fades in slightly delayed (M17) */
+.bodyWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s var(--ck-ease-in-out-quad);
+}
+
+.item[data-open] .bodyWrap {
+  grid-template-rows: 1fr;
+}
+
+.body {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.4s var(--ck-ease-out-quad) 0.08s,
+    transform 0.4s var(--ck-ease-out-quad) 0.08s;
+}
+
+.item[data-open] .body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.body p {
+  margin: 0;
+  padding: 0 56px 26px 48px;
+  max-width: 44rem;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bodyWrap,
+  .body,
+  .toggle {
+    transition: none;
+  }
+}

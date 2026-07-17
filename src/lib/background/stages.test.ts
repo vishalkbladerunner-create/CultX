@@ -1,0 +1,250 @@
+import { describe, it } from "node:test";
+import assert from "node:assert/strict";
+import {
+  clamp01,
+  damp,
+  domeParallaxScale,
+  elementScrollProgress,
+  maxScaleStep,
+  DOME_DEFAULTS,
+  PALETTE,
+  FORBIDDEN_ON_BACKGROUND,
+} from "./stages.ts";
+
+describe("DOME_DEFAULTS — reference GradientBgDark constants", () => {
+  it("matches reference _nuxt/dome parallax module props (1.3 / 0.8)", () => {
+    assert.equal(DOME_DEFAULTS.parallaxInitialScale, 1.3);
+    assert.equal(DOME_DEFAULTS.parallaxSpeed, 0.8);
+  });
+});
+
+describe("domeParallaxScale — reference formula", () => {
+  it("top: starts at initialScale and shrinks with progress", () => {
+    const s0 = domeParallaxScale(0, "top");
+    const s1 = domeParallaxScale(1, "top");
+    assert.equal(s0, DOME_DEFAULTS.parallaxInitialScale);
+    const expected =
+      DOME_DEFAULTS.parallaxInitialScale - DOME_DEFAULTS.parallaxSpeed;
+    assert.ok(Math.abs(s1 - expected) < 1e-9);
+    assert.ok(s1 < s0);
+  });
+
+  it("bottom: starts at initialScale and grows with progress", () => {
+    const s0 = domeParallaxScale(0, "bottom");
+    const s1 = domeParallaxScale(1, "bottom");
+    assert.equal(s0, DOME_DEFAULTS.parallaxInitialScale);
+    const expected =
+      DOME_DEFAULTS.parallaxInitialScale + DOME_DEFAULTS.parallaxSpeed;
+    assert.ok(Math.abs(s1 - expected) < 1e-9);
+    assert.ok(s1 > s0);
+  });
+
+  it("matches mid-progress samples from defaults", () => {
+    assert.ok(Math.abs(domeParallaxScale(0.5, "top") - 0.9) < 1e-9);
+    assert.ok(Math.abs(domeParallaxScale(0.25, "bottom") - 1.5) < 1e-9);
+  });
+
+  it("continuity: fine-grid steps stay small", () => {
+    assert.ok(maxScaleStep("top", 100) < 0.02);
+    assert.ok(maxScaleStep("bottom", 100) < 0.02);
+  });
+});
+
+describe("elementScrollProgress — ref trigger semantics", () => {
+  it("top: 0 when element top at viewport top", () => {
+    const p = elementScrollProgress(
+      { top: 0, bottom: 800, height: 800 },
+      900,
+      "top"
+    );
+    assert.equal(p, 0);
+  });
+
+  it("top: ~1 when element bottom at viewport top", () => {
+    const p = elementScrollProgress(
+      { top: -800, bottom: 0, height: 800 },
+      900,
+      "top"
+    );
+    assert.equal(p, 1);
+  });
+
+  it("top: mid when halfway scrolled past", () => {
+    const p = elementScrollProgress(
+      { top: -400, bottom: 400, height: 800 },
+      900,
+      "top"
+    );
+    assert.ok(Math.abs(p - 0.5) < 1e-9);
+  });
+
+  it("bottom: 0 when element top at viewport bottom", () => {
+    const vh = 900;
+    const p = elementScrollProgress(
+      { top: vh, bottom: vh + 600, height: 600 },
+      vh,
+      "bottom"
+    );
+    assert.equal(p, 0);
+  });
+
+  it("progress is continuous and clamped", () => {
+    let prev = elementScrollProgress(
+      { top: 100, bottom: 900, height: 800 },
+      900,
+      "top"
+    );
+    for (let top = 100; top >= -900; top -= 20) {
+      const cur = elementScrollProgress(
+        { top, bottom: top + 800, height: 800 },
+        900,
+        "top"
+      );
+      assert.ok(cur >= 0 && cur <= 1);
+      assert.ok(cur + 1e-9 >= prev - 0.05);
+      prev = cur;
+    }
+  });
+});
+
+describe("palette constraints", () => {
+  it("wash palette excludes forbidden non-purple / neon fills", () => {
+    const blob = JSON.stringify(PALETTE).toLowerCase();
+    for (const f of FORBIDDEN_ON_BACKGROUND) {
+      assert.equal(blob.includes(f.toLowerCase()), false, f);
+    }
+    assert.ok(blob.includes("#000000"));
+  });
+});
+
+describe("helpers", () => {
+  it("clamp / damp", () => {
+    assert.equal(clamp01(2), 1);
+    let v = 0;
+    for (let i = 0; i < 50; i++) v = damp(v, 1, 10, 1 / 60);
+    assert.ok(v > 0.95);
+  });
+});
+
+/* ------------------------------------------------------------------ */
+/* Shipped-code gates — the live components must carry reference DNA  */
+/* ------------------------------------------------------------------ */
+
+async function readWebFile(rel: string): Promise<string> {
+  const { readFileSync } = await import("node:fs");
+  const { fileURLToPath } = await import("node:url");
+  const { dirname, join } = await import("node:path");
+  const webRoot = join(dirname(fileURLToPath(import.meta.url)), "../../..");
+  return readFileSync(join(webRoot, rel), "utf8");
+}
+
+describe("shipped GradientDome — reference .gradient-bg-dark CSS", () => {
+  it("carries the exact transform / sizing DNA", async () => {
+    const css = await readWebFile(
+      "src/components/background/GradientDome.module.css"
+    );
+    assert.match(css, /--parallax-scale:\s*1\.3/);
+    assert.match(css, /width:\s*calc\(100% \+ 200px\)/);
+    assert.match(css, /translate\(-50%\) scaleY\(var\(--parallax-scale\)\)/);
+    assert.match(css, /rotate\(180deg\)/);
+    assert.match(css, /object-fit:\s*fill/);
+    assert.match(css, /top:\s*-1px/);
+    assert.match(css, /bottom:\s*-1px/);
+  });
+
+  it("ships the poppy transparent dome image (verified reference twin)", async () => {
+    const tsx = await readWebFile(
+      "src/components/background/GradientDome.tsx"
+    );
+    assert.match(tsx, /gradient-purple-poppy-transparent\.png/);
+    assert.match(tsx, /data-dome-position/);
+  });
+});
+
+describe("shipped ScrollDriver — reference motion stack", () => {
+  it("uses reference triggers, Lenis+ScrollTrigger wiring, 29px theme flip", async () => {
+    const src = await readWebFile(
+      "src/components/background/ScrollDriver.tsx"
+    );
+    // M05 triggers (ref GradientBgDark)
+    assert.match(src, /"top top"/);
+    assert.match(src, /"top bottom"/);
+    assert.match(src, /"bottom top"/);
+    assert.match(src, /"bottom center"/);
+    // M03 header theme offset (ref BY-mI6BR.js: "top 29px")
+    assert.match(src, /29/);
+    // M01 Lenis ↔ ScrollTrigger (official integration)
+    assert.match(src, /new Lenis\(\)/);
+    assert.match(src, /ScrollTrigger\.update/);
+    assert.match(src, /lagSmoothing\(0\)/);
+    // Reduced-motion contract (M16)
+    assert.match(src, /prefers-reduced-motion/);
+    // Footer wordmark scrub (SiteFooter reference: y 200→0, scrub 0.8)
+    assert.match(src, /data-wordmark-slide/);
+    assert.match(src, /y:\s*200/);
+    assert.match(src, /scrub:\s*0\.8/);
+    assert.match(src, /"bottom bottom"/);
+  });
+});
+
+describe("shipped HomePage — reference section hosts", () => {
+  it("carries ref dome heights + hero stack + solid banner", async () => {
+    const css = await readWebFile(
+      "src/components/home/HomePage.module.css"
+    );
+    const footerCss = await readWebFile(
+      "src/components/chrome/SiteFooter.module.css"
+    );
+    // Hero dome: 200vh mobile / 110% desktop (ref index=0 + wrapped hero)
+    assert.match(css, /height:\s*200vh/);
+    assert.match(css, /height:\s*110%/);
+    // Monetize dome: 130% mobile (ref opportunity-wrapper)
+    assert.match(css, /height:\s*130%/);
+    // Footer dome lives on shared SiteFooter (backbone for all pages)
+    assert.match(footerCss, /calc\(120% \+ 420px\)/);
+    assert.match(footerCss, /bottom:\s*-2px/);
+    // Hero overlay PNG stack (ref .bg-overlay: background-size 100% 100%)
+    assert.match(css, /heroOverlay-purple-poppy_homepage\.png/);
+    assert.match(css, /background-size:\s*100% 100%/);
+    // Banner is a solid panel above the wash (ref .home-banner)
+    const banner = css.match(/\.banner\s*\{[^}]+\}/)?.[0] ?? "";
+    assert.match(banner, /background:\s*var\(--ck-black\)/);
+    assert.match(banner, /z-index:\s*var\(--ck-z-panel\)/);
+  });
+
+  it("marks every section for the header theme system", async () => {
+    const tsx = await readWebFile("src/components/home/HomePage.tsx");
+    const count = (tsx.match(/data-theme-section=/g) || []).length;
+    assert.ok(count >= 7, `expected ≥7 theme sections, got ${count}`);
+  });
+
+  it("home uses shared SiteFooter backbone", async () => {
+    const tsx = await readWebFile("src/components/home/HomePage.tsx");
+    assert.match(tsx, /SiteFooter/);
+  });
+});
+
+describe("shipped sub-pages — shared backbone", () => {
+  it("header routes to /platform /pillars /monetize /stars /faq", async () => {
+    const hdr = await readWebFile("src/components/chrome/SiteHeader.tsx");
+    for (const path of ["/platform", "/pillars", "/monetize", "/stars", "/faq"]) {
+      assert.match(hdr, new RegExp(path.replace("/", "\\/")));
+    }
+  });
+
+  it("SubPage mirrors home scroll architecture (domes + sections + footer)", async () => {
+    const tsx = await readWebFile("src/components/page/SubPage.tsx");
+    assert.match(tsx, /HomePage\.module\.css/);
+    assert.match(tsx, /SiteFooter/);
+    assert.match(tsx, /heroDomeHost/);
+    assert.match(tsx, /pillarsDomeHost/);
+    assert.match(tsx, /monetizeDomeHost/);
+    assert.match(tsx, /pillarsBand/);
+    assert.match(tsx, /monetizeBand/);
+    assert.match(tsx, /data-scroll-fill/);
+    assert.match(tsx, /data-theme-section/);
+    // Same section count spirit as home (≥7 theme sections + footer)
+    const themes = (tsx.match(/data-theme-section=/g) || []).length;
+    assert.ok(themes >= 7, `expected ≥7 theme sections, got ${themes}`);
+  });
+});

@@ -1,0 +1,32 @@
+/**
+ * Fixed full-viewport atmosphere — 1:1 geometry with reference
+ * `.gradient-bg-light` (M04): radial-gradient(ellipse 100% 130% at 50% -30%).
+ *
+ * Reference pools pale blue from above the fold over a warm paper base.
+ * CultK pools deep purple over void black — same role, brand palette
+ * (cult/doc/cultk-color-system.md: atmosphere = purple family only).
+ *
+ * Always mounted, behind everything (z 0). Section domes and panels scroll
+ * through it; the body color never recolors per frame.
+ */
+
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ck-z-atmosphere);
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--ck-atmo-base);
+}
+
+/* Ref geometry: ellipse 100% 130% at 50% -30%, tint 45% → mid 85% → base */
+.wash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 100% 130% at 50% -30%,
+    var(--ck-atmo-tint) 45%,
+    var(--ck-atmo-mid) 85%,
+    var(--ck-atmo-base)
+  );
+}

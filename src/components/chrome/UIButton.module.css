@@ -1,0 +1,105 @@
+/**
+ * Split CTA button — rebuilt from reference `.ui-button` rules
+ * (reference).
+ *
+ * Anatomy: [ label cell ][ square icon tile ]
+ * Both cells hold two stacked copies; hover slides the stack up 100%.
+ * Variants: primary (filled) / secondary (outline). Colors read from the
+ * nearest theme context: dark sections → off-white text, accent tile.
+ */
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: 2px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0 22px;
+  height: 44px;
+  white-space: nowrap;
+  transition:
+    color 0.35s var(--ck-ease-out-quad),
+    background-color 0.35s var(--ck-ease-out-quad),
+    border-color 0.35s var(--ck-ease-out-quad);
+}
+
+.content > span {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  transition: transform 0.45s var(--ck-ease-in-out-quart);
+}
+
+/* Icon tile: ref .ui-button > .icon — column stack, each child height:100% */
+.icon {
+  display: flex;
+  flex-direction: column;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  transition:
+    color 0.35s var(--ck-ease-out-quad),
+    background-color 0.35s var(--ck-ease-out-quad);
+}
+
+.icon > span {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.45s var(--ck-ease-in-out-quart);
+}
+
+/* Hover: vertical dual swap (M12) — full-tile ±100% on all stack children */
+.button:hover .content > span,
+.button:hover .icon > span {
+  transform: translateY(-100%);
+}
+
+/* ---- Variants (theme-dark context: light controls on dark field) ---- */
+
+.primary .content {
+  color: var(--ck-void);
+  background: var(--ck-off-white);
+}
+.primary .icon {
+  color: var(--ck-off-white);
+  background: var(--ck-purple-500);
+}
+.primary:hover .icon {
+  background: var(--ck-purple-400);
+}
+
+.secondary .content {
+  color: var(--ck-off-white);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ck-white-20);
+}
+.secondary:hover .content {
+  box-shadow: inset 0 0 0 1px var(--ck-white-40);
+  background: var(--ck-white-5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content > span,
+  .icon > span {
+    transition: none;
+  }
+}

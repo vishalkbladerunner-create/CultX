@@ -1,0 +1,70 @@
+/* Back-to-top — ref .back-to-top (13px Narrow uppercase, arrow tile) */
+
+.wrap {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 40px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 1.04px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--ck-off-white);
+}
+
+@media (min-width: 800px) {
+  .wrap {
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 0;
+  }
+}
+
+/* Full-height dual stack in clipped 44px tile (ref .ui-button > .icon):
+   flex-column + each child height:100% so ±100% is tile-relative, not glyph-relative.
+   Only one arrow paints at rest AND on hover. */
+.cta {
+  display: flex;
+  flex-direction: column;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  cursor: pointer;
+  color: var(--ck-off-white);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--ck-white-20);
+  overflow: hidden;
+  transition:
+    box-shadow 0.3s var(--ck-ease-out-quad),
+    background-color 0.3s var(--ck-ease-out-quad);
+}
+
+.cta:hover {
+  box-shadow: inset 0 0 0 1px var(--ck-white-40);
+  background: var(--ck-white-5);
+}
+
+.cta > span {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.45s var(--ck-ease-in-out-quart);
+}
+
+/* Both stack children slide up one full tile height on hover */
+.cta:hover > span {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta > span {
+    transition: none;
+  }
+}

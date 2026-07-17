@@ -1,0 +1,459 @@
+/**
+ * CultK home — section architecture rebuilt from the reference home route
+ * (reference).
+ *
+ * Scroll color story (all image-driven, like the reference):
+ *   hero poster + overlay → hero dome tail → wash → pillars dome field
+ *   → solid void banner → monetize dome → wash → footer dome.
+ *
+ * Dome hosts carry the reference heights; the dome image fills them (M05).
+ * Sections with domes stay overflow:visible — domes bleed past section edges
+ * by design (width: calc(100% + 200px), centered).
+ */
+
+.main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.layout {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+}
+
+/* ---------------------------------------------------------------- */
+/* 1. HERO — ref .home-hero: 100vh, space-between, stack z0→z2      */
+/* ---------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  min-height: 100lvh;
+  padding-top: calc(110px + var(--ck-layout-margin));
+  padding-bottom: 24px;
+  color: var(--ck-off-white);
+  overflow: visible; /* dome tail must paint past the hero fold */
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Top dome — ref heights: 200vh mobile / 110% desktop */
+.heroDomeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (min-width: 800px) {
+  .heroDomeHost {
+    height: 110%;
+  }
+}
+
+/* z1 — hero overlay vignette (ref .bg-overlay; poppy twin of
+   heroOverlay_homepage: dark edges α150–200, clear window center-right).
+   Extends over the full dome host and mask-fades out with the dome tail —
+   no seam at the hero fold (one continuous canvas into the next section). */
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 1;
+  background-image: url("/images/heroOverlay-purple-poppy_homepage.png");
+  background-size: 100% 100%;
+  background-position: 50%;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, black 72%, transparent 97%);
+}
+
+.heroContent {
+  margin: 0 var(--ck-layout-margin);
+  max-width: 640px;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: var(--ck-h3-size);
+  font-weight: 400;
+  letter-spacing: var(--ck-h3-tracking);
+  line-height: var(--ck-h3-leading);
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .heroTitle {
+    font-size: var(--ck-h1-size);
+    letter-spacing: var(--ck-h1-tracking);
+    line-height: var(--ck-h1-leading);
+  }
+}
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 34px;
+}
+
+.heroFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 64px var(--ck-layout-margin) 0;
+}
+
+@media (min-width: 800px) {
+  .heroFooter {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.heroMeta {
+  margin: 0;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-off-white);
+}
+
+.heroBlurb {
+  margin: 0;
+  max-width: 380px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* Editorial sections (wash zones) — ref .layout rhythm             */
+/* ---------------------------------------------------------------- */
+
+.section {
+  position: relative;
+  padding: 18vh 0;
+  overflow: visible;
+}
+
+.sectionHead {
+  position: relative;
+  padding-top: 28px;
+  margin-bottom: 40px;
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+  line-height: 1.05;
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .h2 {
+    font-size: var(--ck-h2-size);
+    letter-spacing: var(--ck-h2-tracking);
+    line-height: var(--ck-h2-leading);
+  }
+}
+
+.lede {
+  margin: 0;
+  max-width: 620px;
+  font-size: var(--ck-lede-size);
+  font-weight: 500;
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
+}
+
+/* Dashed line anchored to a section head top (L03) */
+.lineTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--ck-stroke-light-subtle);
+}
+
+/* Corner pins — L02 (6px technical markers) */
+.hasPinTopLeft,
+.hasPinBottomRight {
+  position: relative;
+}
+
+.hasPinTopLeft::before,
+.hasPinBottomRight::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--ck-purple-300);
+  pointer-events: none;
+}
+
+.hasPinTopLeft::before {
+  top: -3px;
+  left: 0;
+}
+
+.hasPinBottomRight::after {
+  bottom: 0;
+  right: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* 3. PILLARS — tall band; bottom dome fills 100% (ref propositions) */
+/* ---------------------------------------------------------------- */
+
+.pillarsBand {
+  position: relative;
+  padding: 22vh 0 20vh;
+  overflow: visible;
+}
+
+.pillarsDomeHost {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pillarList {
+  position: relative;
+  z-index: var(--ck-z-content);
+  list-style: none;
+  margin: 8vh 0 0;
+  padding: 0;
+}
+
+.pillarRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  padding: 44px 0 52px;
+}
+
+.pillarNum {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.08em;
+  color: var(--ck-off-white);
+  padding-top: 10px;
+}
+
+.pillarTitle {
+  margin: 0 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--ck-off-white);
+}
+
+@media (min-width: 800px) {
+  .pillarTitle {
+    font-size: var(--ck-h4-size);
+    letter-spacing: var(--ck-h4-tracking);
+    line-height: var(--ck-h4-leading);
+  }
+}
+
+.pillarBody {
+  margin: 0;
+  max-width: 480px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ck-muted);
+}
+
+.lineRow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--ck-stroke-light-subtle);
+}
+
+/* ---------------------------------------------------------------- */
+/* 4. BANNER — solid void panel (ref .home-banner: black, z 2)       */
+/* ---------------------------------------------------------------- */
+
+.banner {
+  position: relative;
+  z-index: var(--ck-z-panel);
+  background: var(--ck-black);
+  padding: 16vh 0;
+  overflow: visible;
+}
+
+.bannerManifesto {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: -1.2px;
+  line-height: 1.02;
+  color: var(--ck-off-white);
+}
+
+@media (min-width: 800px) {
+  .bannerManifesto {
+    font-size: var(--ck-h2-size);
+    letter-spacing: var(--ck-h2-tracking);
+  }
+}
+
+.fillWord {
+  display: inline-block;
+  margin-right: 0.28em;
+}
+
+.bannerSub {
+  margin: 28px 0 0;
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* 5. MONETIZE — top dome 130% mobile / 110% desktop (ref opportunity) */
+/* ---------------------------------------------------------------- */
+
+.monetizeBand {
+  position: relative;
+  padding: 26vh 0 20vh;
+  overflow: visible;
+}
+
+.monetizeDomeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 130%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (min-width: 800px) {
+  .monetizeDomeHost {
+    height: 110%;
+  }
+}
+
+.earnGrid {
+  position: relative;
+  z-index: var(--ck-z-content);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .earnGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.earnCard {
+  padding: 26px 22px 30px;
+  background: var(--ck-white-5);
+  backdrop-filter: blur(6px);
+}
+
+.earnTitle {
+  margin: 18px 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  line-height: 1.2;
+  color: var(--ck-off-white);
+}
+
+.earnBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* 6. STAR IPs                                                       */
+/* ---------------------------------------------------------------- */
+
+.starGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 800px) {
+  .starGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.starCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 180px;
+  justify-content: flex-end;
+  padding: 20px;
+  background: var(--ck-white-5);
+}
+
+.starName {
+  font-family: var(--ck-font-display);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: var(--ck-off-white);
+}
+
+.starNote {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+

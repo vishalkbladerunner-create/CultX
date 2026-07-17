@@ -1,0 +1,151 @@
+/* Waitlist form — ref .newsletter-form: transparent 19px input,
+   secondary outline CTA + arrow tile, dashed line under the form */
+
+.form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 66px;
+  padding-bottom: 28px;
+}
+
+@media (min-width: 800px) {
+  .form {
+    padding-bottom: 0;
+    padding-right: 28px;
+  }
+}
+
+/* dashed technical line under the form (ref .line.bottom) */
+.form::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--ck-stroke-light-subtle) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.inputWrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--ck-off-white);
+  font-family: var(--font-archivo), Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.input::placeholder {
+  color: var(--ck-off-white);
+  opacity: 0.4;
+}
+
+/* secondary outline CTA (ref .ui-button.secondary.form-cta) */
+.submit {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 2px;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ck-off-white);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  height: 44px;
+  padding: 0 22px;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px var(--ck-white-20);
+  transition: box-shadow 0.3s var(--ck-ease-out-quad);
+}
+
+.submit:hover .label {
+  box-shadow: inset 0 0 0 1px var(--ck-white-40);
+}
+
+.label > span {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  transition: transform 0.45s var(--ck-ease-in-out-quart);
+}
+
+.submit:hover .label > span {
+  transform: translateY(-100%);
+}
+
+/* Full-height dual stack inside clipped icon tile (ref .ui-button > .icon):
+   flex-column + each child height:100% so translateY(±100%) is relative to
+   the 44px tile — never the 16px glyph. Only one arrow paints at rest AND hover. */
+.iconTile {
+  display: flex;
+  flex-direction: column;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--ck-white-20);
+  transition:
+    box-shadow 0.3s var(--ck-ease-out-quad),
+    background-color 0.3s var(--ck-ease-out-quad);
+}
+
+.submit:hover .iconTile {
+  background: var(--ck-white-5);
+  box-shadow: inset 0 0 0 1px var(--ck-white-40);
+}
+
+.iconTile > span {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.45s var(--ck-ease-in-out-quart);
+}
+
+/* Both stack children slide up one full tile height on hover */
+.submit:hover .iconTile > span {
+  transform: translateY(-100%);
+}
+
+.success {
+  margin: 0;
+  font-family: var(--font-archivo), Arial, sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ck-off-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .label > span,
+  .iconTile > span {
+    transition: none;
+  }
+}

@@ -1,0 +1,131 @@
+/**
+ * CultK tokens — purple-first cinema system.
+ *
+ * Reference mapping (legacy → CultK):
+ *   --surface-background #f7f7f5   →  --ck-void #000 (cinema base)
+ *   fixed light CSS radial blues   →  fixed purple radial on void (M04)
+ *   images/gradient-dark-transparent.png → /images/gradient-purple-poppy-transparent.png
+ *   images/heroOverlay_*.avif      →  /images/heroOverlay-purple-poppy_*.png
+ *
+ * Wash discipline: void black + purple/magenta family only (see
+ * cult/doc/cultk-color-system.md). Neon/cyan/orange/gold reserved for UI.
+ */
+
+:root {
+  /* ---- Base ---- */
+  --ck-void: #000000;
+  --ck-black: #000000;
+
+  /* ---- Purple ramp (pixel-measured from the poppy dome PNGs) ---- */
+  --ck-purple-950: #05000c;
+  --ck-purple-900: #0e001c;
+  --ck-purple-800: #140d1e;
+  --ck-purple-700: #261544;
+  --ck-purple-600: #3b0774;
+  --ck-purple-500: #6b009e;
+  --ck-purple-400: #a600c3;
+  --ck-purple-300: #d800e0;
+  --ck-purple-200: #f900f6;
+  --ck-purple-100: #ff00fb;
+
+  /* Text */
+  --ck-off-white: #f3f0f7;
+  --ck-text: #f3f0f7;
+  --ck-muted: #9e91b0;
+
+  /* Translucent ramps (ref black/off-white alpha pattern) */
+  --ck-white-5: rgb(243 240 247 / 0.05);
+  --ck-white-8: rgb(243 240 247 / 0.08);
+  --ck-white-10: rgb(243 240 247 / 0.1);
+  --ck-white-15: rgb(243 240 247 / 0.15);
+  --ck-white-20: rgb(243 240 247 / 0.2);
+  --ck-white-40: rgb(243 240 247 / 0.4);
+  --ck-white-60: rgb(243 240 247 / 0.6);
+  --ck-black-20: rgb(0 0 0 / 0.2);
+  --ck-black-40: rgb(0 0 0 / 0.4);
+  --ck-black-60: rgb(0 0 0 / 0.6);
+
+  /* Stroke tokens for dashed technical lines (L03) */
+  --ck-stroke-dark-subtle: rgb(0 0 0 / 0.14);
+  --ck-stroke-light-subtle: rgb(243 240 247 / 0.14);
+
+  /* Brand accents — UI only, never wash fills */
+  --ck-magenta: #ff2d9b;
+  --ck-neon-purple: #a100e8;
+  --ck-accent-orange: #ff6a00;
+  --ck-accent-cyan: #00d4ff;
+  --ck-accent-gold: #ffd000;
+
+  /* ---- Fixed atmosphere (M04, ref .gradient-bg-light geometry) ---- */
+  --ck-atmo-tint: #3b0774; /* 45% stop — purple pool from above the fold */
+  --ck-atmo-mid: #0e001c; /* 85% stop */
+  --ck-atmo-base: #000000; /* base */
+
+  /* ---- Type scale (L09 — reference ladder) ---- */
+  --ck-font-display: var(--font-archivo), "Arial Narrow", Arial, sans-serif;
+  --ck-font-body: var(--font-archivo), Arial, sans-serif;
+  --ck-font-label: var(--font-archivo-narrow), "Arial Narrow", sans-serif;
+
+  --ck-h1-size: 88px;
+  --ck-h1-tracking: -2.64px;
+  --ck-h1-leading: 0.96;
+  --ck-h2-size: 68px;
+  --ck-h2-tracking: -1.36px;
+  --ck-h2-leading: 1.06;
+  --ck-h3-size: 52px;
+  --ck-h3-tracking: -1.3px;
+  --ck-h3-leading: 1.04;
+  --ck-h4-size: 44px;
+  --ck-h4-tracking: -0.44px;
+  --ck-h4-leading: 1.23;
+  --ck-lede-size: 19px;
+  --ck-lede-leading: 1.35;
+  --ck-label-size: 13px;
+
+  /* ---- Layout grid (L01 / S06) ---- */
+  --ck-layout-columns: 4;
+  --ck-layout-gap: 16px;
+  --ck-layout-margin: 16px;
+  --ck-layout-rows-gap: 8px;
+
+  /* ---- Header ---- */
+  --ck-header-height: 58px; /* ref theme trigger measured at 29px = half */
+  --ck-theme-trigger: 29px;
+
+  /* ---- Z-index scale (L14) ---- */
+  --ck-z-atmosphere: 0;
+  --ck-z-section-gradient: 0;
+  --ck-z-content: 1;
+  --ck-z-panel: 2;
+  --ck-z-header: 3;
+  --ck-z-menu: 4;
+  --ck-z-transition: 999;
+
+  /* ---- Easings (S05 — reference dictionary, subset in use) ---- */
+  --ck-ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ck-ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ck-ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --ck-ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --ck-ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ck-ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ck-ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* ---- Dome asset ---- */
+  --ck-dome-image: url("/images/gradient-purple-poppy-transparent.png");
+  --ck-dome-opaque-image: url("/images/gradient-purple-poppy.png");
+}
+
+@media (min-width: 800px) {
+  :root {
+    --ck-layout-columns: 12;
+    --ck-layout-gap: 28px;
+    --ck-layout-margin: 28px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    /* Ultra-wide cap (S06): layout width capped to 1920 - 2×margin */
+    --ck-layout-margin: calc((100vw - 1920px) / 2 + 28px);
+  }
+}
