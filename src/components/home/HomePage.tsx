@@ -4,10 +4,11 @@ import { DashedLine } from "@/components/chrome/DashedLine";
 import { UIButton } from "@/components/chrome/UIButton";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { MediaFrame } from "@/components/kit/MediaFrame";
-import { FaqList } from "./FaqList";
-import { LetterReveal } from "./LetterReveal";
+import { FaqList } from "@/components/cinema/FaqList";
+import { LetterReveal } from "@/components/cinema/LetterReveal";
+import { StarCarousel } from "@/components/cinema/StarCarousel";
+import type { StarSlide } from "@/components/cinema/StarCarousel";
 import { FormatStage } from "./FormatStage";
-import { StarCarousel } from "./StarCarousel";
 import styles from "./HomePage.module.css";
 
 /**
@@ -80,6 +81,45 @@ const EARN = [
     label: "Ad revenue",
     title: "Earn from attention",
     closer: "Earn from every view.",
+  },
+];
+
+const HOME_STARS: readonly StarSlide[] = [
+  {
+    id: "pucca",
+    name: "Pucca",
+    badge: "25 years",
+    body: "A 25-year iconic brand from Korea — beloved worldwide for charming characters and timeless stories.",
+    role: "Flagship Korean character energy for the Star IP Universe.",
+    slot: "home-star-pucca",
+    frameLabel: "PUCCA PORTRAIT",
+  },
+  {
+    id: "bduck",
+    name: "B.Duck",
+    badge: "20 years",
+    body: "A 20-year global lifestyle brand with massive merchandise, licensing, and media presence.",
+    role: "Lifestyle IP with broad global recognition.",
+    slot: "home-star-bduck",
+    frameLabel: "B.DUCK PORTRAIT",
+  },
+  {
+    id: "ponke",
+    name: "Ponke",
+    badge: "Web3-native",
+    body: "A popular Web3-native IP with a strong community and cultural influence across digital worlds.",
+    role: "Bridge between crypto-native fandom and entertainment formats.",
+    slot: "home-star-ponke",
+    frameLabel: "PONKE PORTRAIT",
+  },
+  {
+    id: "mew",
+    name: "Mew",
+    badge: "Rising",
+    body: "An adorable cat IP with a rapidly growing global fanbase and huge digital engagement.",
+    role: "Fast-growth character energy for shorts, merch, and community.",
+    slot: "home-star-mew",
+    frameLabel: "MEW PORTRAIT",
   },
 ];
 
@@ -268,7 +308,7 @@ export function HomePage() {
               </h2>
             </div>
           </div>
-          <StarCarousel />
+          <StarCarousel slides={HOME_STARS} />
           <p className={styles.licensing} data-reveal>
             Star IP appearances and partnerships are subject to licensing and
             brand approvals. Marketing presentation follows deck language.

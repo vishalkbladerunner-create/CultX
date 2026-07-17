@@ -1,3 +1,11 @@
+/**
+ * CultX /stars — "The Cast" (K-Cinema language).
+ *
+ * Transparent editorial scenes on the continuous canvas — the carousel
+ * is the full-bleed set piece; products read as scenes with hairline
+ * chrome, never boxed cards.
+ */
+
 .main {
   position: relative;
   z-index: 1;
@@ -6,153 +14,130 @@
   padding: 0;
 }
 
-.section {
-  position: relative;
-  padding: 16vh 0;
-  overflow: visible;
-}
-
-.heroDisclaimer {
-  margin: 0 var(--ck-layout-margin);
-  transform: translateY(-24px);
-}
-
-/* ---- Confirmed stars ---- */
-
-.starsBand {
-  position: relative;
-  padding: 20vh 0 18vh;
-  overflow: visible;
-}
-
-.starsDomeHost {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.starGrid {
+.layout {
   position: relative;
   z-index: var(--ck-z-content);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 8vh;
+  margin: 0 var(--ck-layout-margin);
 }
 
-@media (min-width: 800px) {
-  .starGrid {
-    grid-template-columns: 1fr 1fr;
-  }
+.section {
+  position: relative;
+  padding: 14vh 0;
+  overflow: visible;
 }
 
-.starCard {
-  background: var(--ck-white-5);
-  backdrop-filter: blur(6px);
-  border-top: 1px solid var(--ck-neon-green);
-  padding: 22px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 22px;
-}
-
-@media (min-width: 800px) {
-  .starCard {
-    grid-template-columns: 5fr 6fr;
-    align-items: end;
-  }
-}
-
-.starInfo {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.starBadge {
-  display: inline-block;
-  align-self: flex-start;
-  font-family: var(--ck-font-label);
+/* Licensing line sits between hero and carousel — inside the layout
+   margin so it aligns with the hero content. */
+.licensing {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+  padding: 24px 0 0;
+  max-width: 640px;
   font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ck-green-300);
-  border: 1px dashed var(--ck-white-20);
-  padding: 5px 10px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  opacity: 0.75;
 }
 
-.starName {
-  margin: 16px 0 10px;
+.closingLine {
+  margin: 8vh 0 0;
   font-family: var(--ck-font-display);
-  font-size: 32px;
-  letter-spacing: -0.4px;
+  font-size: 24px;
+  letter-spacing: -0.24px;
+  line-height: 1.3;
   color: var(--ck-off-white);
 }
 
-.starRole {
-  margin: 16px 0 0;
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ck-green-300);
+.sceneRows {
+  list-style: none;
+  margin: 6vh 0 0;
+  padding: 0;
 }
 
-.chipGrid {
+.disclaimer {
+  margin: 32px 0 0;
+  max-width: 640px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  opacity: 0.75;
+}
+
+/* ---- Real-world product scenes ---- */
+
+.screenRow {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: 48px;
   margin-top: 8vh;
 }
 
 @media (min-width: 800px) {
-  .chipGrid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.productGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 8vh;
-}
-
-@media (min-width: 800px) {
-  .productGrid {
+  .screenRow {
     grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 }
 
-.productCard {
-  background: var(--ck-white-5);
-  padding: 22px;
+.screen {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+}
+
+.rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin-bottom: 18px;
+  background: linear-gradient(
+    90deg,
+    rgb(212 255 0 / 0.5),
+    rgb(212 255 0 / 0.08)
+  );
+}
+
+.screenTitle {
+  margin: 20px 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+  color: var(--ck-off-white);
+}
+
+.screenBody {
+  margin: 0;
+  max-width: 420px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ck-muted);
 }
 
 .traitList {
   list-style: none;
-  margin: 12px 0 0;
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin: 18px 0 0;
+  padding: 0;
 }
 
-.traitList li {
+.trait {
   font-family: var(--ck-font-label);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ck-muted);
+  padding: 6px 10px;
   border: 1px dashed var(--ck-white-20);
-  padding: 5px 10px;
 }
 
-.closingLine {
+.ecosystemLine {
   margin: 10vh 0 0;
-  max-width: 640px;
+  max-width: 720px;
   font-family: var(--ck-font-display);
   font-size: 24px;
   letter-spacing: -0.24px;

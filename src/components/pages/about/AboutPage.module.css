@@ -1,3 +1,11 @@
+/**
+ * CultX /about — "The Studio" (K-Cinema language).
+ *
+ * Dark editorial on the continuous canvas: giant stat pulls, scene
+ * rows, a culture cinema band, and the roadmap as a scrub-drawn
+ * vertical timeline (data-timeline). No solid opaque panels.
+ */
+
 .main {
   position: relative;
   z-index: 1;
@@ -6,19 +14,46 @@
   padding: 0;
 }
 
+.layout {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+}
+
 .section {
   position: relative;
   padding: 16vh 0;
   overflow: visible;
 }
 
-/* ---- Hub stats ---- */
+.cultureBand {
+  position: relative;
+  padding: 20vh 0;
+  overflow: visible;
+}
+
+/* Bottom dome — percentage host, mask-faded at both edges (seam-free) */
+.cultureDomeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+/* ---------------------------------------------------------------- */
+/* 2. STAT PULL — giant editorial numbers, not a card grid           */
+/* ---------------------------------------------------------------- */
 
 .statGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: 40px 24px;
   margin: 8vh 0 0;
+  padding: 0;
 }
 
 @media (min-width: 800px) {
@@ -29,85 +64,76 @@
 
 .stat {
   margin: 0;
-  padding: 26px 22px 30px;
-  background: var(--ck-white-5);
-  border-top: 1px solid var(--ck-neon-green);
-}
-
-.statKey {
-  font-family: var(--ck-font-display);
-  font-size: 26px;
-  letter-spacing: -0.4px;
-  color: var(--ck-off-white);
+  padding-top: 20px;
+  border-top: 1px solid var(--ck-white-10);
 }
 
 .statValue {
-  margin: 10px 0 0;
-  font-size: 14px;
-  line-height: 1.55;
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.05;
+  color: var(--ck-off-white);
+}
+
+@media (min-width: 800px) {
+  .statValue {
+    font-size: var(--ck-h4-size);
+    letter-spacing: var(--ck-h4-tracking);
+  }
+}
+
+.statLabel {
+  margin: 12px 0 0;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--ck-muted);
 }
 
-/* ---- Shared grids ---- */
+/* ---------------------------------------------------------------- */
+/* Scene rows + editorial lines                                      */
+/* ---------------------------------------------------------------- */
 
-.chipGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 8vh;
-}
-
-@media (min-width: 800px) {
-  .chipGrid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.chipGrid3 {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 8vh;
-}
-
-@media (min-width: 800px) {
-  .chipGrid3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* ---- Culture band ---- */
-
-.cultureBand {
-  position: relative;
-  padding: 20vh 0 18vh;
-  overflow: visible;
-}
-
-.cultureDomeHost {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.softTrack {
+.sceneRows {
+  list-style: none;
   margin: 8vh 0 0;
-  max-width: 620px;
+  padding: 0;
+}
+
+.cultureMedia {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin-top: 8vh;
+}
+
+.softLine {
+  margin: 10vh 0 0;
+  max-width: 640px;
   font-size: var(--ck-lede-size);
   font-weight: 500;
   line-height: var(--ck-lede-leading);
   color: var(--ck-muted);
 }
 
-.cultureMedia {
-  margin-top: 8vh;
+.closingLine {
+  margin: 32px 0 0;
+  max-width: 720px;
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  letter-spacing: -0.24px;
+  line-height: 1.3;
+  color: var(--ck-off-white);
 }
 
 .valuesStrip {
   margin: 8vh 0 0;
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
+  font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ck-green-300);
@@ -115,39 +141,49 @@
 
 .continuity {
   margin: 24px 0 0;
-  max-width: 620px;
+  max-width: 640px;
   font-size: 15px;
   line-height: 1.6;
   color: var(--ck-muted);
 }
 
-/* ---- Mission ---- */
+.disclaimer {
+  margin: 32px 0 0;
+  max-width: 640px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  opacity: 0.75;
+}
+
+/* ---------------------------------------------------------------- */
+/* 6. MISSION — condensed versus rows (intertitle follows in a       */
+/* CinemaPanel between this section and the roadmap)                 */
+/* ---------------------------------------------------------------- */
 
 .missionCompare {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
   margin-top: 8vh;
+  display: flex;
+  flex-direction: column;
 }
 
-@media (min-width: 800px) {
-  .missionCompare {
-    grid-template-columns: 1fr 1fr;
-  }
+.compareRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 20px;
+  align-items: baseline;
+  margin: 0;
+  padding: 22px 0;
+  border-top: 1px solid var(--ck-white-10);
+  opacity: 0.55;
 }
 
-.missionCol {
-  padding: 28px 24px 32px;
-  background: var(--ck-white-5);
+.compareRowHot {
+  opacity: 1;
+  border-top-color: var(--ck-chartreuse);
 }
 
-.missionColHot {
-  background: rgb(27 98 18 / 0.18);
-  border-top: 1px solid var(--ck-neon-green);
-}
-
-.missionTag {
-  margin: 0 0 12px;
+.compareTag {
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
   letter-spacing: 0.14em;
@@ -155,73 +191,129 @@
   color: var(--ck-muted);
 }
 
-.missionText {
-  margin: 0;
+.compareRowHot .compareTag {
+  color: var(--ck-chartreuse);
+}
+
+.compareText {
   font-family: var(--ck-font-display);
-  font-size: 22px;
-  letter-spacing: -0.3px;
+  font-size: 20px;
+  letter-spacing: -0.24px;
   line-height: 1.3;
   color: var(--ck-off-white);
 }
 
-.missionBar {
-  margin: 10vh 0 0;
-  font-family: var(--ck-font-display);
-  font-size: 26px;
-  letter-spacing: -0.4px;
-  line-height: 1.25;
-  color: var(--ck-off-white);
-}
-
 @media (min-width: 800px) {
-  .missionBar {
-    font-size: var(--ck-h4-size);
-    letter-spacing: var(--ck-h4-tracking);
+  .compareText {
+    font-size: 24px;
   }
 }
 
-/* ---- Roadmap timeline ---- */
+/* ---------------------------------------------------------------- */
+/* 7. ROADMAP — vertical scrub-drawn timeline (data-timeline)        */
+/* ---------------------------------------------------------------- */
 
 .timeline {
+  position: relative;
+  margin-top: 10vh;
+}
+
+/* Vertical rail at the dot column */
+.timelineTrack {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 5px;
+  width: 1px;
+  background: var(--ck-white-10);
+}
+
+.timelineLine {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--ck-chartreuse), var(--ck-green-300));
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.timelineSteps {
   list-style: none;
-  margin: 8vh 0 0;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
+  gap: 56px;
 }
 
-.timelineItem {
+.timelineStep {
   position: relative;
-  padding: 0 0 48px 36px;
-  border-left: 1px dashed var(--ck-white-20);
+  padding-left: 40px;
+  opacity: 0.35;
+  transition: opacity 0.5s var(--ck-ease-out-quad);
 }
 
-.timelineItem:last-child {
-  padding-bottom: 0;
+.timelineStep[data-active] {
+  opacity: 1;
 }
 
 .timelineDot {
   position: absolute;
-  left: -4px;
-  top: 6px;
-  width: 7px;
-  height: 7px;
-  background: var(--ck-green-300);
+  top: 3px;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  background: transparent;
+  border: 1px solid var(--ck-white-20);
+  transition:
+    background-color 0.4s var(--ck-ease-out-quad),
+    border-color 0.4s var(--ck-ease-out-quad),
+    box-shadow 0.4s var(--ck-ease-out-quad);
+}
+
+.timelineStep[data-active] .timelineDot {
+  background: var(--ck-chartreuse);
+  border-color: var(--ck-chartreuse);
+  box-shadow: 0 0 12px rgb(212 255 0 / 0.5);
 }
 
 .timelineDate {
-  margin: 0 0 8px;
+  margin: 0;
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ck-green-300);
 }
 
 .timelineTitle {
-  margin: 0 0 10px;
+  margin: 10px 0 8px;
   font-family: var(--ck-font-display);
-  font-size: 26px;
-  letter-spacing: -0.4px;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  line-height: 1.2;
   color: var(--ck-off-white);
+}
+
+@media (min-width: 800px) {
+  .timelineTitle {
+    font-size: 30px;
+  }
+}
+
+.timelineBody {
+  margin: 0;
+  max-width: 560px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timelineStep,
+  .timelineDot {
+    transition: none;
+  }
 }

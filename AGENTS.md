@@ -23,10 +23,13 @@ src/
   components/
     background/            # FixedAtmosphere · GradientDome · ScrollDriver (Lenis+GSAP)
     chrome/                # SiteHeader · SiteFooter · UIButton · DashedLine
-    home/                  # HomePage (K-Cinema) · LetterReveal (M06) · FormatStage (M09 set piece)
-                           #   StarCarousel (M19) · FaqList (M17) · WaitlistForm · BackToTop · CultXWordmark
-    kit/                   # Shared marketing kit (do not rebuild ad-hoc):
-                           #   PageHero · SectionHeading · Card · CtaBand · MediaFrame · kit.module.css
+    cinema/                # Shared K-Cinema primitives (subpages + home):
+                           #   CinemaHero (title card) · CinemaPanel (M07 intertitle)
+                           #   CinemaHeading (masked H2) · SceneRow (hairline rows)
+                           #   LetterReveal (M06) · StarCarousel (M19, slides prop) · FaqList (M17)
+    home/                  # HomePage (K-Cinema) · FormatStage (M09 set piece)
+                           #   WaitlistForm · BackToTop · CultXWordmark
+    kit/                   # Remaining shared kit: CtaBand · MediaFrame · kit.module.css
     pages/<route>/         # One page module per route (StarsPage, AboutPage, …)
                            #   CSS modules per page — never import HomePage.module.css
   lib/
@@ -53,19 +56,22 @@ Header/footer NAV: Platform · Pillars · Monetize · Star IPs · **AI Center** 
 
 ## Architecture rules (test-gated)
 
-1. **Pack wins** — draft copy from `cult/content-strategy/`; mandatory disclaimers character-exact.
+1. **Pack wins** — draft copy from `cult/content-strategy/`; mandatory disclaimers character-exact (and on **one source line** — tests read source).
 2. **No SubPage** — every route has its own `components/pages/<route>/*Page.tsx`.
 3. **No `HomePage.module.css`** imports in page modules (per-page scroll budgets).
-4. **Dome hosts** — size in **% of section** (`inset: 0`), never `vh` heights on `*Dome*` CSS classes.
-5. **Cards** — no `data-reveal` on `Card`; parent grids use `data-stagger`.
-6. **Kit assembly** — build pages from `components/kit/*`; don’t fork chrome.
+4. **Dome hosts** — size in **% of section**, never `vh` heights on `*Dome*` CSS classes; every `*DomeHost*` block carries `mask-image` edge fades.
+5. **No solid opaque panels** — no `background: var(--ck-black)` in page modules; the canvas shows through.
+6. **Scenes, not cards** — content blocks are scene rows / revenue screens / set pieces via `components/cinema/*`; parent lists use `data-stagger`, rows never self-reveal.
+7. **Motion via bindings only** — pages emit `data-*` attributes; ScrollDriver owns all GSAP. Never page-local GSAP.
 
 ## Background architecture (reference-faithful)
 
 - Scroll color = document flow past **image domes** + fixed CSS wash — never a per-frame body recolor.
 - `GradientDome` = 1:1 port of reference `.gradient-bg-dark`; parallax via GSAP ScrollTrigger in `ScrollDriver`.
-- **Seam-free canvas (home):** every dome host carries `mask-image` vertical edge fades and bleeds past its section; no solid opaque panels (test-gated in `stages.test.ts`).
+- **Seam-free canvas (all pages):** every dome host carries `mask-image` vertical edge fades and bleeds past its section; no solid opaque panels (test-gated in `stages.test.ts` for home, `pages.test.ts` for subpages).
 - **Living atmosphere:** the fixed wash (`data-atmo`) drifts with scroll — gradient center `-30% → -14%` and hue `0 → 14deg`, scrubbed in `ScrollDriver`.
+- **Stage binding (M09):** one generalized `[data-stage-scope]` + `[data-stage-frame]`/`[data-stage-step]` (+ `[data-stage-caption]`) contract — home FormatStage + platform journey.
+- **Progressive chains:** `[data-chain]` (horizontal, monetize token loop) + `[data-timeline]` (vertical, about roadmap) — scrub draws the line, steps activate as it passes.
 - Hero = poppy transparent dome + homepage overlay mask-fade at the fold.
 - Footer = shared waitlist + `CultXWordmark`.
 
@@ -76,7 +82,18 @@ Header/footer NAV: Platform · Pillars · Monetize · Star IPs · **AI Center** 
 - `FormatStage` = M09 sticky stage + M15 masked titles (poster slots `format-comic/universe/short/drama`).
 - Tension + manifesto = full-viewport transparent M07 fill panels (no solid black panels).
 - Monetize = 3 revenue screens (M15). Stars = `StarCarousel` (M19, 5s autoplay + progress + hover-pause). FAQ = M17 measured-height GSAP.
-- Spec: `docs/superpowers/specs/2026-07-17-home-redesign-k-cinema.md`. Subpages propagate this language next.
+- Spec: `docs/superpowers/specs/2026-07-17-home-redesign-k-cinema.md`. Subpages are propagated (below).
+
+## Subpages (K-Cinema propagated)
+
+All six subpages use the `cinema/*` primitives — `CinemaHero` title cards (LetterReveal H1), `CinemaHeading` masked section heads, `SceneRow` hairline rows instead of card grids, `CinemaPanel` intertitles where needed:
+
+- `/platform` "The Loop" — five-step journey as the centerpiece M09 stage (same binding as home FormatStage) + versus cinema moment (no table cards).
+- `/pillars` "Four Channels" — index rail + four chapters with per-format accents (cyan/magenta/purple/orange); comic morph, universe stage + dome, phone trio, series player.
+- `/monetize` "The Payoff" — three revenue screens + token loop as `data-chain` scrub-drawn chain + terminal scene; both disclaimers verbatim.
+- `/stars` "The Cast" — full-bleed `StarCarousel` (props, `star-*` slots) as the set piece + quality rows + product shelf; licensing line verbatim.
+- `/about` "The Studio" — stat pull + culture cinema band + roadmap as `data-timeline` scrub-drawn timeline; roadmap disclaimer verbatim.
+- `/faq` — type-led title card + masked group headings + grouped M17 accordion (short-page contract).
 
 ## MediaFrame slot inventory (asset drops)
 
@@ -115,4 +132,4 @@ Do not dump cyan/orange/gold onto the atmosphere. Reserve those for sparse UI ac
 
 Every change: cross-check craft vs `../../scrap/sharplink-clone` (structure/motion), score ≥ 8/10 or redo. See root `AGENTS.md`.
 
-Executable gates: `src/lib/site/pages.test.ts` (56 tests when full suite green).
+Executable gates: `src/lib/site/pages.test.ts` (59 tests when full suite green).

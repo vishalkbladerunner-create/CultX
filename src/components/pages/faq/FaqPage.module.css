@@ -1,3 +1,9 @@
+/**
+ * CultX /faq — K-Cinema utility page. Short by design: hero title card
+ * + one grouped-accordion section + footer. No domes besides hero/footer
+ * (short-page scroll contract).
+ */
+
 .main {
   position: relative;
   z-index: 1;
@@ -6,7 +12,12 @@
   padding: 0;
 }
 
-/* Short page: one content section, compact rhythm */
+.layout {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+}
+
 .section {
   position: relative;
   padding: 12vh 0 16vh;
@@ -16,16 +27,21 @@
 .groups {
   display: flex;
   flex-direction: column;
-  gap: 56px;
-  margin-top: 6vh;
-  max-width: 860px;
+  gap: 64px;
+  margin-top: 4vh;
+}
+
+.maskGroup {
+  overflow: hidden;
+  margin-bottom: 16px;
 }
 
 .groupTitle {
-  margin: 0 0 20px;
-  font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ck-green-300);
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  line-height: 1.2;
+  color: var(--ck-off-white);
 }

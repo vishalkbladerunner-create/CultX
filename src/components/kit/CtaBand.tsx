@@ -1,7 +1,8 @@
 import { DashedLine } from "@/components/chrome/DashedLine";
 import { UIButton } from "@/components/chrome/UIButton";
 import styles from "./kit.module.css";
-import type { HeroCta } from "./PageHero";
+
+export type HeroCta = { href: string; label: string };
 
 export type CtaBandProps = {
   title: string;

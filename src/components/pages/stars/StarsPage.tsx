@@ -1,39 +1,61 @@
-import { GradientDome } from "@/components/background/GradientDome";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
-import { PageHero } from "@/components/kit/PageHero";
-import { SectionHeading } from "@/components/kit/SectionHeading";
-import { CtaBand } from "@/components/kit/CtaBand";
-import { Card } from "@/components/kit/Card";
 import { MediaFrame } from "@/components/kit/MediaFrame";
-import kit from "@/components/kit/kit.module.css";
+import { CtaBand } from "@/components/kit/CtaBand";
+import { CinemaHero } from "@/components/cinema/CinemaHero";
+import { CinemaHeading } from "@/components/cinema/CinemaHeading";
+import { SceneRow } from "@/components/cinema/SceneRow";
+import { StarCarousel } from "@/components/cinema/StarCarousel";
+import type { StarSlide } from "@/components/cinema/StarCarousel";
 import styles from "./StarsPage.module.css";
+
+/**
+ * CultX /stars — "The Cast" (K-Cinema language).
+ *
+ * A film's ensemble roll: title card → licensing line → the full-bleed
+ * StarCarousel as the hero-adjacent set piece (star-* licensed slots) →
+ * production quality as masked rows → the real-world shelf → partner
+ * CTA. Careful partnership language throughout — confirmed deck IPs,
+ * subject to licensing. Copy verbatim from cult/content-strategy/07-stars.md.
+ */
 
 /* Verbatim copy — cult/content-strategy/07-stars.md */
 
-const STARS = [
+const STARS: readonly StarSlide[] = [
   {
+    id: "pucca",
     name: "Pucca",
     badge: "25 years",
     body: "A 25-year iconic brand from Korea — beloved worldwide for charming characters and timeless stories.",
     role: "Flagship Korean character energy for the Star IP Universe.",
+    slot: "star-pucca",
+    frameLabel: "PUCCA PORTRAIT",
   },
   {
+    id: "bduck",
     name: "B.Duck",
     badge: "20 years",
     body: "A 20-year global lifestyle brand with massive merchandise, licensing, and media presence.",
     role: "Lifestyle IP with broad global recognition.",
+    slot: "star-bduck",
+    frameLabel: "B.DUCK PORTRAIT",
   },
   {
+    id: "ponke",
     name: "Ponke",
     badge: "Web3-native",
     body: "A popular Web3-native IP with a strong community and cultural influence across digital worlds.",
     role: "Bridge between crypto-native fandom and entertainment formats.",
+    slot: "star-ponke",
+    frameLabel: "PONKE PORTRAIT",
   },
   {
+    id: "mew",
     name: "Mew",
     badge: "Rising",
     body: "An adorable cat IP with a rapidly growing global fanbase and huge digital engagement.",
     role: "Fast-growth character energy for shorts, merch, and community.",
+    slot: "star-mew",
+    frameLabel: "MEW PORTRAIT",
   },
 ];
 
@@ -84,19 +106,13 @@ const PRODUCTS = [
 export function StarsPage() {
   return (
     <main className={styles.main} id="top">
-      {/* 1. HERO */}
-      <PageHero
+      {/* ============ 1. HERO — title card ============ */}
+      <CinemaHero
         eyebrow="Star IPs"
-        title={
-          <>
-            Iconic characters.
-            <br />
-            Global fans.
-          </>
-        }
+        title={"Iconic characters.\nGlobal fans."}
         blurb="We partner with iconic brands to create AI-native content at studio-grade quality — with a full fan economy attached."
         primary={{ href: "#waitlist", label: "Join the Waitlist" }}
-        secondary={{ href: "/monetize", label: "How Creators Earn" }}
+        secondary={{ href: "/monetize", label: "How creators earn" }}
         meta="Confirmed star IPs from the deck — more to come."
         media={{
           slot: "hero-video-stars",
@@ -104,49 +120,33 @@ export function StarsPage() {
           spec: "1920×1080 · WebM + MP4 (hvc1) · muted loop ≤8s",
         }}
       />
-      <p className={`${kit.disclaimer} ${styles.heroDisclaimer}`}>
-        Character marks and partnerships are subject to licensing and brand approval. Presentation follows CultX deck language.
+
+      {/* Partnership disclaimer — visible, calm, right off the hero.
+          Gated phrase stays on one source line (test reads source). */}
+      <p className={styles.licensing} data-reveal>
+        {"Character marks and partnerships are subject to licensing and brand approval. Presentation follows CultX deck language."}
       </p>
 
-      {/* 2. CONFIRMED STARS GRID */}
-      <section className={styles.starsBand} data-theme-section="dark">
-        <div className={styles.starsDomeHost} aria-hidden>
-          <GradientDome position="bottom" />
-        </div>
-        <div className={kit.layout}>
-          <SectionHeading eyebrow="01 — Confirmed" title="Meet the legends." />
-          <div className={styles.starGrid} data-stagger>
-            {STARS.map((s) => (
-              <article
-                key={s.name}
-                className={`${styles.starCard} ${kit.hasPinTopLeft}`}
-              >
-                <MediaFrame
-                  slot={`star-${s.name.toLowerCase().replace(/\./g, "")}`}
-                  label={`${s.name.toUpperCase()} PORTRAIT`}
-                  spec="Licensed character art · 900×1200 PNG/WebP"
-                  ratio="4/5"
-                />
-                <div className={styles.starInfo}>
-                  <span className={styles.starBadge}>{s.badge}</span>
-                  <h3 className={styles.starName}>{s.name}</h3>
-                  <p className={kit.cardBody}>{s.body}</p>
-                  <p className={styles.starRole}>{s.role}</p>
-                </div>
-              </article>
-            ))}
-          </div>
+      {/* ============ 2. CONFIRMED STARS — full-bleed carousel ============ */}
+      <section className={styles.section} data-theme-section="dark">
+        <div className={styles.layout}>
+          <CinemaHeading eyebrow="01 — Confirmed" title="Meet the legends." />
+          <StarCarousel
+            slides={STARS}
+            portraitSpec="Licensed character art · 900×1200 PNG/WebP"
+          />
           <p className={styles.closingLine} data-reveal>
             Four starting stars. A universe designed for more.
           </p>
         </div>
       </section>
 
-      {/* 3. PRODUCTION QUALITY */}
+      {/* ============ 3. PRODUCTION QUALITY — masked rows ============ */}
       <section className={styles.section} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="02 — How we produce"
+            accent="magenta"
             title={
               <>
                 Studio ambition.
@@ -156,9 +156,9 @@ export function StarsPage() {
             }
             lede="Star IP content is framed for cinematic quality — produced with specialist teams and AI systems built for speed and cost advantage."
           />
-          <div className={styles.chipGrid} data-stagger>
+          <ol className={styles.sceneRows} data-stagger>
             {QUALITY_CHIPS.map((c) => (
-              <Card
+              <SceneRow
                 key={c.n}
                 n={c.n}
                 title={c.title}
@@ -166,60 +166,60 @@ export function StarsPage() {
                 accent="magenta"
               />
             ))}
-          </div>
-          <p className={kit.disclaimer}>
-            Quality, cost, and speed comparisons express product vision from
-            our deck, not third-party audited benchmarks.
+          </ol>
+          <p className={styles.disclaimer}>
+            Quality and cost comparisons are product vision from the deck —
+            ambitious targets, not third-party audited guarantees.
           </p>
         </div>
       </section>
 
-      {/* 4. REAL-WORLD PRODUCTS */}
+      {/* ============ 4. REAL-WORLD PRODUCTS — the shelf ============ */}
       <section className={styles.section} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="03 — In your world"
             title="From digital IP to real-world products."
             lede="Own it. Use it. Collect it. Live it."
           />
-          <div className={styles.productGrid} data-stagger>
+          <div className={styles.screenRow} data-stagger>
             {PRODUCTS.map((p) => (
-              <article
-                key={p.title}
-                className={`${styles.productCard} ${kit.hasPinTopLeft}`}
-              >
+              <article key={p.title} className={styles.screen}>
+                <span className={styles.rule} aria-hidden />
                 <MediaFrame
                   slot={p.slot}
                   label={p.title.toUpperCase()}
                   spec="Product packshot · 1200×900 PNG/WebP"
                   ratio="4/3"
                 />
-                <h3 className={kit.cardTitle}>{p.title}</h3>
-                <p className={kit.cardBody}>{p.body}</p>
+                <h3 className={styles.screenTitle}>{p.title}</h3>
+                <p className={styles.screenBody}>{p.body}</p>
                 <ul className={styles.traitList}>
                   {p.traits.map((t) => (
-                    <li key={t}>{t}</li>
+                    <li key={t} className={styles.trait}>
+                      {t}
+                    </li>
                   ))}
                 </ul>
               </article>
             ))}
           </div>
-          <p className={styles.closingLine} data-reveal>
-            Your favorite IPs, now in your world. The CultX ecosystem turns IP
-            into something you can hold.
+          <p className={styles.ecosystemLine} data-reveal>
+            Your favorite IPs, now in your world. The CultX ecosystem turns
+            IP into something you can hold.
           </p>
         </div>
       </section>
 
-      {/* 5. PARTNER CTA */}
+      {/* ============ 5. PARTNER CTA ============ */}
       <CtaBand
         title="Have an IP that deserves a legend?"
-        body="We're building a universe of characters with global fans. If you hold iconic IP — or you're building the next one — talk to us."
+        body="We’re building a universe of characters with global fans. If you hold iconic IP — or you’re building the next one — talk to us."
         primary={{ href: "#waitlist", label: "Partner With Us" }}
         secondary={{ href: "#waitlist", label: "Join the Waitlist" }}
       />
 
-      {/* 6. FOOTER */}
+      {/* ============ 6. FOOTER ============ */}
       <SiteFooter />
     </main>
   );

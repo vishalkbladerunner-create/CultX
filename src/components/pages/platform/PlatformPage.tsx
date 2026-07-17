@@ -1,11 +1,22 @@
 import { GradientDome } from "@/components/background/GradientDome";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
-import { PageHero } from "@/components/kit/PageHero";
-import { SectionHeading } from "@/components/kit/SectionHeading";
-import { CtaBand } from "@/components/kit/CtaBand";
 import { MediaFrame } from "@/components/kit/MediaFrame";
-import kit from "@/components/kit/kit.module.css";
+import { CtaBand } from "@/components/kit/CtaBand";
+import { CinemaHero } from "@/components/cinema/CinemaHero";
+import { CinemaHeading } from "@/components/cinema/CinemaHeading";
+import { SceneRow } from "@/components/cinema/SceneRow";
 import styles from "./PlatformPage.module.css";
+
+/**
+ * CultX /platform — "The Loop" (K-Cinema language).
+ *
+ * The five-step creator journey is the spine: title card → definition →
+ * the screen (UI vision) → THE JOURNEY centerpiece (M09 sticky stage,
+ * same generalized binding as home FormatStage) → the foundation
+ * (webtoon before/after + scene rows) → the versus intertitle →
+ * capability kit → credits. Copy verbatim from
+ * cult/content-strategy/04-platform.md.
+ */
 
 /* Verbatim copy — cult/content-strategy/04-platform.md */
 
@@ -50,7 +61,7 @@ const WEBTOON_POINTS = [
   {
     n: "01",
     title: "Everything is ready",
-    body: "A finished webtoon already has a complete character, a written story, and finished art.",
+    body: "Story, characters, world, and art — a finished foundation.",
   },
   {
     n: "02",
@@ -60,28 +71,29 @@ const WEBTOON_POINTS = [
   {
     n: "03",
     title: "Speed advantage",
-    body: "Skip months of blank-page development and move straight into premium AI animation.",
+    body: "Skip months of original character and story development that a greenfield IP requires.",
   },
 ];
 
-const KIT_STRIP = ["AI Tools", "Content Hub", "Community", "Analytics", "Crypto Rewards"];
+const KIT_STRIP = [
+  "AI Tools",
+  "Content Hub",
+  "Community",
+  "Analytics",
+  "Crypto Rewards",
+];
 
 export function PlatformPage() {
   return (
     <main className={styles.main} id="top">
-      {/* 1. HERO */}
-      <PageHero
+      {/* ============ 1. HERO — title card (M06 cascade) ============ */}
+      <CinemaHero
         eyebrow="Create · Publish · Grow · Earn"
-        title={
-          <>
-            One platform.
-            <br />
-            Infinite IP possibilities.
-          </>
-        }
+        title={"One platform.\nInfinite IP possibilities."}
         blurb="Everything you need to build AI-native IP — then publish it, grow it, and earn from it — in one place."
         primary={{ href: "#waitlist", label: "Join the Waitlist" }}
         secondary={{ href: "/pillars", label: "See the Four Experiences" }}
+        meta="Built in Korea — Powered for the World"
         media={{
           slot: "hero-video-platform",
           label: "HERO VIDEO",
@@ -89,10 +101,10 @@ export function PlatformPage() {
         }}
       />
 
-      {/* 2. DEFINITION */}
+      {/* ============ 2. DEFINITION ============ */}
       <section className={styles.section} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="01 — What is CultX"
             title={
               <>
@@ -106,10 +118,10 @@ export function PlatformPage() {
         </div>
       </section>
 
-      {/* 3. PRODUCT UI VISION */}
+      {/* ============ 3. UI VISION — the screen moment ============ */}
       <section className={styles.uiBand} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="02 — The experience"
             title="A home for every format."
             lede="Continue watching. Trending now. Star IP. AI Shorts. AI Drama. IP Token. The CultX surface feels like a premium entertainment hub — because legends need a stage, not a spreadsheet."
@@ -132,22 +144,70 @@ export function PlatformPage() {
         </div>
       </section>
 
-      {/* 4. FIVE-STEP JOURNEY — M09 scrollytelling set piece */}
-      <section className={styles.journeyBand} data-theme-section="dark" data-journey>
+      {/* ============ 4. JOURNEY — centerpiece stage (M09 + M15) ============ */}
+      <section
+        className={styles.journeyBand}
+        data-theme-section="dark"
+        data-stage-scope
+      >
+        {/* Bottom dome bleeds 20% past the band, mask-faded at both
+            edges — one continuous canvas, no seam. */}
         <div className={styles.journeyDomeHost} aria-hidden>
           <GradientDome position="bottom" />
         </div>
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="03 — The loop"
             title="Create. Publish. Grow. Earn."
             lede="Five beats. One continuous path from blank page to income."
           />
           <div className={styles.journeyGrid}>
-            <div className={styles.journeyStageWrap} aria-hidden>
-              <div className={styles.journeyStage}>
-                {JOURNEY.map((s) => (
-                  <div key={s.n} className={styles.journeyFrame} data-journey-frame>
+            {/* Sticky stage — desktop only (aria-hidden decor; steps carry
+                the same content for all users). */}
+            <div className={styles.stageWrap} aria-hidden>
+              <div className={styles.stage}>
+                <div className={styles.frameStack}>
+                  {JOURNEY.map((s) => (
+                    <div
+                      key={s.n}
+                      className={styles.frame}
+                      data-stage-frame
+                    >
+                      <div className={styles.frameHost}>
+                        <MediaFrame
+                          slot={`journey-step-${s.n}`}
+                          label={`JOURNEY VISUAL ${s.n}`}
+                          spec="Product/UI still · 1200×900 PNG/WebP"
+                          fill
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {/* Caption under the stage — swaps with scroll, never
+                    painted on the art */}
+                <div className={styles.stageCaption} aria-hidden>
+                  {JOURNEY.map((s, i) => (
+                    <p
+                      key={s.n}
+                      className={styles.stageCaptionItem}
+                      data-stage-caption
+                      {...(i === 0 ? { "data-active": "" } : {})}
+                    >
+                      <span className={styles.stageCaptionNum}>{s.n}</span>
+                      <span className={styles.stageCaptionTitle}>
+                        {s.title}
+                      </span>
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <ol className={styles.steps}>
+              {JOURNEY.map((s) => (
+                <li key={s.n} className={styles.step} data-stage-step>
+                  <div className={styles.stepFrameHost}>
                     <MediaFrame
                       slot={`journey-step-${s.n}`}
                       label={`JOURNEY VISUAL ${s.n}`}
@@ -155,23 +215,9 @@ export function PlatformPage() {
                       fill
                     />
                   </div>
-                ))}
-              </div>
-            </div>
-            <ol className={styles.journeySteps}>
-              {JOURNEY.map((s) => (
-                <li key={s.n} className={styles.journeyStep} data-journey-step>
-                  <span className={styles.journeyNum}>{s.n}</span>
-                  <h3 className={styles.journeyTitle}>{s.title}</h3>
-                  <p className={styles.journeyBody}>{s.body}</p>
-                  <div className={styles.stepFrame}>
-                    <MediaFrame
-                      slot={`journey-step-${s.n}`}
-                      label={`JOURNEY VISUAL ${s.n}`}
-                      spec="Product/UI still · 1200×900 PNG/WebP"
-                      ratio="4/3"
-                    />
-                  </div>
+                  <span className={styles.stepNum}>{s.n}</span>
+                  <h3 className={styles.stepTitle}>{s.title}</h3>
+                  <p className={styles.stepBody}>{s.body}</p>
                 </li>
               ))}
             </ol>
@@ -180,20 +226,13 @@ export function PlatformPage() {
             One platform. Endless possibilities. CultX empowers creators to
             build iconic IPs, connect with fans, and earn real income.
           </p>
-          <ul className={styles.kitStrip} data-stagger>
-            {KIT_STRIP.map((k) => (
-              <li key={k} className={styles.kitStripItem}>
-                {k}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      {/* 5. WHY WEBTOON */}
+      {/* ============ 5. WEBTOON — before/after scene + scene rows ============ */}
       <section className={styles.section} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="04 — The foundation"
             title="Why webtoon is the perfect start."
             lede="A finished webtoon already has a complete character, a written story, and finished art. That means we can skip months of blank-page development and move straight into premium AI animation — better, faster, and at scale."
@@ -213,15 +252,11 @@ export function PlatformPage() {
                 ratio="4/5"
               />
             </div>
-            <ul className={styles.webtoonPoints} data-stagger>
+            <ol className={styles.sceneRows} data-stagger>
               {WEBTOON_POINTS.map((p) => (
-                <li key={p.n}>
-                  <span className={kit.cardNum}>{p.n}</span>
-                  <h3 className={styles.webtoonPointTitle}>{p.title}</h3>
-                  <p className={kit.body}>{p.body}</p>
-                </li>
+                <SceneRow key={p.n} n={p.n} title={p.title} body={p.body} />
               ))}
-            </ul>
+            </ol>
           </div>
           <p className={styles.softLine} data-reveal>
             Korea leads global webtoon culture — a ready-made engine of
@@ -234,10 +269,10 @@ export function PlatformPage() {
         </div>
       </section>
 
-      {/* 6. PIPELINE CONTRAST */}
-      <section className={styles.section} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+      {/* ============ 6. VERSUS — cinema moment (no cards) ============ */}
+      <section className={styles.versusBand} data-theme-section="dark">
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="05 — The leap"
             title={
               <>
@@ -247,51 +282,61 @@ export function PlatformPage() {
             }
             lede="Korea already proved the webtoon → global hit pipeline. Our mission is to run that path with AI — less time, lower cost, same cinematic ambition."
           />
-          <div className={styles.compareGrid} data-stagger>
-            <div className={styles.compareCol}>
-              <p className={styles.compareTag}>Old way</p>
-              <p className={styles.compareLead}>Slower. Expensive. Outdated.</p>
-              <ol className={styles.compareSteps}>
+          <div className={styles.versus} data-stagger>
+            <div className={styles.versusCol}>
+              <p className={styles.versusTag}>Old way</p>
+              <p className={styles.versusLead}>Slower. Expensive. Outdated.</p>
+              <ol className={styles.versusSteps}>
                 <li>Webtoon</li>
                 <li>Physical drama</li>
                 <li>Traditional platforms</li>
                 <li>Global hit</li>
               </ol>
-              <p className={styles.compareMeta}>Years · Millions in cost</p>
+              <p className={styles.versusMeta}>Years · Millions in cost</p>
             </div>
-            <div className={`${styles.compareCol} ${styles.compareColHot}`}>
-              <p className={styles.compareTag}>CultX way</p>
-              <p className={styles.compareLead}>Faster. Smarter. Game changer.</p>
-              <ol className={styles.compareSteps}>
+            <span className={styles.versusDivider} aria-hidden />
+            <div className={`${styles.versusCol} ${styles.versusColHot}`}>
+              <p className={styles.versusTag}>CultX way</p>
+              <p className={styles.versusLead}>
+                Faster. Smarter. Game changer.
+              </p>
+              <ol className={styles.versusSteps}>
                 <li>Webtoon</li>
                 <li>AI drama</li>
                 <li>CultX</li>
                 <li>Viral global reach</li>
               </ol>
-              <p className={styles.compareMeta}>
+              <p className={styles.versusMeta}>
                 Weeks-scale ambition · Fraction of traditional cost
               </p>
             </div>
           </div>
           <p className={styles.missionBar} data-reveal>
-            Our mission is to create a K-digital culture entertainment empire —
-            globally.
+            Our mission is to create a K-digital culture entertainment empire
+            — globally.
           </p>
         </div>
       </section>
 
-      {/* 7. CAPABILITY KIT */}
+      {/* ============ 7. CAPABILITY KIT ============ */}
       <section className={styles.section} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="06 — Inside the platform"
             title="Tools for legends."
             lede="AI tools to create. A content hub to publish. Community to engage. Analytics to grow. Crypto rewards to earn. Not five separate apps — one CultX surface."
           />
+          <ul className={styles.chipRow} data-stagger>
+            {KIT_STRIP.map((k) => (
+              <li key={k} className={styles.chip}>
+                {k}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* 8. CTA */}
+      {/* ============ 8. CTA ============ */}
       <CtaBand
         title="Ready to build your IP?"
         body="Join the waitlist for creator access and early universe updates."
@@ -299,7 +344,7 @@ export function PlatformPage() {
         secondary={{ href: "/monetize", label: "How Creators Earn" }}
       />
 
-      {/* 9. FOOTER */}
+      {/* ============ 9. FOOTER ============ */}
       <SiteFooter />
     </main>
   );

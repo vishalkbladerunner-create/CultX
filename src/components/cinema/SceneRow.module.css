@@ -1,0 +1,68 @@
+/**
+ * SceneRow — numbered hairline row (card-grid replacement).
+ * Hairline separators + editorial type; no boxes, no fills — the
+ * canvas stays continuous behind the rows.
+ */
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  padding: 28px 0 32px;
+  border-top: 1px solid var(--ck-white-10);
+}
+
+.row:last-child {
+  border-bottom: 1px solid var(--ck-white-10);
+}
+
+.num {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.08em;
+  color: var(--ck-green-300);
+}
+
+.row[data-accent="cyan"] .num { color: var(--ck-accent-cyan); }
+.row[data-accent="magenta"] .num { color: var(--ck-chartreuse); }
+.row[data-accent="purple"] .num { color: var(--ck-neon-green); }
+.row[data-accent="orange"] .num { color: var(--ck-accent-orange); }
+.row[data-accent="gold"] .num { color: var(--ck-accent-gold); }
+
+.content {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  line-height: 1.2;
+  color: var(--ck-off-white);
+}
+
+@media (min-width: 800px) {
+  .title {
+    font-size: 26px;
+  }
+}
+
+.body {
+  margin: 10px 0 0;
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+}
+
+.micro {
+  margin: 14px 0 0;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}

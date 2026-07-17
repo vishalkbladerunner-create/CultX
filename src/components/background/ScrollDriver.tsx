@@ -172,10 +172,10 @@ export function ScrollDriver() {
       });
 
       /* ---- M09 — sticky-stage scrolly: frames crossfade per step ----
-         One mechanism, two markup contracts:
-           [data-journey]      + [data-journey-frame]/[data-journey-step]  (platform)
-           [data-stage-scope]  + [data-stage-frame]/[data-stage-step]      (home FormatStage)
-         Optional [data-stage-caption] items under the poster swap via
+         One generalized contract:
+           [data-stage-scope]  + [data-stage-frame]/[data-stage-step]
+         (home FormatStage, platform journey). Optional
+         [data-stage-caption] items under the poster swap via
          data-active (kept off the art so titles never fight the visual). */
       const bindStage = (
         scope: HTMLElement,
@@ -237,14 +237,73 @@ export function ScrollDriver() {
         });
       };
 
-      const journey = document.querySelector<HTMLElement>("[data-journey]");
-      if (journey) {
-        bindStage(journey, "[data-journey-frame]", "[data-journey-step]");
-      }
       gsap.utils
         .toArray<HTMLElement>("[data-stage-scope]")
         .forEach((scope) =>
           bindStage(scope, "[data-stage-frame]", "[data-stage-step]")
+        );
+
+      /* ---- Progressive chains — steps activate as a line draws past ----
+         Two axis variants of one mechanism:
+           [data-chain]     + [data-chain-step]    + [data-chain-line]    (x)
+           [data-timeline]  + [data-timeline-step] + [data-timeline-line] (y)
+         Monetize token loop (horizontal) + about roadmap (vertical).
+         Reduced motion: all steps active, line full. */
+      const bindProgressChain = (
+        scope: HTMLElement,
+        stepSelector: string,
+        lineSelector: string,
+        axis: "x" | "y"
+      ) => {
+        const steps = gsap.utils.toArray<HTMLElement>(
+          scope.querySelectorAll(stepSelector)
+        );
+        const line = scope.querySelector<HTMLElement>(lineSelector);
+        if (!steps.length) return;
+        if (reduced) {
+          steps.forEach((s) => s.setAttribute("data-active", ""));
+          return;
+        }
+        const setActive = (p: number) => {
+          steps.forEach((s, i) => {
+            const threshold =
+              steps.length === 1 ? 0 : i / (steps.length - 1);
+            if (p >= threshold - 0.001) s.setAttribute("data-active", "");
+            else s.removeAttribute("data-active");
+          });
+        };
+        setActive(0);
+        ScrollTrigger.create({
+          trigger: scope,
+          start: "top 70%",
+          end: "bottom 55%",
+          scrub: true,
+          onUpdate: (self) => {
+            if (line) {
+              line.style.transform =
+                axis === "x"
+                  ? `scaleX(${self.progress})`
+                  : `scaleY(${self.progress})`;
+            }
+            setActive(self.progress);
+          },
+        });
+      };
+
+      gsap.utils
+        .toArray<HTMLElement>("[data-chain]")
+        .forEach((el) =>
+          bindProgressChain(el, "[data-chain-step]", "[data-chain-line]", "x")
+        );
+      gsap.utils
+        .toArray<HTMLElement>("[data-timeline]")
+        .forEach((el) =>
+          bindProgressChain(
+            el,
+            "[data-timeline-step]",
+            "[data-timeline-line]",
+            "y"
+          )
         );
 
       /* ---- Atmosphere drift — scrubbed CSS vars on the fixed wash ----

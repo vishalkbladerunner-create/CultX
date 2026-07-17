@@ -19,6 +19,26 @@ function usePrefersReducedMotion(): boolean {
   );
 }
 
+export type StarSlide = {
+  id: string;
+  name: string;
+  badge: string;
+  body: string;
+  role: string;
+  /** MediaFrame slot id for the portrait */
+  slot: string;
+  /** MediaFrame role label (uppercase) */
+  frameLabel: string;
+};
+
+export type StarCarouselProps = {
+  slides: readonly StarSlide[];
+  /** Region aria-label */
+  ariaLabel?: string;
+  /** Deliverable spec shown in the portrait MediaFrame */
+  portraitSpec?: string;
+};
+
 /**
  * StarCarousel — reference M19 rebuilt for CultX (spec §3-P5).
  *
@@ -30,52 +50,13 @@ function usePrefersReducedMotion(): boolean {
  * yPercent swap on each activation.
  *
  * A11y: real <button> controls, slides carry aria-roledescription="slide",
- * region labelled "Star IPs". Reduced motion: no autoplay, first slide
- * static, controls still switch slides instantly.
- * Data: star IP cards verbatim (03-home.md §6 / 07-stars.md).
+ * region labelled. Reduced motion: no autoplay, first slide static,
+ * controls still switch slides instantly.
+ * Data: star IP cards verbatim (03-home.md §6 / 07-stars.md) — home
+ * passes `home-star-*` slots, /stars passes `star-*` slots.
  */
-
-const SLIDES = [
-  {
-    id: "pucca",
-    name: "Pucca",
-    badge: "25 years",
-    body: "A 25-year iconic brand from Korea — beloved worldwide for charming characters and timeless stories.",
-    role: "Flagship Korean character energy for the Star IP Universe.",
-    slot: "home-star-pucca",
-    frameLabel: "PUCCA PORTRAIT",
-  },
-  {
-    id: "bduck",
-    name: "B.Duck",
-    badge: "20 years",
-    body: "A 20-year global lifestyle brand with massive merchandise, licensing, and media presence.",
-    role: "Lifestyle IP with broad global recognition.",
-    slot: "home-star-bduck",
-    frameLabel: "B.DUCK PORTRAIT",
-  },
-  {
-    id: "ponke",
-    name: "Ponke",
-    badge: "Web3-native",
-    body: "A popular Web3-native IP with a strong community and cultural influence across digital worlds.",
-    role: "Bridge between crypto-native fandom and entertainment formats.",
-    slot: "home-star-ponke",
-    frameLabel: "PONKE PORTRAIT",
-  },
-  {
-    id: "mew",
-    name: "Mew",
-    badge: "Rising",
-    body: "An adorable cat IP with a rapidly growing global fanbase and huge digital engagement.",
-    role: "Fast-growth character energy for shorts, merch, and community.",
-    slot: "home-star-mew",
-    frameLabel: "MEW PORTRAIT",
-  },
-] as const;
-
 const DURATION = 5000;
-const PORTRAIT_SPEC = "Character portrait · 1200×1800 PNG/WebP";
+const DEFAULT_SPEC = "Character portrait · 1200×1800 PNG/WebP";
 
 function ArrowLeft() {
   return (
@@ -103,7 +84,11 @@ function ArrowRight() {
   );
 }
 
-export function StarCarousel() {
+export function StarCarousel({
+  slides,
+  ariaLabel = "Star IPs",
+  portraitSpec = DEFAULT_SPEC,
+}: StarCarouselProps) {
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   const clock = useRef({ elapsed: 0, hovering: false });
@@ -138,7 +123,7 @@ export function StarCarousel() {
         c.elapsed += dt;
         if (c.elapsed >= DURATION) {
           c.elapsed = 0;
-          setActive((a) => (a + 1) % SLIDES.length);
+          setActive((a) => (a + 1) % slides.length);
         }
       }
       const pct = Math.min(100, (c.elapsed / DURATION) * 100);
@@ -149,14 +134,14 @@ export function StarCarousel() {
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
-  }, [reduced]);
+  }, [reduced, slides.length]);
 
   function goTo(next: number) {
     clock.current.elapsed = 0;
     fillRefs.current.forEach((el) => {
       if (el) el.style.width = "0%";
     });
-    setActive(((next % SLIDES.length) + SLIDES.length) % SLIDES.length);
+    setActive(((next % slides.length) + slides.length) % slides.length);
   }
 
   return (
@@ -164,7 +149,7 @@ export function StarCarousel() {
       className={styles.root}
       role="region"
       aria-roledescription="carousel"
-      aria-label="Star IPs"
+      aria-label={ariaLabel}
       onMouseEnter={() => {
         clock.current.hovering = true;
       }}
@@ -173,21 +158,21 @@ export function StarCarousel() {
       }}
     >
       <div className={styles.viewport}>
-        {SLIDES.map((s, i) => {
+        {slides.map((s, i) => {
           const isActive = i === active;
           return (
             <article
               key={s.id}
               className={`${styles.slide} ${isActive ? styles.active : ""}`}
               aria-roledescription="slide"
-              aria-label={`${i + 1} of ${SLIDES.length}`}
+              aria-label={`${i + 1} of ${slides.length}`}
               aria-hidden={!isActive}
             >
               <div className={styles.portraitHost}>
                 <MediaFrame
                   slot={s.slot}
                   label={s.frameLabel}
-                  spec={PORTRAIT_SPEC}
+                  spec={portraitSpec}
                   fill
                 />
               </div>
@@ -213,7 +198,7 @@ export function StarCarousel() {
 
       <div className={styles.controls}>
         <div className={styles.progress} aria-hidden>
-          {SLIDES.map((s, i) => (
+          {slides.map((s, i) => (
             <span key={s.id} className={styles.progressTrack}>
               <span
                 className={styles.progressFill}

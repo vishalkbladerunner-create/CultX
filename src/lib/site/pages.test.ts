@@ -12,6 +12,10 @@ async function readWebFile(rel: string): Promise<string> {
 
 const ROUTES = ["platform", "pillars", "monetize", "stars", "about", "faq"];
 
+/* Routes rebuilt in the K-Cinema language (cinema/* primitives).
+   All six subpages propagated; gates below keep the redesign honest. */
+const K_CINEMA_ROUTES = ["platform", "pillars", "monetize", "stars", "about", "faq"];
+
 describe("site routes — real pages, per-page architecture", () => {
   it("every route has a page.tsx wired to its own page component (no SubPage)", async () => {
     for (const route of ROUTES) {
@@ -54,12 +58,14 @@ describe("site routes — real pages, per-page architecture", () => {
       );
       assert.match(tsx, /SiteFooter/, route);
       /* Theme sections live inline AND inside kit components:
-         PageHero and CtaBand each render one data-theme-section,
-         SiteFooter renders one more. Count all sources. */
+         PageHero/CinemaHero and CtaBand each render one
+         data-theme-section, SiteFooter renders one more.
+         Count all sources. */
       const inline = (tsx.match(/data-theme-section=/g) || []).length;
       const total =
         inline +
         (tsx.match(/<PageHero/g) || []).length +
+        (tsx.match(/<CinemaHero/g) || []).length +
         (tsx.match(/<CtaBand/g) || []).length +
         1; // SiteFooter
       assert.ok(
@@ -122,18 +128,21 @@ describe("foundations — fonts, media slots, motion, nav", () => {
     assert.match(tsx, /spec: string/);
   });
 
-  it("ScrollDriver wires data-stagger + data-journey bindings", async () => {
+  it("ScrollDriver wires stagger + stage + chain + timeline bindings", async () => {
     const tsx = await readWebFile(
       "src/components/background/ScrollDriver.tsx"
     );
     assert.match(tsx, /\[data-stagger\]/);
-    assert.match(tsx, /\[data-journey-frame\]/);
-    assert.match(tsx, /\[data-journey-step\]/);
-    /* K-Cinema home primitives: M15 masked reveal, atmosphere drift,
-       generalized M09 stage scope (home FormatStage). */
+    /* K-Cinema primitives: M15 masked reveal, atmosphere drift,
+       generalized M09 stage scope (home FormatStage + platform journey),
+       progressive chains (monetize token loop, about roadmap). */
     assert.match(tsx, /\[data-mask-reveal\]/);
     assert.match(tsx, /\[data-atmo\]/);
     assert.match(tsx, /\[data-stage-scope\]/);
+    assert.match(tsx, /\[data-chain\]/);
+    assert.match(tsx, /\[data-chain-step\]/);
+    assert.match(tsx, /\[data-timeline\]/);
+    assert.match(tsx, /\[data-timeline-step\]/);
     /* Route changes must recalculate Lenis' cached scroll limit,
        or wheel scrolling clamps to the previous page's height. */
     assert.match(tsx, /__lenis\?\.resize\(\)/);
@@ -150,6 +159,47 @@ describe("foundations — fonts, media slots, motion, nav", () => {
     for (const route of ROUTES) {
       assert.match(hdr, new RegExp(`"/${route}"`), `header missing /${route}`);
       assert.match(ftr, new RegExp(`"/${route}"`), `footer missing /${route}`);
+    }
+  });
+});
+
+describe("K-Cinema subpage DNA (redesigned routes)", () => {
+  it("title-card hero via CinemaHero; kit PageHero retired", async () => {
+    for (const route of K_CINEMA_ROUTES) {
+      const tsx = await readWebFile(
+        `src/components/pages/${route}/${route[0].toUpperCase()}${route.slice(1)}Page.tsx`
+      );
+      assert.match(tsx, /<CinemaHero/, route);
+      assert.doesNotMatch(tsx, /<PageHero/, route);
+    }
+  });
+
+  it("dome hosts carry mask-image (seam-free canvas)", async () => {
+    for (const route of K_CINEMA_ROUTES) {
+      const css = await readWebFile(
+        `src/components/pages/${route}/${route[0].toUpperCase()}${route.slice(1)}Page.module.css`
+      );
+      const hosts = css.match(/\.[\w-]*[Dd]ome[\w-]*Host\s*\{[^}]*\}/g) || [];
+      for (const block of hosts) {
+        assert.match(
+          block,
+          /mask-image/,
+          `${route}: dome host block missing mask-image`
+        );
+      }
+    }
+  });
+
+  it("no solid black panels in page modules (canvas shows through)", async () => {
+    for (const route of K_CINEMA_ROUTES) {
+      const css = await readWebFile(
+        `src/components/pages/${route}/${route[0].toUpperCase()}${route.slice(1)}Page.module.css`
+      );
+      assert.doesNotMatch(
+        css,
+        /background:\s*var\(--ck-black\)/,
+        `${route}: solid opaque panel found`
+      );
     }
   });
 });

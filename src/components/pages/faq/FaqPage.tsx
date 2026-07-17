@@ -1,11 +1,15 @@
 import { SiteFooter } from "@/components/chrome/SiteFooter";
-import { PageHero } from "@/components/kit/PageHero";
-import { SectionHeading } from "@/components/kit/SectionHeading";
-import { FaqList } from "@/components/home/FaqList";
-import kit from "@/components/kit/kit.module.css";
+import { CinemaHero } from "@/components/cinema/CinemaHero";
+import { CinemaHeading } from "@/components/cinema/CinemaHeading";
+import { FaqList } from "@/components/cinema/FaqList";
 import styles from "./FaqPage.module.css";
 
-/*
+/**
+ * CultX /faq — K-Cinema pass on the utility page: title-card hero
+ * (type-led, no media slot), masked group headings, the grouped M17
+ * accordion. Stays a short page on purpose — the short-page scroll
+ * contract holds here.
+ *
  * Answers: transcribed verbatim from
  * cult/content-strategy/09-faq-cta-waitlist.md (groups A–G).
  */
@@ -145,8 +149,8 @@ const FAQ_GROUPS: {
 export function FaqPage() {
   return (
     <main className={styles.main} id="top">
-      {/* 1. HERO — no media slot: type-led page */}
-      <PageHero
+      {/* 1. HERO — title card, type-led (no media slot) */}
+      <CinemaHero
         eyebrow="FAQ"
         title="Straight answers."
         blurb="What CultX is, what you can create, how creators earn, and where we’re building from."
@@ -156,15 +160,17 @@ export function FaqPage() {
 
       {/* 2. GROUPED ACCORDION — single content section (short page) */}
       <section className={styles.section} data-theme-section="dark">
-        <div className={kit.layout}>
-          <SectionHeading
+        <div className={styles.layout}>
+          <CinemaHeading
             eyebrow="01 — Common questions"
             title="Everything you need to know to start."
           />
           <div className={styles.groups}>
             {FAQ_GROUPS.map((g) => (
               <div key={g.id} data-reveal>
-                <p className={styles.groupTitle}>{g.title}</p>
+                <div className={styles.maskGroup} data-mask-reveal>
+                  <h3 className={styles.groupTitle}>{g.title}</h3>
+                </div>
                 <FaqList items={g.items} />
               </div>
             ))}

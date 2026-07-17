@@ -1,3 +1,11 @@
+/**
+ * CultX /pillars — "Four Channels" (K-Cinema language).
+ *
+ * One continuous background canvas: the universe chapter dome bleeds
+ * past its section and mask-fades at both edges; NO solid panels —
+ * chapters are transparent editorial scenes with per-format accents.
+ */
+
 .main {
   position: relative;
   z-index: 1;
@@ -6,188 +14,320 @@
   padding: 0;
 }
 
+.layout {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+}
+
 .section {
   position: relative;
-  padding: 16vh 0;
+  padding: 16vh 0 10vh;
   overflow: visible;
 }
-
-.overviewGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 8vh;
-}
-
-@media (min-width: 800px) {
-  .overviewGrid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.overviewLink {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-/* ---- Chapters ---- */
 
 .chapter {
   position: relative;
-  padding: 20vh 0;
+  padding: 18vh 0;
   overflow: visible;
 }
 
-.chapterDomeHost {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+/* ---------------------------------------------------------------- */
+/* 2. OVERVIEW — the index rail (full-width hairline rows)           */
+/* ---------------------------------------------------------------- */
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6vh;
 }
+
+.railRow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: baseline;
+  gap: 20px;
+  padding: 26px 0;
+  border-top: 1px solid var(--ck-white-10);
+  text-decoration: none;
+  color: var(--ck-off-white);
+  transition: background-color 0.35s var(--ck-ease-out-quad);
+}
+
+.railRow:last-child {
+  border-bottom: 1px solid var(--ck-white-10);
+}
+
+.railRow:hover,
+.railRow:focus-visible {
+  background: var(--ck-white-5);
+}
+
+.railNum {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.08em;
+  color: var(--ck-green-300);
+}
+
+.railRow[data-accent="cyan"] .railNum { color: var(--ck-accent-cyan); }
+.railRow[data-accent="magenta"] .railNum { color: var(--ck-chartreuse); }
+.railRow[data-accent="purple"] .railNum { color: var(--ck-neon-green); }
+.railRow[data-accent="orange"] .railNum { color: var(--ck-accent-orange); }
+
+.railTitle {
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  line-height: 1.1;
+}
+
+@media (min-width: 800px) {
+  .railRow {
+    grid-template-columns: 64px minmax(0, 1.2fr) minmax(0, 1fr) 32px;
+    padding: 30px 0;
+  }
+
+  .railTitle {
+    font-size: var(--ck-h4-size);
+    letter-spacing: var(--ck-h4-tracking);
+  }
+}
+
+.railLine {
+  display: none;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}
+
+@media (min-width: 800px) {
+  .railLine {
+    display: block;
+  }
+}
+
+.railJump {
+  justify-self: end;
+  font-size: 16px;
+  color: var(--ck-muted);
+  transition:
+    transform 0.35s var(--ck-ease-out-quad),
+    color 0.35s var(--ck-ease-out-quad);
+}
+
+.railRow:hover .railJump,
+.railRow:focus-visible .railJump {
+  transform: translateY(4px);
+  color: var(--ck-green-300);
+}
+
+/* ---------------------------------------------------------------- */
+/* Chapter scenes                                                    */
+/* ---------------------------------------------------------------- */
 
 .chapterGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 40px;
+  gap: 48px;
   margin-top: 8vh;
 }
 
 @media (min-width: 800px) {
   .chapterGrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
   }
 }
 
-.chapterMedia {
+.morphMedia {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
-.stageMedia {
-  margin-top: 8vh;
-}
-
-.stepList {
+.sceneRows {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  margin-top: 6vh;
 }
 
-.stepTitle {
-  margin: 12px 0 8px;
-  font-family: var(--ck-font-display);
-  font-size: 24px;
+@media (min-width: 800px) {
+  .sceneRows {
+    margin-top: 0;
+  }
+}
+
+.chapter > .layout > .sceneRows {
+  margin-top: 8vh;
+}
+
+.proofLine {
+  margin: 10vh 0 0;
+  max-width: 640px;
+  font-size: var(--ck-lede-size);
   font-weight: 500;
-  letter-spacing: -0.24px;
-  color: var(--ck-off-white);
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
 }
 
-.winList {
+.footerLine {
+  margin: 8vh 0 0;
+  max-width: 640px;
+  font-size: var(--ck-lede-size);
+  font-weight: 500;
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
+}
+
+.chipRow {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 40px 0 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
 }
 
-.winItem {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--ck-muted);
-  padding-left: 18px;
-  border-left: 1px dashed var(--ck-white-20);
-}
-
-.chipGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 8vh;
-}
-
-@media (min-width: 800px) {
-  .chipGrid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.phoneRow {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 8vh;
-  max-width: 900px;
-}
-
-.benefitGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 8vh;
-}
-
-@media (min-width: 800px) {
-  .benefitGrid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.cardMicro {
-  margin: 16px 0 0;
+.chip {
   font-family: var(--ck-font-label);
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ck-off-white);
+  padding: 10px 16px;
+  border: 1px dashed var(--ck-white-20);
 }
 
-.playerWrap {
-  margin-top: 8vh;
+.linkRow {
+  margin-top: 40px;
+}
+
+.textLink {
+  display: inline-block;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ck-off-white);
+  border-bottom: 1px solid var(--ck-white-20);
+  padding-bottom: 4px;
+  transition:
+    color 0.35s var(--ck-ease-out-quad),
+    border-color 0.35s var(--ck-ease-out-quad);
+}
+
+.textLink:hover {
+  color: var(--ck-green-300);
+  border-color: var(--ck-green-300);
+}
+
+/* ---- Universe chapter: dome + stage ---- */
+
+.universeDomeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+.badge {
+  display: inline-block;
+  margin: 24px 0 0;
+  padding: 8px 14px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-chartreuse);
+  border: 1px solid rgb(212 255 0 / 0.35);
+}
+
+.stageMedia {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin-top: 6vh;
+}
+
+.disclaimer {
+  margin: 32px 0 0;
+  max-width: 640px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  opacity: 0.75;
+}
+
+/* ---- Short chapter: phone trio ---- */
+
+.phonesGrid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 8vh;
 }
 
 @media (min-width: 800px) {
-  .playerWrap {
-    grid-template-columns: 7fr 4fr;
-    align-items: stretch;
+  .phonesGrid {
+    gap: 24px;
+    max-width: 1080px;
   }
+}
+
+/* ---- Drama chapter: player + series card ---- */
+
+.playerWrap {
+  position: relative;
+  margin-top: 8vh;
 }
 
 .seriesCard {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 28px 24px;
-  background: var(--ck-white-5);
+  margin-top: 16px;
+  padding: 22px 0 26px;
   border-top: 1px solid var(--ck-accent-orange);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+@media (min-width: 800px) {
+  .seriesCard {
+    grid-template-columns: auto 1fr auto auto;
+    align-items: baseline;
+    gap: 28px;
+  }
 }
 
 .seriesTitle {
   margin: 0;
   font-family: var(--ck-font-display);
-  font-size: 32px;
-  letter-spacing: -0.4px;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   color: var(--ck-off-white);
 }
 
-.seriesTag {
+.seriesTagline {
   margin: 0;
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.5;
   color: var(--ck-muted);
 }
 
 .seriesMeta {
-  margin: 8px 0 0;
+  margin: 0;
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
   letter-spacing: 0.1em;
@@ -196,22 +336,18 @@
 }
 
 .seriesCta {
-  margin-top: 20px;
-  display: inline-block;
-  padding: 12px 20px;
-  border: 1px dashed var(--ck-white-20);
+  margin: 8px 0 0;
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
-  letter-spacing: 0.12em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ck-off-white);
+  color: var(--ck-accent-orange);
 }
 
-.proofLine {
-  margin: 10vh 0 0;
-  max-width: 620px;
-  font-size: var(--ck-lede-size);
-  font-weight: 500;
-  line-height: var(--ck-lede-leading);
-  color: var(--ck-muted);
+@media (min-width: 800px) {
+  .seriesCta {
+    margin: 0;
+    justify-self: end;
+  }
 }

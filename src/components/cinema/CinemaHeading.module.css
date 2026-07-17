@@ -1,0 +1,85 @@
+/**
+ * CinemaHeading — K-Cinema section head chrome.
+ * Mirrors the home section-head geometry: dashed top line + corner pin
+ * + eyebrow + masked H2 + optional lede.
+ */
+
+.sectionHead {
+  position: relative;
+  padding-top: 28px;
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+/* Per-region accent eyebrows (one accent family per region) */
+.eyebrow[data-accent="cyan"] { color: var(--ck-accent-cyan); }
+.eyebrow[data-accent="magenta"] { color: var(--ck-chartreuse); }
+.eyebrow[data-accent="purple"] { color: var(--ck-neon-green); }
+.eyebrow[data-accent="orange"] { color: var(--ck-accent-orange); }
+.eyebrow[data-accent="gold"] { color: var(--ck-accent-gold); }
+
+/* M15 mask wrapper — ScrollDriver slides the inner H2 up out of it */
+.maskH2 {
+  overflow: hidden;
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.9px;
+  line-height: 1.05;
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .h2 {
+    font-size: var(--ck-h2-size);
+    letter-spacing: var(--ck-h2-tracking);
+    line-height: var(--ck-h2-leading);
+  }
+}
+
+.lede {
+  margin: 28px 0 0;
+  max-width: 620px;
+  font-size: var(--ck-lede-size);
+  font-weight: 500;
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
+}
+
+/* Dashed line anchored to the section head top (L03) */
+.lineTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--ck-stroke-light-subtle);
+}
+
+/* Corner pin — L02 (6px technical marker) */
+.hasPinTopLeft {
+  position: relative;
+}
+
+.hasPinTopLeft::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--ck-green-300);
+  pointer-events: none;
+}

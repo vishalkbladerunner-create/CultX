@@ -1,0 +1,126 @@
+/**
+ * CinemaHero — K-Cinema subpage title card.
+ * Geometry mirrors the home hero; the percentage dome host carries the
+ * seam-free mask-fade at both edges (one continuous canvas invariant).
+ */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  min-height: 100lvh;
+  padding-top: calc(110px + var(--ck-layout-margin));
+  padding-bottom: 24px;
+  color: var(--ck-off-white);
+  overflow: visible; /* dome tail must paint past the hero fold */
+}
+
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Top dome — percentage host (never vh), mask-faded at both edges so
+   the tail dissolves into the next section (no seam). */
+.heroDomeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 130%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent, black 10%, black 88%, transparent);
+}
+
+@media (min-width: 800px) {
+  .heroDomeHost {
+    height: 110%;
+  }
+}
+
+/* z1 — full-bleed media slot (owner video/art later), mask-fades out
+   before the fold so content stays readable. */
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, black 72%, transparent 97%);
+}
+
+.heroContent {
+  margin: 0 var(--ck-layout-margin);
+  max-width: 940px;
+}
+
+.eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: clamp(30px, 9.5vw, 52px);
+  font-weight: 400;
+  letter-spacing: var(--ck-h3-tracking);
+  line-height: var(--ck-h3-leading);
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+@media (min-width: 800px) {
+  .heroTitle {
+    font-size: var(--ck-h1-size);
+    letter-spacing: var(--ck-h1-tracking);
+    line-height: var(--ck-h1-leading);
+  }
+}
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 34px;
+}
+
+.heroFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 64px var(--ck-layout-margin) 0;
+}
+
+@media (min-width: 800px) {
+  .heroFooter {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+}
+
+.heroMeta {
+  margin: 0;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-off-white);
+}
+
+.heroBlurb {
+  margin: 0;
+  max-width: 380px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}

@@ -1,0 +1,50 @@
+/**
+ * CinemaPanel — transparent full-viewport intertitle (M07 scroll-fill).
+ * No background anywhere: the canvas shows through — zero seam.
+ */
+
+.panel {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12vh 0;
+  text-align: center;
+  overflow: visible;
+}
+
+.inner {
+  margin: 0 var(--ck-layout-margin);
+  max-width: 1120px;
+}
+
+.fillLine {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: clamp(40px, 6.6vw, 96px);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--ck-off-white);
+  text-wrap: balance;
+}
+
+.fillWord {
+  display: inline-block;
+  margin-right: 0.26em;
+}
+
+.fillWord:last-child {
+  margin-right: 0;
+}
+
+.lede {
+  margin: 36px auto 0;
+  max-width: 640px;
+  font-size: var(--ck-lede-size);
+  font-weight: 500;
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
+}
