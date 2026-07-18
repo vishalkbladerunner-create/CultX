@@ -168,6 +168,7 @@ export function HomePage() {
             delay={0.2}
             text={"Made in Korea.\nBinged by the World."}
             className={styles.heroTitle}
+            accentLines={[1]}
           />
           <div className={styles.heroCtas} data-hero-intro>
             <UIButton href="#waitlist" label="Join the Waitlist" />
@@ -228,12 +229,18 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ============ 4. MANIFESTO — full-viewport scroll-fill panel ============ */}
+      {/* ============ 4. MANIFESTO — full-viewport scroll-fill panel ============
+          The answer to the tension above fills in BRIGHT ACTION GREEN:
+          problem stays ashen, the CultX loop blazes on the noir canvas. */}
       <section className={styles.cinemaPanel} data-theme-section="dark">
         <div className={styles.cinemaInner}>
           <p className={styles.fillLine} data-scroll-fill>
             {["Create.", "Watch.", "Engage.", "Own."].map((w) => (
-              <span key={w} className={styles.fillWord} data-fill-word>
+              <span
+                key={w}
+                className={`${styles.fillWord} ${styles.fillWordAccent}`}
+                data-fill-word
+              >
                 {w}
               </span>
             ))}

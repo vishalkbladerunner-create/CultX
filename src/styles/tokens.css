@@ -74,10 +74,10 @@
   --ck-action-line: rgb(166 255 13 / 0.35);
 
   /* ---- Fixed atmosphere (M04, ref .gradient-bg-light geometry) ----
-     Noir rebalance: the pool is a whisper — near-black greens so the page
-     reads 80–90% black; domes/vignettes carry the bright accents. */
-  --ck-atmo-tint: #0a1c04; /* 45% stop — faint green pool from above the fold */
-  --ck-atmo-mid: #040b02; /* 85% stop */
+     Noir: the canvas is pitch black. Any green lives on the domes,
+     vignette kisses, and UI accents — never a page-wide tint. */
+  --ck-atmo-tint: #030a01; /* 45% stop — imperceptible breath, not a tint */
+  --ck-atmo-mid: #000000; /* 85% stop */
   --ck-atmo-base: #000000; /* base */
 
   /* ---- Type scale (L09 — reference ladder) ---- */

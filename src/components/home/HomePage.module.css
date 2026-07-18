@@ -427,6 +427,12 @@
   margin-right: 0;
 }
 
+/* Manifesto loop — the one bright-green text moment on the noir canvas */
+.fillWordAccent {
+  color: var(--ck-action);
+  text-shadow: 0 0 34px var(--ck-action-glow);
+}
+
 .cinemaLede,
 .cinemaSub {
   margin: 36px auto 0;

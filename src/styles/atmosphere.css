@@ -26,9 +26,9 @@
   --ck-dome-glow-1: #123f04;
 
   /* Halo (bloom) tones — same hue, alpha-only, deliberately faint */
-  --ck-dome-halo-1: rgb(166 255 13 / 0.07);
-  --ck-dome-halo-2: rgb(150 230 12 / 0.03);
-  --ck-dome-halo-3: rgb(120 190 10 / 0.012);
+  --ck-dome-halo-1: rgb(166 255 13 / 0.05);
+  --ck-dome-halo-2: rgb(150 230 12 / 0.02);
+  --ck-dome-halo-3: rgb(120 190 10 / 0.008);
 
   /* Noir vignette tones — near-black with a green bias */
   --ck-vig-edge: rgb(1 6 1);
@@ -53,61 +53,60 @@
   background-repeat: no-repeat;
 }
 
-/* transparent variant — bright rim band low in the box, dissolving only
-   at the very bottom edge; above the rim the dome is near-void */
+/* transparent variant — THIN bright horizon: a deliberate light seam, not
+   a green pool. Flat ellipse (130% × 95%) = wide glowing band hugging the
+   base, dying to void above (y≈65) and to black at the edges. */
 .ck-dome {
   background-image:
-    /* rim: hot holds to y≈92, bright band y≈82–92 (center), faint by y≈63.
-       Green visibly occupies only the bottom arc (~10–15% of the dome). */
     radial-gradient(
-      ellipse 135% 105% at 50% 105%,
+      ellipse 130% 95% at 50% 105%,
       var(--ck-dome-hot) 0%,
-      var(--ck-dome-hot) 12%,
-      var(--ck-dome-rim) 17%,
-      var(--ck-dome-glow-3) 22%,
-      var(--ck-dome-glow-2) 27%,
-      var(--ck-dome-glow-1) 33%,
-      rgb(6 20 2 / 0.45) 40%,
-      rgb(2 8 1 / 0) 50%
+      var(--ck-dome-hot) 10%,
+      var(--ck-dome-rim) 13%,
+      var(--ck-dome-glow-3) 16%,
+      var(--ck-dome-glow-2) 19.5%,
+      var(--ck-dome-glow-1) 23.5%,
+      rgb(6 20 2 / 0.25) 26%,
+      rgb(2 8 1 / 0) 32%
     ),
-    /* halo: soft bloom so the rim reads luminous, not clipped */
+    /* halo: barely-there bloom so the seam reads luminous, not clipped */
     radial-gradient(
-      ellipse 140% 110% at 50% 112%,
+      ellipse 132% 100% at 50% 112%,
       var(--ck-dome-halo-1) 0%,
-      var(--ck-dome-halo-2) 26%,
-      var(--ck-dome-halo-3) 45%,
-      transparent 60%
+      var(--ck-dome-halo-2) 22%,
+      var(--ck-dome-halo-3) 38%,
+      transparent 50%
     );
-  /* alpha holds through the rim band, dissolves the bottom edge only */
+  /* alpha holds through the seam, dissolves the bottom edge only */
   mask-image: linear-gradient(
     to bottom,
-    black 84%,
-    rgb(0 0 0 / 0.6) 91%,
-    rgb(0 0 0 / 0.22) 95%,
-    transparent 98%
+    black 86%,
+    rgb(0 0 0 / 0.65) 93%,
+    rgb(0 0 0 / 0.28) 96%,
+    transparent 98.5%
   );
 }
 
-/* opaque variant — solid noir dome (void above the rim), soft bottom edge */
+/* opaque variant — solid noir dome (void above the seam), soft bottom edge */
 .ck-dome-opaque {
   background-image:
     radial-gradient(
-      ellipse 135% 105% at 50% 105%,
+      ellipse 130% 95% at 50% 105%,
       var(--ck-dome-hot) 0%,
-      var(--ck-dome-hot) 13%,
-      var(--ck-dome-rim) 18%,
-      var(--ck-dome-glow-3) 23%,
-      var(--ck-dome-glow-2) 28%,
-      var(--ck-dome-glow-1) 35%,
-      #061402 45%,
-      #000000 56%
+      var(--ck-dome-hot) 11%,
+      var(--ck-dome-rim) 14%,
+      var(--ck-dome-glow-3) 17%,
+      var(--ck-dome-glow-2) 21%,
+      var(--ck-dome-glow-1) 26%,
+      #041002 34%,
+      #000000 46%
     ),
     radial-gradient(
-      ellipse 140% 110% at 50% 112%,
+      ellipse 132% 100% at 50% 112%,
       var(--ck-dome-halo-1) 0%,
-      var(--ck-dome-halo-2) 26%,
-      var(--ck-dome-halo-3) 45%,
-      transparent 60%
+      var(--ck-dome-halo-2) 22%,
+      var(--ck-dome-halo-3) 38%,
+      transparent 50%
     );
   mask-image: linear-gradient(
     to bottom,
@@ -157,7 +156,7 @@
     ),
     radial-gradient(
       ellipse 30% 42% at 106% 70%,
-      rgb(166 255 13 / 0.13) 0%,
+      rgb(166 255 13 / 0.08) 0%,
       transparent 66%
     ),
     radial-gradient(
@@ -179,7 +178,7 @@
   background:
     radial-gradient(
       ellipse 30% 44% at 104% 38%,
-      rgb(166 255 13 / 0.14) 0%,
+      rgb(166 255 13 / 0.09) 0%,
       transparent 66%
     ),
     radial-gradient(
@@ -200,7 +199,7 @@
   background:
     radial-gradient(
       ellipse 46% 48% at 100% 92%,
-      rgb(166 255 13 / 0.22) 0%,
+      rgb(166 255 13 / 0.14) 0%,
       var(--ck-vig-kiss-soft) 44%,
       transparent 72%
     ),

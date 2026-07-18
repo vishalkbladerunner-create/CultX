@@ -36,8 +36,9 @@ src/
     background/            # Pure stage math (tested)
     site/pages.test.ts     # Executable definition of done for routes
     wordmark/              # Wordmark grid helpers (tested)
-  styles/tokens.css        # Brand tokens (green atmosphere)
-public/images/             # Poppy image set
+  styles/tokens.css        # Brand tokens (noir canvas + action green)
+  styles/atmosphere.css    # Pure-CSS noir domes/vignettes (no image assets)
+public/                    # Static assets — backgrounds are CSS, no image set
 ```
 
 ## Routes (live)
@@ -66,13 +67,13 @@ Header/footer NAV: Platform · Pillars · Monetize · Star IPs · **AI Center** 
 
 ## Background architecture (reference-faithful)
 
-- Scroll color = document flow past **image domes** + fixed CSS wash — never a per-frame body recolor.
-- `GradientDome` = 1:1 port of reference `.gradient-bg-dark`; parallax via GSAP ScrollTrigger in `ScrollDriver`.
+- Scroll color = document flow past **CSS domes** (`.ck-dome`, atmosphere.css) + fixed near-black CSS wash — never a per-frame body recolor.
+- `GradientDome` = 1:1 port of reference `.gradient-bg-dark`; parallax via GSAP ScrollTrigger in `ScrollDriver`; visual is pure CSS (bright seam + halo + grain, zero image weight).
 - **Seam-free canvas (all pages):** every dome host carries `mask-image` vertical edge fades and bleeds past its section; no solid opaque panels (test-gated in `stages.test.ts` for home, `pages.test.ts` for subpages).
 - **Living atmosphere:** the fixed wash (`data-atmo`) drifts with scroll — gradient center `-30% → -14%` and hue `0 → 14deg`, scrubbed in `ScrollDriver`.
 - **Stage binding (M09):** one generalized `[data-stage-scope]` + `[data-stage-frame]`/`[data-stage-step]` (+ `[data-stage-caption]`) contract — home FormatStage + platform journey.
 - **Progressive chains:** `[data-chain]` (horizontal, monetize token loop) + `[data-timeline]` (vertical, about roadmap) — scrub draws the line, steps activate as it passes.
-- Hero = poppy transparent dome + homepage overlay mask-fade at the fold.
+- Hero = CSS noir dome + `.ck-vignette-home` CSS overlay, mask-fade at the fold.
 - Footer = shared waitlist + `CultXWordmark`.
 
 ## Home (K-Cinema) — current design language
@@ -80,7 +81,7 @@ Header/footer NAV: Platform · Pillars · Monetize · Star IPs · **AI Center** 
 - Tagline: **"Made in Korea. Binged by the World."** (LetterReveal letter-cascade, M06).
 - Hero = title card + **format rail** (4 strips, hover-expand, → `/pillars#…`).
 - `FormatStage` = M09 sticky stage + M15 masked titles (poster slots `format-comic/universe/short/drama`).
-- Tension + manifesto = full-viewport transparent M07 fill panels (no solid black panels).
+- Tension + manifesto = full-viewport transparent M07 fill panels (no solid black panels); the manifesto loop fills in bright action green (`.fillWordAccent`), the tension stays ashen.
 - Monetize = 3 revenue screens (M15). Stars = `StarCarousel` (M19, 5s autoplay + progress + hover-pause). FAQ = M17 measured-height GSAP.
 - Spec: `docs/superpowers/specs/2026-07-17-home-redesign-k-cinema.md`. Subpages are propagated (below).
 
@@ -118,9 +119,9 @@ All six subpages use the `cinema/*` primitives — `CinemaHero` title cards (Let
 
 ## Color discipline
 
-Background is **void black + green-poppy cinema wash** — fixed wash uses `--ck-atmo-*` (`#1b6212` tint / `#0c190c` mid / `#000` base) and dome/overlay assets are the polished `gradient-green-poppy-*` / `heroOverlay-green-poppy_*` set in `public/images/` (same assets as commit `b3a0d76`).  
-The **green family** (`--ck-green-*` ramp) drives the dome, pools, pins, CTAs, and highlights. `--ck-chartreuse` / `--ck-action` are hot UI accents.  
-Do not replace poppy assets with posterized/noir recolors. Cyan/orange/gold stay reserved for sparse UI accents.  
+Background is **pitch black noir** (client directive 2026-07-18: 80–90% true black, 10–20% VERY bright green) — fixed wash `--ck-atmo-*` is effectively black (`#030a01`/`#000`), and every background visual is **pure CSS** in `src/styles/atmosphere.css` (`.ck-dome` seams, `.ck-vignette-*` hero overlays, feTurbulence grain). **No image assets for backgrounds** — the old `gradient-*-poppy-*` / `heroOverlay-*` PNG set was removed; do not re-add bitmap domes/overlays.
+The one background green is the **action green `--ck-action #a6ff0d`** (the header button color): thin glowing dome seams at section boundaries, sparse vignette kisses, plus text moments — hero tagline line 2 (`LetterReveal accentLines`) and the manifesto loop (`.fillWordAccent`). Buttons, pins, and hover states speak the same green.
+Deep greens (`--ck-green-*` ramp) survive only as tiny interactive states (button hovers). Cyan/orange/gold stay reserved for sparse UI accents.
 `FORBIDDEN_ON_BACKGROUND` in `stages.ts` encodes banned reference blues/beiges (including `#0e76ff`) plus retired multi-accent colors for tests.
 
 ## Fonts
@@ -132,4 +133,4 @@ Do not replace poppy assets with posterized/noir recolors. Cyan/orange/gold stay
 
 Every change: cross-check craft vs `../../scrap/sharplink-clone` (structure/motion), score ≥ 8/10 or redo. See root `AGENTS.md`.
 
-Executable gates: `src/lib/site/pages.test.ts` (59 tests when full suite green).
+Executable gates: `src/lib/site/pages.test.ts` (61 tests when full suite green).

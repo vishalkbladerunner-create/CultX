@@ -33,6 +33,8 @@ type Props = {
   trigger?: "load" | "viewport";
   /** Seconds between letters. */
   stagger?: number;
+  /** Line indexes painted in the action green (noir accent text). */
+  accentLines?: number[];
 };
 
 /**
@@ -51,10 +53,13 @@ export function LetterReveal({
   delay = 0,
   trigger = "viewport",
   stagger = 0.028,
+  accentLines = [],
 }: Props) {
   const rootRef = useRef<HTMLElement | null>(null);
   const reduced = usePrefersReducedMotion();
   const lines = text.split("\n");
+  const accentStyle = (i: number) =>
+    accentLines.includes(i) ? { color: "var(--ck-action)" } : undefined;
 
   useEffect(() => {
     if (reduced) return;
@@ -94,7 +99,7 @@ export function LetterReveal({
     return (
       <Tag className={className} aria-label={text}>
         {lines.map((line, i) => (
-          <span key={i} style={{ display: "block" }}>
+          <span key={i} style={{ display: "block", ...accentStyle(i) }}>
             {line}
           </span>
         ))}
@@ -112,7 +117,7 @@ export function LetterReveal({
     >
       <span aria-hidden>
         {lines.map((line, li) => (
-          <span key={li} style={{ display: "block" }}>
+          <span key={li} style={{ display: "block", ...accentStyle(li) }}>
             {line.split(" ").map((word, wi, words) => (
               <span key={wi}>
                 <span
