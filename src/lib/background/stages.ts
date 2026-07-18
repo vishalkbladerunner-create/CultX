@@ -92,16 +92,18 @@ export function elementScrollProgress(
 }
 
 /**
- * CultX green-only atmosphere tokens (muted cinema — wash only).
+ * CultX noir atmosphere tokens (client direction 2026-07-18).
+ * Canvas 80–90% void black; the only background green is the BRIGHT
+ * action green (--ck-action #a6ff0d) as dome rims / sparse kisses.
  * Hot neon / blue / beige / multi-accent forbidden on wash.
  */
 export const PALETTE = {
   void: "#000000",
-  greenDeep: "#041008",
-  greenMid: "#123a08",
-  green: "#3f8a10",
-  greenSoft: "#b9ec8a",
-  surface: "#030603",
+  greenDeep: "#040b02",
+  greenMid: "#0a1c04",
+  green: "#2f8a05",
+  greenSoft: "#a6ff0d",
+  surface: "#000000",
 } as const;
 
 export const FORBIDDEN_ON_BACKGROUND = [

@@ -151,12 +151,12 @@ export function HomePage() {
     <main className={styles.main} id="top">
       {/* ============ 1. HERO — title sequence (M06 + M08 + hero intro) ============ */}
       <header className={styles.hero} data-theme-section="dark">
-        {/* z0 — dome image bg, mask-faded at both edges (seam-free) */}
+        {/* z0 — CSS dome bg, mask-faded at both edges (seam-free) */}
         <div className={styles.heroDomeHost} aria-hidden>
           <GradientDome position="top" />
         </div>
-        {/* z1 — hero overlay vignette PNG */}
-        <div className={styles.heroOverlay} aria-hidden />
+        {/* z1 — hero overlay vignette (pure CSS, atmosphere.css) */}
+        <div className={`${styles.heroOverlay} ck-vignette-home`} aria-hidden />
         {/* z2 — content */}
         <div className={styles.heroContent}>
           <p className={styles.eyebrow} data-hero-intro>

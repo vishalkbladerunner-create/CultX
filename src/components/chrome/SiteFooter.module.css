@@ -212,6 +212,14 @@
   line-height: 1.35;
   color: var(--ck-off-white);
   text-decoration: none;
+  transition:
+    color 0.25s var(--ck-ease-out-quad),
+    text-shadow 0.25s var(--ck-ease-out-quad);
+}
+
+.menuLink:hover {
+  color: var(--ck-action);
+  text-shadow: 0 0 18px var(--ck-action-glow);
 }
 
 .menuLink::after {
@@ -221,7 +229,7 @@
   bottom: 0;
   width: 0;
   height: 1px;
-  background: var(--ck-off-white);
+  background: var(--ck-action);
   transition: width 0.2s var(--ck-ease-in-out-quad);
 }
 
@@ -253,11 +261,14 @@
 .legalLink {
   color: var(--ck-white-60);
   text-decoration: none;
-  transition: color 0.2s var(--ck-ease-in-out-quad);
+  transition:
+    color 0.2s var(--ck-ease-in-out-quad),
+    text-shadow 0.2s var(--ck-ease-in-out-quad);
 }
 
 .legalLink:hover {
-  color: var(--ck-off-white);
+  color: var(--ck-action);
+  text-shadow: 0 0 14px var(--ck-action-glow);
 }
 
 /* Wordmark zone — ref .wordmark-wrapper (trigger for scrub slide-in).

@@ -118,10 +118,10 @@ All six subpages use the `cinema/*` primitives — `CinemaHero` title cards (Let
 
 ## Color discipline
 
-Background uses **only** void black + the green family (`--ck-green-*` ramp, pixel-measured from the green poppy assets in `public/images/`).  
-`--ck-chartreuse` is the hot sparse accent (CTAs, progress fills, wordmark tails) — never a wash fill.  
-Do not dump cyan/orange/gold onto the atmosphere. Reserve those for sparse UI accents.  
-`FORBIDDEN_ON_BACKGROUND` in `stages.ts` encodes banned reference blues/beiges (including `#0e76ff`) plus the retired magenta/neon-purple accents for tests — not product chrome.
+Background is **void black + green-poppy cinema wash** — fixed wash uses `--ck-atmo-*` (`#1b6212` tint / `#0c190c` mid / `#000` base) and dome/overlay assets are the polished `gradient-green-poppy-*` / `heroOverlay-green-poppy_*` set in `public/images/` (same assets as commit `b3a0d76`).  
+The **green family** (`--ck-green-*` ramp) drives the dome, pools, pins, CTAs, and highlights. `--ck-chartreuse` / `--ck-action` are hot UI accents.  
+Do not replace poppy assets with posterized/noir recolors. Cyan/orange/gold stay reserved for sparse UI accents.  
+`FORBIDDEN_ON_BACKGROUND` in `stages.ts` encodes banned reference blues/beiges (including `#0e76ff`) plus retired multi-accent colors for tests.
 
 ## Fonts
 

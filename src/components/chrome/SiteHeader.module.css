@@ -1,8 +1,8 @@
 /**
- * Site header — reference site-header + .top-blur + secondary ui-button menu.
+ * Site header — reference site-header + .top-blur + segmented menu.
  *
- * Layout: logo left · frosted nav cluster right (no primary Join Waitlist CTA).
- * Pills: backdrop-filter glass (translucent — adapts to whatever wash is behind).
+ * Layout: logo left · nav cluster right (no primary Join Waitlist CTA).
+ * Pills: solid --ck-action green (same ink/fill as Join the Waitlist primary).
  * Top blur: progressive stacked masks so content softens under the bar on scroll.
  */
 
@@ -167,17 +167,19 @@
   display: inline-flex;
   align-items: stretch;
   text-decoration: none;
-  color: var(--ck-off-white);
-  /* Glass / translucent — reads the atmosphere behind it */
-  background: var(--ck-white-8);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  transition: background-color 0.25s var(--ck-ease-out-quad);
+  /* Match Join the Waitlist primary: solid action green + dark ink */
+  color: var(--ck-action-ink);
+  background: var(--ck-action);
+  transition:
+    background-color 0.25s var(--ck-ease-out-quad),
+    filter 0.25s var(--ck-ease-out-quad);
 }
 
 .pill:hover,
 .pill[data-active] {
-  background: var(--ck-white-15);
+  color: var(--ck-action-ink);
+  background: var(--ck-action);
+  filter: drop-shadow(0 0 14px var(--ck-action-glow));
 }
 
 /* Dual vertical label swap (ref .ui-button .content) */
@@ -210,7 +212,7 @@
   transform: translateY(-100%);
 }
 
-/* ---- Mobile menu button ---- */
+/* ---- Mobile menu button — same solid action green as desktop pills ---- */
 .menuButton {
   display: inline-flex;
   align-items: center;
@@ -218,9 +220,7 @@
   width: 44px;
   height: 44px;
   border: 0;
-  background: var(--ck-white-8);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  background: var(--ck-action);
   cursor: pointer;
 }
 
@@ -236,7 +236,7 @@
   display: block;
   width: 18px;
   height: 1.25px;
-  background: var(--ck-off-white);
+  background: var(--ck-action-ink);
   transition:
     transform 0.35s var(--ck-ease-out-quad),
     opacity 0.35s var(--ck-ease-out-quad);
@@ -281,12 +281,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Pure black stage + sparse bright green bloom at bottom (not muddy wash) */
   background:
     radial-gradient(
-      ellipse 120% 90% at 50% 110%,
-      var(--ck-green-600) 0%,
-      var(--ck-green-900) 45%,
-      var(--ck-void) 100%
+      ellipse 100% 70% at 50% 115%,
+      rgb(166 255 13 / 0.22) 0%,
+      transparent 55%
     ),
     var(--ck-void);
   opacity: 0;
@@ -326,10 +326,12 @@
   color: var(--ck-green-300);
 }
 
-/* ---- Theme contexts (M03) ---- */
+/* ---- Theme contexts (M03) ----
+   Green-noir is black-dominant site-wide: nav always solid action green.
+   Light theme only recolors the logo wordmark for rare light panels. */
 .header[data-theme="dark"] .pill {
-  color: var(--ck-off-white);
-  background: var(--ck-white-8);
+  color: var(--ck-action-ink);
+  background: var(--ck-action);
 }
 
 .header[data-theme="light"] .logo {
@@ -347,18 +349,18 @@
 }
 
 .header[data-theme="light"] .pill {
-  color: var(--ck-green-950);
-  background: rgb(0 0 0 / 0.06);
+  color: var(--ck-action-ink);
+  background: var(--ck-action);
 }
 
 .header[data-theme="light"] .menuButton {
-  background: rgb(0 0 0 / 0.06);
+  background: var(--ck-action);
 }
 
 .header[data-theme="light"] .menuLines,
 .header[data-theme="light"] .menuLines::before,
 .header[data-theme="light"] .menuLines::after {
-  background: var(--ck-green-950);
+  background: var(--ck-action-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {

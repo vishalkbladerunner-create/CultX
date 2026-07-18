@@ -178,8 +178,9 @@
 }
 
 .controlBtn:hover {
-  background: var(--ck-white-5);
-  box-shadow: inset 0 0 0 1px var(--ck-white-40);
+  color: var(--ck-action);
+  background: var(--ck-action-soft);
+  box-shadow: inset 0 0 0 1px var(--ck-action-line);
 }
 
 .controlBtn:focus-visible {

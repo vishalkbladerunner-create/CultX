@@ -66,8 +66,10 @@
   }
 }
 
-/* z1 — hero overlay vignette (poppy twin of ref heroOverlay_homepage).
-   Extends over the full dome host and mask-fades out with the tail. */
+/* z1 — hero overlay vignette (noir twin of ref heroOverlay_homepage).
+   Visual lives in atmosphere.css (.ck-vignette-home, global class applied
+   on the element); this block keeps position/mask only. Extends over the
+   full dome host and mask-fades out with the tail. */
 .heroOverlay {
   position: absolute;
   top: 0;
@@ -75,9 +77,6 @@
   right: 0;
   height: 100%;
   z-index: 1;
-  background-image: url("/images/heroOverlay-green-poppy_homepage.png");
-  background-size: 100% 100%;
-  background-position: 50%;
   pointer-events: none;
   mask-image: linear-gradient(to bottom, black 72%, transparent 97%);
 }
@@ -243,7 +242,7 @@
   .railItem:hover,
   .railItem:focus-visible {
     flex-grow: 2.2;
-    background: var(--ck-white-5);
+    background: var(--ck-action-soft);
   }
 
   .railItem:hover .railNum,

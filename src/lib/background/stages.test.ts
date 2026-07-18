@@ -147,17 +147,45 @@ describe("shipped GradientDome — reference .gradient-bg-dark CSS", () => {
     assert.match(css, /width:\s*calc\(100% \+ 200px\)/);
     assert.match(css, /translate\(-50%\) scaleY\(var\(--parallax-scale\)\)/);
     assert.match(css, /rotate\(180deg\)/);
-    assert.match(css, /object-fit:\s*fill/);
     assert.match(css, /top:\s*-1px/);
     assert.match(css, /bottom:\s*-1px/);
+    /* CSS-only noir dome — no <img> rule left behind */
+    assert.doesNotMatch(css, /\bimg\s*\{|url\(/);
   });
 
-  it("ships the poppy transparent dome image (verified reference twin)", async () => {
+  it("ships the pure-CSS noir dome (zero image weight)", async () => {
     const tsx = await readWebFile(
       "src/components/background/GradientDome.tsx"
     );
-    assert.match(tsx, /gradient-green-poppy-transparent\.png/);
+    assert.match(tsx, /ck-dome/);
     assert.match(tsx, /data-dome-position/);
+    assert.doesNotMatch(tsx, /\.png|<img/);
+  });
+});
+
+describe("noir atmosphere — CSS-only background contract", () => {
+  it("dome ramp is black-dominant with the bright action-green rim", async () => {
+    const css = await readWebFile("src/styles/atmosphere.css");
+    /* The rim hot color IS the header button green (--ck-action) */
+    assert.match(css, /--ck-dome-hot:\s*#a6ff0d/i);
+    /* Noir vignette kisses reuse the same bright green, alpha-capped */
+    assert.match(css, /rgb\(166 255 13 \/ 0\.1[0-9]\)/);
+    /* No image assets anywhere in the atmosphere system */
+    assert.doesNotMatch(css, /url\([^)]*\.(png|avif|webp)/);
+  });
+
+  it("fixed wash tokens stay near-black (80–90% noir canvas)", async () => {
+    const tokens = await readWebFile("src/styles/tokens.css");
+    assert.match(tokens, /--ck-atmo-base:\s*#000000/i);
+    /* tint/mid must be dark greens — luminance stays in the noir band */
+    const tint = tokens.match(/--ck-atmo-tint:\s*#([0-9a-f]{6})/i);
+    const mid = tokens.match(/--ck-atmo-mid:\s*#([0-9a-f]{6})/i);
+    assert.ok(tint && mid, "atmo tint/mid tokens present");
+    for (const m of [tint, mid]) {
+      const n = parseInt(m![1], 16);
+      const lum = ((n >> 16) & 255) * 0.299 + ((n >> 8) & 255) * 0.587 + (n & 255) * 0.114;
+      assert.ok(lum < 32, `atmo stop #${m![1]} too bright for noir canvas`);
+    }
   });
 });
 
@@ -196,9 +224,9 @@ describe("shipped HomePage — K-Cinema section DNA", () => {
     // Hero dome: 200vh mobile / 110% desktop (ref index=0 + wrapped hero)
     assert.match(css, /height:\s*200vh/);
     assert.match(css, /height:\s*110%/);
-    // Hero overlay PNG stack (ref .bg-overlay: background-size 100% 100%)
-    assert.match(css, /heroOverlay-green-poppy_homepage\.png/);
-    assert.match(css, /background-size:\s*100% 100%/);
+    // Hero overlay = pure-CSS noir vignette (no PNG stack)
+    assert.match(tsx, /ck-vignette-home/);
+    assert.doesNotMatch(css, /heroOverlay.*\.png|url\(/);
     // Seam-free canvas: EVERY *DomeHost block mask-fades at both edges
     const domeBlocks = css.match(/\.\w*DomeHost\w*\s*\{[^}]+\}/g) ?? [];
     assert.ok(domeBlocks.length > 0, "expected at least one DomeHost class");

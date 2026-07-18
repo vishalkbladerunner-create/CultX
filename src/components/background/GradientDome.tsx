@@ -1,7 +1,5 @@
 import styles from "./GradientDome.module.css";
 
-const DOME_SRC = "/images/gradient-green-poppy-transparent.png";
-
 type Props = {
   position?: "top" | "bottom";
   className?: string;
@@ -9,6 +7,10 @@ type Props = {
 
 /**
  * Section-local spherical gradient (reference `GradientBgDark`, M05).
+ *
+ * Pure CSS — the noir dome lives in styles/atmosphere.css (`.ck-dome`:
+ * bright action-green rim + halo on void black, grain-dithered). No image
+ * assets; recolor = edit one token.
  *
  * Server component: pure SSR markup. The scroll scale is applied by
  * `ScrollDriver` (GSAP ScrollTrigger) directly on the DOM node via the
@@ -33,8 +35,7 @@ export function GradientDome({ position = "top", className = "" }: Props) {
       data-dome-position={position}
       aria-hidden
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="image" src={DOME_SRC} alt="" draggable={false} />
+      <div className="ck-dome" />
     </div>
   );
 }

@@ -1,14 +1,20 @@
 /**
- * CultX tokens — green-first cinema system.
+ * CultX tokens — noir cinema system (client direction 2026-07-18).
+ *
+ * Canvas is 80–90% void black; the only green on the background is the
+ * BRIGHT action green (--ck-action #a6ff0d, the header button color) —
+ * pooled as dome rims and sparse vignette kisses, all pure CSS in
+ * styles/atmosphere.css (no image assets).
  *
  * Reference mapping (SharpLink → CultX):
  *   --surface-background #f7f7f5   →  --ck-void #000 (cinema base)
- *   fixed light CSS radial blues   →  fixed green radial on void (M04)
- *   images/gradient-dark-transparent.png → /images/gradient-green-poppy-transparent.png
- *   images/heroOverlay_*.avif      →  /images/heroOverlay-green-poppy_*.png
+ *   fixed light CSS radial blues   →  fixed noir-green radial on void (M04)
+ *   images/gradient-dark-transparent.png → .ck-dome (CSS, atmosphere.css)
+ *   images/heroOverlay_*.avif      →  .ck-vignette-* (CSS, atmosphere.css)
  *
- * Wash discipline: void black + green family only (see
- * cult/doc/cultx-color-system.md). Neon/cyan/orange/gold reserved for UI.
+ * Wash discipline: void black + whisper of deep green; bright green only as
+ * small accents. Neon/cyan/orange/gold reserved for sparse UI.
+ * (see cult/doc/cultx-color-system.md)
  */
 
 :root {
@@ -58,9 +64,20 @@
   --ck-accent-cyan: #00d4ff;
   --ck-accent-gold: #ffd000;
 
-  /* ---- Fixed atmosphere (M04, ref .gradient-bg-light geometry) ---- */
-  --ck-atmo-tint: #1b6212; /* 45% stop — green pool from above the fold */
-  --ck-atmo-mid: #0c190c; /* 85% stop */
+  /* ---- Interactive action layer (noir complement) ----
+     Every button / hover / focus on the black canvas speaks in this
+     bright green — the "pop" counterpart to the dominant black. */
+  --ck-action: #a6ff0d;
+  --ck-action-ink: #061806;
+  --ck-action-glow: rgb(166 255 13 / 0.3);
+  --ck-action-soft: rgb(166 255 13 / 0.1);
+  --ck-action-line: rgb(166 255 13 / 0.35);
+
+  /* ---- Fixed atmosphere (M04, ref .gradient-bg-light geometry) ----
+     Noir rebalance: the pool is a whisper — near-black greens so the page
+     reads 80–90% black; domes/vignettes carry the bright accents. */
+  --ck-atmo-tint: #0a1c04; /* 45% stop — faint green pool from above the fold */
+  --ck-atmo-mid: #040b02; /* 85% stop */
   --ck-atmo-base: #000000; /* base */
 
   /* ---- Type scale (L09 — reference ladder) ---- */
@@ -111,10 +128,6 @@
   --ck-ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
   --ck-ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
   --ck-ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-
-  /* ---- Dome asset ---- */
-  --ck-dome-image: url("/images/gradient-green-poppy-transparent.png");
-  --ck-dome-opaque-image: url("/images/gradient-green-poppy.png");
 }
 
 @media (min-width: 800px) {

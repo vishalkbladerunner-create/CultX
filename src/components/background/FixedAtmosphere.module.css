@@ -3,8 +3,9 @@
  * `.gradient-bg-light` (M04): radial-gradient(ellipse 100% 130% at 50% -30%).
  *
  * Reference pools pale blue from above the fold over a warm paper base.
- * CultX pools deep green over void black — same role, brand palette
- * (cult/doc/cultx-color-system.md: atmosphere = green family only).
+ * CultX noir: a whisper of deep green over void black — the page reads
+ * 80–90% black; section domes carry the bright action-green accents
+ * (cult/doc/cultx-color-system.md).
  *
  * Always mounted, behind everything (z 0). Section domes and panels scroll
  * through it; the body color never recolors per frame.
@@ -32,4 +33,16 @@
     var(--ck-atmo-base)
   );
   filter: hue-rotate(var(--ck-atmo-hue, 0deg));
+}
+
+/* Anti-banding dither — near-black radial washes band without it.
+   Same feTurbulence texture as the domes (atmosphere.css). */
+.wash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--ck-grain-texture);
+  background-size: 240px 240px;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
 }

@@ -1,52 +1,48 @@
 /**
- * CultX atmosphere — pure-CSS replicas of the image assets.
+ * CultX atmosphere — pure-CSS noir system (no image assets).
  *
- * Every class here replaces a PNG/AVIF with code (verified feasible via
- * MDN gradient + mask-image docs). Stops are pixel-measured from the
- * brand poppy assets in /public/images (green hue twins of the original
- * ramp — see cult/doc/reference-ingredients/01 §1).
+ * Client direction (2026-07-18): the canvas is 80–90% void black; the
+ * remaining 10–20% is a VERY bright green — exactly the action/button green
+ * `--ck-action #a6ff0d`. Bright reads "entertainment"; black keeps it cinema.
  *
- * Why code over images:
+ * Every background the site used to paint from PNGs (dome gradients, hero
+ * overlay vignettes) is code here:
  *   - colors are tokens → recolor = edit one variable
- *   - ~3 MB less payload
- *   - no banding when paired with .ck-grain (feTurbulence dither)
+ *   - ~28 MB less payload
+ *   - no banding (feTurbulence dither baked into each layer)
  *
- * Measured source ramps (center column of the poppy PNGs):
- *   transparent dome: #010200 → #030603 → #0c190c → #183715 → #1b6212
- *     → #2a8b06 → #51b109 → #74cf0a → #8be30b → #a6ff0d, alpha 255→0 (y45→90%)
- *   opaque dome: same head, hotter tail (#44a709 → #79d20a → #9df30c → #a6ff0d),
- *     alpha holds until ~65% height
+ * Anatomy of the noir dome (replaces gradient-*-poppy-*.png):
+ *   layer 1 (top)  — tight bright rim hugging the bottom arc, fast falloff
+ *   layer 2        — wide low-alpha halo so the rim blooms instead of clipping
+ *   mask           — measured alpha ramp so the dome dissolves at its base
  */
 
 :root {
-  /* Dome ramp — green "poppy" family on void black */
-  --ck-dome-0: #010200; /* void */
-  --ck-dome-1: #030603;
-  --ck-dome-2: #0c190c;
-  --ck-dome-3: #183715;
-  --ck-dome-4: #1b6212;
-  --ck-dome-5: #2a8b06;
-  --ck-dome-6: #51b109;
-  --ck-dome-7: #74cf0a;
-  --ck-dome-8: #8be30b;
-  --ck-dome-9: #a6ff0d; /* hot chartreuse rim */
+  /* Noir dome ramp — bright action-green rim on void black */
+  --ck-dome-hot: #a6ff0d; /* = --ck-action, the button green */
+  --ck-dome-rim: #8ff00b;
+  --ck-dome-glow-3: #5cc407;
+  --ck-dome-glow-2: #2f8a05;
+  --ck-dome-glow-1: #123f04;
 
-  /* Opaque-variant hotter tail */
-  --ck-dome-op-5: #44a709;
-  --ck-dome-op-6: #79d20a;
-  --ck-dome-op-7: #9df30c;
+  /* Halo (bloom) tones — same hue, alpha-only, deliberately faint */
+  --ck-dome-halo-1: rgb(166 255 13 / 0.07);
+  --ck-dome-halo-2: rgb(150 230 12 / 0.03);
+  --ck-dome-halo-3: rgb(120 190 10 / 0.012);
 
-  /* Vignette tones (measured from heroOverlay-green-poppy_*) */
-  --ck-vig-edge: rgb(13 32 12); /* #0d200c corners */
-  --ck-vig-mid: rgb(24 89 14); /* #18590e mid edges */
-  --ck-vig-bottom: rgb(17 46 15); /* #112e0f bottom band */
-  --ck-vig-fill: rgb(58 148 15); /* #3a940f investors corner fill */
-  --ck-vig-fill-2: rgb(80 172 17); /* #50ac11 */
+  /* Noir vignette tones — near-black with a green bias */
+  --ck-vig-edge: rgb(1 6 1);
+  --ck-vig-mid: rgb(3 12 2);
+  --ck-vig-kiss: rgb(166 255 13 / 0.1); /* sparse bright-green accent */
+  --ck-vig-kiss-soft: rgb(166 255 13 / 0.04);
+
+  /* Shared grain texture (SVG feTurbulence, zero-dep) */
+  --ck-grain-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ------------------------------------------------------------------ */
-/* Domes — replace gradient-green-poppy-transparent.png / -poppy.png   */
-/* Use inside a sized host exactly like the <img> version (M05).       */
+/* Domes — section-anchored spherical gradients (M05).                 */
+/* Use inside a sized host exactly like the old <img> version.         */
 /* ------------------------------------------------------------------ */
 
 .ck-dome,
@@ -57,63 +53,88 @@
   background-repeat: no-repeat;
 }
 
-/* transparent variant — alpha fades across bottom third */
+/* transparent variant — bright rim band low in the box, dissolving only
+   at the very bottom edge; above the rim the dome is near-void */
 .ck-dome {
-  background-image: radial-gradient(
-    ellipse 135% 105% at 50% 105%,
-    var(--ck-dome-9) 0%,
-    var(--ck-dome-8) 10%,
-    var(--ck-dome-7) 21%,
-    var(--ck-dome-6) 32%,
-    var(--ck-dome-5) 43%,
-    var(--ck-dome-4) 55%,
-    var(--ck-dome-3) 66%,
-    var(--ck-dome-2) 76%,
-    var(--ck-dome-1) 87%,
-    var(--ck-dome-0) 100%
-  );
-  /* measured alpha: 255→y40, .92→y50, .71→y60, .38→y70, .13→y80, 0→y90 */
+  background-image:
+    /* rim: hot holds to y≈92, bright band y≈82–92 (center), faint by y≈63.
+       Green visibly occupies only the bottom arc (~10–15% of the dome). */
+    radial-gradient(
+      ellipse 135% 105% at 50% 105%,
+      var(--ck-dome-hot) 0%,
+      var(--ck-dome-hot) 12%,
+      var(--ck-dome-rim) 17%,
+      var(--ck-dome-glow-3) 22%,
+      var(--ck-dome-glow-2) 27%,
+      var(--ck-dome-glow-1) 33%,
+      rgb(6 20 2 / 0.45) 40%,
+      rgb(2 8 1 / 0) 50%
+    ),
+    /* halo: soft bloom so the rim reads luminous, not clipped */
+    radial-gradient(
+      ellipse 140% 110% at 50% 112%,
+      var(--ck-dome-halo-1) 0%,
+      var(--ck-dome-halo-2) 26%,
+      var(--ck-dome-halo-3) 45%,
+      transparent 60%
+    );
+  /* alpha holds through the rim band, dissolves the bottom edge only */
   mask-image: linear-gradient(
     to bottom,
-    black 40%,
-    rgb(0 0 0 / 0.92) 50%,
-    rgb(0 0 0 / 0.71) 60%,
-    rgb(0 0 0 / 0.38) 70%,
-    rgb(0 0 0 / 0.13) 80%,
-    transparent 90%
-  );
-}
-
-/* opaque variant — no early fade, hotter green tail, soft bottom edge */
-.ck-dome-opaque {
-  background-image: radial-gradient(
-    ellipse 135% 105% at 50% 105%,
-    var(--ck-dome-9) 0%,
-    var(--ck-dome-9) 11%,
-    var(--ck-dome-op-7) 21%,
-    var(--ck-dome-op-6) 32%,
-    var(--ck-dome-op-5) 43%,
-    var(--ck-dome-4) 55%,
-    var(--ck-dome-3) 66%,
-    var(--ck-dome-2) 76%,
-    var(--ck-dome-1) 87%,
-    var(--ck-dome-0) 100%
-  );
-  /* measured alpha: holds to ~65%, .62→y70, .29→y80, .08→y90, 0→y98 */
-  mask-image: linear-gradient(
-    to bottom,
-    black 65%,
-    rgb(0 0 0 / 0.62) 72%,
-    rgb(0 0 0 / 0.29) 82%,
-    rgb(0 0 0 / 0.08) 91%,
+    black 84%,
+    rgb(0 0 0 / 0.6) 91%,
+    rgb(0 0 0 / 0.22) 95%,
     transparent 98%
   );
 }
 
+/* opaque variant — solid noir dome (void above the rim), soft bottom edge */
+.ck-dome-opaque {
+  background-image:
+    radial-gradient(
+      ellipse 135% 105% at 50% 105%,
+      var(--ck-dome-hot) 0%,
+      var(--ck-dome-hot) 13%,
+      var(--ck-dome-rim) 18%,
+      var(--ck-dome-glow-3) 23%,
+      var(--ck-dome-glow-2) 28%,
+      var(--ck-dome-glow-1) 35%,
+      #061402 45%,
+      #000000 56%
+    ),
+    radial-gradient(
+      ellipse 140% 110% at 50% 112%,
+      var(--ck-dome-halo-1) 0%,
+      var(--ck-dome-halo-2) 26%,
+      var(--ck-dome-halo-3) 45%,
+      transparent 60%
+    );
+  mask-image: linear-gradient(
+    to bottom,
+    black 88%,
+    rgb(0 0 0 / 0.55) 93%,
+    transparent 98%
+  );
+}
+
+/* Anti-banding dither baked into every dome (bright→black ramps band
+   badly without it). Same texture as .ck-grain. */
+.ck-dome::after,
+.ck-dome-opaque::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--ck-grain-texture);
+  background-size: 240px 240px;
+  opacity: 0.055;
+  mix-blend-mode: overlay;
+}
+
 /* ------------------------------------------------------------------ */
-/* Hero vignettes — replace heroOverlay-green-poppy_*.png              */
-/* Dark edge mask + clear window where hero media shows through.       */
-/* Layer 1 (last) = base tint, layer 2+ = window carve / extra fill.   */
+/* Hero vignettes — replace heroOverlay-*.png.                         */
+/* Noir edge falloff + a sparse bright-green kiss; the center window   */
+/* stays clear for hero media/copy.                                    */
 /* ------------------------------------------------------------------ */
 
 .ck-vignette,
@@ -125,65 +146,80 @@
   pointer-events: none;
 }
 
-/* home: window center-right (α0 at ~x56% y47%), edge α up to .78 */
+/* home: window center-right; bright kiss on the left + lower-right edges */
 .ck-vignette-home {
   background:
     radial-gradient(
-      ellipse 68% 58% at 56% 47%,
-      transparent 38%,
-      rgb(13 32 12 / 0.78) 100%
+      ellipse 34% 46% at -6% 44%,
+      var(--ck-vig-kiss) 0%,
+      var(--ck-vig-kiss-soft) 46%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 30% 42% at 106% 70%,
+      rgb(166 255 13 / 0.13) 0%,
+      transparent 66%
+    ),
+    radial-gradient(
+      ellipse 74% 62% at 56% 47%,
+      transparent 46%,
+      rgb(1 6 1 / 0.62) 100%
     ),
     linear-gradient(
       to bottom,
-      rgb(13 32 12 / 0.66) 0%,
-      rgb(24 89 14 / 0.32) 32%,
-      rgb(24 89 14 / 0.18) 55%,
-      rgb(17 46 15 / 0.6) 100%
+      rgb(1 6 1 / 0.42) 0%,
+      rgb(3 12 2 / 0.14) 32%,
+      rgb(3 12 2 / 0.08) 55%,
+      rgb(1 5 1 / 0.38) 100%
     );
 }
 
-/* about: window on right half (α0 for x>60%, lower half) */
+/* about: window on the right half; kiss upper-right, noir from the left */
 .ck-vignette-about {
   background:
     radial-gradient(
-      ellipse 85% 95% at 95% 65%,
-      transparent 48%,
-      rgb(13 32 12 / 0.72) 100%
+      ellipse 30% 44% at 104% 38%,
+      rgb(166 255 13 / 0.14) 0%,
+      transparent 66%
+    ),
+    radial-gradient(
+      ellipse 88% 98% at 95% 65%,
+      transparent 52%,
+      rgb(1 6 1 / 0.66) 100%
     ),
     linear-gradient(
       to right,
-      rgb(14 33 13 / 0.72) 0%,
-      rgb(23 89 12 / 0.4) 32%,
-      rgb(23 89 12 / 0.12) 55%,
-      transparent 75%
+      rgb(1 6 1 / 0.6) 0%,
+      rgb(3 12 2 / 0.22) 34%,
+      transparent 72%
     );
 }
 
-/* investors: window center + heavy green fill bottom-right */
+/* investors: window center + one bright accent pooled bottom-right */
 .ck-vignette-investors {
   background:
     radial-gradient(
-      ellipse 52% 55% at 97% 88%,
-      rgb(58 148 15 / 0.92) 0%,
-      rgb(80 172 17 / 0.55) 45%,
-      transparent 78%
+      ellipse 46% 48% at 100% 92%,
+      rgb(166 255 13 / 0.22) 0%,
+      var(--ck-vig-kiss-soft) 44%,
+      transparent 72%
     ),
     radial-gradient(
-      ellipse 62% 55% at 50% 50%,
-      transparent 40%,
-      rgb(13 32 12 / 0.74) 100%
+      ellipse 64% 56% at 50% 50%,
+      transparent 44%,
+      rgb(1 6 1 / 0.68) 100%
     ),
     linear-gradient(
       to bottom,
-      rgb(13 32 12 / 0.64) 0%,
-      rgb(24 89 14 / 0.3) 32%,
-      rgb(17 46 15 / 0.55) 100%
+      rgb(1 6 1 / 0.5) 0%,
+      rgb(3 12 2 / 0.16) 34%,
+      rgb(1 5 1 / 0.42) 100%
     );
 }
 
 /* ------------------------------------------------------------------ */
-/* Grain — anti-banding dither overlay (SVG feTurbulence, zero-dep).   */
-/* Add .ck-grain to any dome/vignette host (needs positioned element). */
+/* Grain — standalone dither utility for hosts that need it (dev page, */
+/* full-bleed mocks). Domes carry their own ::after grain.             */
 /* ------------------------------------------------------------------ */
 
 .ck-grain {
@@ -195,7 +231,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: var(--ck-grain-texture);
   background-size: 240px 240px;
   opacity: 0.055;
   mix-blend-mode: overlay;

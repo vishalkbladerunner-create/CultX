@@ -53,7 +53,8 @@
 }
 
 .question:hover .toggle {
-  background: var(--ck-white-10);
+  background: var(--ck-action-soft);
+  color: var(--ck-action);
 }
 
 .item[data-open] .toggle {

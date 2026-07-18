@@ -31,6 +31,6 @@ h4 {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--ck-green-400) 55%, transparent);
-  color: #fff;
+  background: var(--ck-green-200);
+  color: var(--ck-void);
 }

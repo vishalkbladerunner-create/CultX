@@ -6,8 +6,8 @@
  *   never from this component.
  * - `--parallax-scale` is driven on scroll by ScrollDriver (GSAP ScrollTrigger,
  *   ref formula top: 1.3 − p×0.8 / bottom: 1.3 + p×0.8).
- * - Image: CultX poppy dome (hue-shifted twin of ref gradient-dark-transparent,
- *   pixel-identical alpha ramp).
+ * - Visual: pure-CSS noir dome (`.ck-dome` in styles/atmosphere.css) —
+ *   bright action-green rim on void black, no image assets.
  */
 
 .root {
@@ -28,14 +28,8 @@
   transform-origin: top center;
 }
 
-.root img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
-  user-select: none;
-  -webkit-user-drag: none;
-}
+/* The .ck-dome layer itself is absolute inset:0 (atmosphere.css) and fills
+   this root exactly like the old <img object-fit:fill> did. */
 
 /* Ref: .gradient-bg-dark.bottom */
 .bottom {
