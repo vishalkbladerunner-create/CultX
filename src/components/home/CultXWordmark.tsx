@@ -62,6 +62,7 @@ export function CultXWordmark() {
     let raf = 0;
     let last = performance.now();
     let leaveTimer = 0;
+    let leaving = false;
 
     function hardReset() {
       target.x = -1;
@@ -84,15 +85,18 @@ export function CultXWordmark() {
       });
     }
 
-    /** Soft leave — CSS fades overlay/dots; hard reset after transition */
+    /** Soft leave — CSS fades overlay/dots; lerp mask off-screen */
     function beginLeave() {
-      if (!active && !shell!.dataset.hover) return;
+      if (!active && !shell!.dataset.hover && !leaving) return;
       active = false;
       delete shell!.dataset.hover;
-      // Keep last lerped position so geometry can still fade at top while
-      // CSS opacity transitions run (no instant teleport off-screen).
+      leaving = true;
+      // Carry mask smoothly off-screen instead of freezing then jumping
+      target.x = 0.5;
+      target.y = 2.5;
       window.clearTimeout(leaveTimer);
       leaveTimer = window.setTimeout(() => {
+        leaving = false;
         if (!active) hardReset();
       }, LEAVE_RESET_MS);
     }
@@ -120,6 +124,7 @@ export function CultXWordmark() {
       }
 
       window.clearTimeout(leaveTimer);
+      leaving = false;
 
       if (!active) {
         active = true;
@@ -161,16 +166,17 @@ export function CultXWordmark() {
         }
       }
 
-      // Keep animating briefly after leave so fade isn't a hard stop mid-frame
-      const hovering = active || shell!.dataset.hover === "true";
+      // Keep animating during leave so mask exits smoothly (no frozen-then-jump)
+      const hovering = active || shell!.dataset.hover === "true" || leaving;
       if (!hovering && !isMobile()) {
         raf = requestAnimationFrame(frame);
         return;
       }
 
-      if (active || isMobile()) {
-        lerped.x += (target.x - lerped.x) * Math.min(1, dt * 0.001 * 7);
-        lerped.y += (target.y - lerped.y) * Math.min(1, dt * 0.001 * 7);
+      if (active || isMobile() || leaving) {
+        const speed = leaving ? 12 : 7;
+        lerped.x += (target.x - lerped.x) * Math.min(1, dt * 0.001 * speed);
+        lerped.y += (target.y - lerped.y) * Math.min(1, dt * 0.001 * speed);
       }
 
       const cell = isMobile() ? CELL_MOBILE : CELL_DESKTOP;

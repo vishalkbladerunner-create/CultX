@@ -1,26 +1,12 @@
 import { GradientDome } from "@/components/background/GradientDome";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
-import { MediaFrame } from "@/components/kit/MediaFrame";
+import { DashedLine } from "@/components/chrome/DashedLine";
+import { UIButton } from "@/components/chrome/UIButton";
 import { CtaBand } from "@/components/kit/CtaBand";
-import { CinemaHero } from "@/components/cinema/CinemaHero";
-import { CinemaHeading } from "@/components/cinema/CinemaHeading";
-import { SceneRow } from "@/components/cinema/SceneRow";
+import { PlatformAnimations } from "./PlatformAnimations";
 import styles from "./PlatformPage.module.css";
 
-/**
- * CultX /platform — "The Loop" (K-Cinema language).
- *
- * The five-step creator journey is the spine: title card → definition →
- * the screen (UI vision) → THE JOURNEY centerpiece (M09 sticky stage,
- * same generalized binding as home FormatStage) → the foundation
- * (webtoon before/after + scene rows) → the versus intertitle →
- * capability kit → credits. Copy verbatim from
- * cult/content-strategy/04-platform.md.
- */
-
-/* Verbatim copy — cult/content-strategy/04-platform.md */
-
-const CHIPS = [
+const MOCK_LABELS = [
   "All Formats",
   "Star IP Universe",
   "Create with AI",
@@ -34,26 +20,36 @@ const JOURNEY = [
     n: "01",
     title: "Create IP",
     body: "Build your characters, stories, and worlds using AI tools.",
+    slot: "journey-step-01",
+    spec: "Product/UI still · 1200×900"
   },
   {
     n: "02",
     title: "Publish Content",
     body: "Turn ideas into animations, webtoons, shorts, or dramas.",
+    slot: "journey-step-02",
+    spec: "Product/UI still · 1200×900"
   },
   {
     n: "03",
     title: "Grow Audience",
     body: "Fans discover, follow, and support your IP. Top IPs rise together.",
+    slot: "journey-step-03",
+    spec: "Product/UI still · 1200×900"
   },
   {
     n: "04",
     title: "Engage Community",
     body: "Build a loyal community. Fans interact, support, and help your IP grow.",
+    slot: "journey-step-04",
+    spec: "Product/UI still · 1200×900"
   },
   {
     n: "05",
     title: "Monetize & Earn",
     body: "Earn through content sales, IP tokens, and ads. Get rewarded in crypto.",
+    slot: "journey-step-05",
+    spec: "Product/UI still · 1200×900"
   },
 ];
 
@@ -62,281 +58,329 @@ const WEBTOON_POINTS = [
     n: "01",
     title: "Everything is ready",
     body: "Story, characters, world, and art — a finished foundation.",
+    depth: "1"
   },
   {
     n: "02",
     title: "Untapped libraries",
     body: "Out of tens of thousands of webtoons ever created, only a small fraction break through. Complete work is waiting for an audience.",
+    depth: "2"
   },
   {
     n: "03",
     title: "Speed advantage",
     body: "Skip months of original character and story development that a greenfield IP requires.",
+    depth: "3"
   },
 ];
 
-const KIT_STRIP = [
-  "AI Tools",
-  "Content Hub",
-  "Community",
-  "Analytics",
-  "Crypto Rewards",
+const ARSENAL_NODES = [
+  { label: "AI Tools", angle: 90 },
+  { label: "Content Hub", angle: 162 },
+  { label: "Community", angle: 234 },
+  { label: "Analytics", angle: 306 },
+  { label: "Crypto Rewards", angle: 18 },
 ];
 
 export function PlatformPage() {
-  return (
-    <main className={styles.main} id="top">
-      {/* ============ 1. HERO — title card (M06 cascade) ============ */}
-      <CinemaHero
-        eyebrow="Create · Publish · Grow · Earn"
-        title={"One platform.\nInfinite IP possibilities."}
-        blurb="Everything you need to build AI-native IP — then publish it, grow it, and earn from it — in one place."
-        primary={{ href: "#waitlist", label: "Join the Waitlist" }}
-        secondary={{ href: "/pillars", label: "See the Four Experiences" }}
-        meta="Built in Korea — Powered for the World"
-        media={{
-          slot: "hero-video-platform",
-          label: "HERO VIDEO",
-          spec: "1920×1080 · WebM + MP4 (hvc1) · muted loop ≤8s",
-        }}
-      />
+  // Words list helper for scroll-fill manifesto text
+  const getManifestoSpans = (text: string) => {
+    return text.split(" ").map((word, idx) => (
+      <span key={idx} className={styles.coreWord} data-fill-word>
+        {word}
+      </span>
+    ));
+  };
 
-      {/* ============ 2. DEFINITION ============ */}
-      <section className={styles.section} data-theme-section="dark">
-        <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="01 — What is CultX"
-            title={
-              <>
-                AI-native IP creation
-                <br />
-                and monetization.
-              </>
-            }
-            lede="CultX is the all-in-one platform for AI-native IP. Create characters, stories, and worlds. Publish as comic animation, star series, shorts, or drama. Grow an audience. Engage a community. Monetize — and earn."
-          />
+  return (
+    <main className={styles.main} id="top" data-theme-section="dark">
+      {/* ============ 1. HERO — "The Gateway" ============ */}
+      <section className={styles.hero} data-platform-hero>
+        {/* Top atmospheric dome */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "100%", pointerEvents: "none", zIndex: 0 }} aria-hidden>
+          <GradientDome position="top" />
+        </div>
+
+        <div className={styles.heroContent}>
+          <p className={styles.heroEyebrow} data-hero-intro>
+            The Platform
+          </p>
+          <h1 className={styles.heroTitle}>
+            <span className={styles.heroLine} data-from="left">
+              One platform.
+            </span>
+            <span className={styles.heroLine} data-from="right" style={{ color: "var(--ck-action)" }}>
+              Infinite possibilities.
+            </span>
+          </h1>
+          <p className={styles.heroBlurb} data-hero-intro>
+            Everything you need to build AI-native IP — then publish it, grow it, and earn from it — in one place.
+          </p>
+          <div className={styles.heroCtas} data-hero-intro>
+            <UIButton href="#waitlist" label="Join the Waitlist" />
+            <UIButton href="/pillars" label="Explore Pillars" variant="secondary" withIcon={false} />
+          </div>
+        </div>
+
+        {/* Empty placeholder asset area - NO placeholder text */}
+        <div className={styles.heroAsset} data-media-slot="platform-hero-asset" />
+
+        {/* Scroll Indicator */}
+        <div className={styles.heroScroll}>
+          <div className={styles.heroScrollDot} />
+          <span className={styles.heroScrollLabel}>Scroll</span>
         </div>
       </section>
 
-      {/* ============ 3. UI VISION — the screen moment ============ */}
-      <section className={styles.uiBand} data-theme-section="dark">
+      {/* ============ 2. DEFINITION — "The Core" ============ */}
+      <section className={styles.coreSection} data-scroll-fill>
         <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="02 — The experience"
-            title="A home for every format."
-            lede="Continue watching. Trending now. Star IP. AI Shorts. AI Drama. IP Token. The CultX surface feels like a premium entertainment hub — because legends need a stage, not a spreadsheet."
-          />
-          <div className={styles.uiMock} data-reveal>
-            <MediaFrame
-              slot="platform-ui-mock"
-              label="STREAMING HUB MOCK"
-              spec="Deck p3 style · rebuilt original · 2160×960 PNG/WebP"
-              ratio="21/9"
-            />
+          <div className={styles.coreInner}>
+            <p className={styles.coreEyebrow}>
+              01 — What is CultX
+            </p>
+            <p className={styles.coreCopy}>
+              {getManifestoSpans(
+                "CultX is the all-in-one platform for AI-native IP. Create characters, stories, and worlds. Publish as comic animation, star series, shorts, or drama. Grow an audience. Engage a community. Monetize — and earn."
+              )}
+            </p>
           </div>
-          <ul className={styles.chipRow} data-stagger>
-            {CHIPS.map((c) => (
-              <li key={c} className={styles.chip}>
-                {c}
+        </div>
+      </section>
+
+      {/* ============ 3. UI VISION — "The Surface" ============ */}
+      <section className={styles.surfaceSection}>
+        <div className={styles.layout}>
+          <div className={styles.surfaceHeader}>
+            <p className={styles.surfaceEyebrow}>02 — The experience</p>
+            <h2 className={styles.surfaceTitle} data-reveal>A home for every format.</h2>
+            <p className={styles.surfaceLede} data-reveal>
+              Continue watching. Trending now. Star IP. AI Shorts. AI Drama. IP Token.
+              The CultX surface feels like a premium entertainment hub — because legends need a stage, not a spreadsheet.
+            </p>
+          </div>
+
+          <div className={styles.surfaceMockWrap}>
+            {/* Empty UI Mock space - NO text inside */}
+            <div className={styles.surfaceMock} data-perspective-tilt data-media-slot="platform-ui-mock" />
+          </div>
+
+          {/* Floated capability labels */}
+          <ul className={styles.surfaceLabels} data-stagger>
+            {MOCK_LABELS.map((label, idx) => (
+              <li key={idx} className={styles.surfaceLabel}>
+                {label}
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* ============ 4. JOURNEY — centerpiece stage (M09 + M15) ============ */}
-      <section
-        className={styles.journeyBand}
-        data-theme-section="dark"
-        data-stage-scope
-      >
-        {/* Bottom dome bleeds 20% past the band, mask-faded at both
-            edges — one continuous canvas, no seam. */}
-        <div className={styles.journeyDomeHost} aria-hidden>
-          <GradientDome position="bottom" />
-        </div>
-        <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="03 — The loop"
-            title="Create. Publish. Grow. Earn."
-            lede="Five beats. One continuous path from blank page to income."
-          />
-          <div className={styles.journeyGrid}>
-            {/* Sticky stage — desktop only (aria-hidden decor; steps carry
-                the same content for all users). */}
-            <div className={styles.stageWrap} aria-hidden>
-              <div className={styles.stage}>
-                <div className={styles.frameStack}>
-                  {JOURNEY.map((s) => (
-                    <div
-                      key={s.n}
-                      className={styles.frame}
-                      data-stage-frame
-                    >
-                      <div className={styles.frameHost}>
-                        <MediaFrame
-                          slot={`journey-step-${s.n}`}
-                          label={`JOURNEY VISUAL ${s.n}`}
-                          spec="Product/UI still · 1200×900 PNG/WebP"
-                          fill
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                {/* Caption under the stage — swaps with scroll, never
-                    painted on the art */}
-                <div className={styles.stageCaption} aria-hidden>
-                  {JOURNEY.map((s, i) => (
-                    <p
-                      key={s.n}
-                      className={styles.stageCaptionItem}
-                      data-stage-caption
-                      {...(i === 0 ? { "data-active": "" } : {})}
-                    >
-                      <span className={styles.stageCaptionNum}>{s.n}</span>
-                      <span className={styles.stageCaptionTitle}>
-                        {s.title}
-                      </span>
-                    </p>
-                  ))}
-                </div>
+      <DashedLine className={styles.layout} />
+
+      {/* ============ 4. JOURNEY — "The Engine" ============ */}
+      <section className={styles.engineSection} data-h-timeline>
+        <div className={styles.engineSticky}>
+          <div className={styles.layout}>
+            {/* Engine Header */}
+            <div className={styles.engineHeader}>
+              <p className={styles.engineEyebrow}>03 — The loop</p>
+              <h2 className={styles.engineStepTitle} style={{ margin: 0 }}>The creator journey.</h2>
+            </div>
+
+            {/* Background huge step counter */}
+            <div className={styles.engineCounter} data-h-timeline-counter>
+              01
+            </div>
+
+            {/* Horizontal progress bar */}
+            <div className={styles.engineProgressWrap}>
+              <div className={styles.engineProgressFill} data-h-timeline-progress />
+            </div>
+
+            {/* Horizontal timeline track */}
+            <div className={styles.engineViewport}>
+              <div className={styles.engineTrack} data-h-timeline-track>
+                {JOURNEY.map((step, idx) => (
+                  <div
+                    key={step.n}
+                    className={styles.engineStep}
+                    data-h-timeline-step
+                    {...(idx === 0 ? { "data-active": "true" } : {})}
+                  >
+                    {/* Empty media slot container — NO placeholder text inside */}
+                    <div className={styles.engineStepAsset} data-media-slot={step.slot} />
+                    <span className={styles.engineStepNum}>{step.n}</span>
+                    <h3 className={styles.engineStepTitle}>{step.title}</h3>
+                    <p className={styles.engineStepBody}>{step.body}</p>
+                  </div>
+                ))}
               </div>
             </div>
-
-            <ol className={styles.steps}>
-              {JOURNEY.map((s) => (
-                <li key={s.n} className={styles.step} data-stage-step>
-                  <div className={styles.stepFrameHost}>
-                    <MediaFrame
-                      slot={`journey-step-${s.n}`}
-                      label={`JOURNEY VISUAL ${s.n}`}
-                      spec="Product/UI still · 1200×900 PNG/WebP"
-                      fill
-                    />
-                  </div>
-                  <span className={styles.stepNum}>{s.n}</span>
-                  <h3 className={styles.stepTitle}>{s.title}</h3>
-                  <p className={styles.stepBody}>{s.body}</p>
-                </li>
-              ))}
-            </ol>
           </div>
-          <p className={styles.journeyClosing} data-reveal>
-            One platform. Endless possibilities. CultX empowers creators to
-            build iconic IPs, connect with fans, and earn real income.
+        </div>
+      </section>
+
+      {/* Narrative closing line */}
+      <div className={styles.layout} style={{ position: "relative" }}>
+        <p className={styles.engineClosing} data-reveal>
+          One platform. Endless possibilities. CultX empowers creators to build iconic IPs, connect with fans, and earn real income.
+        </p>
+      </div>
+
+      {/* ============ 5. WEBTOON — "The Fuel" ============ */}
+      <section className={styles.fuelSection}>
+        <div className={styles.layout}>
+          <div className={styles.fuelHeader}>
+            <p className={styles.fuelEyebrow}>04 — The foundation</p>
+            <h2 className={styles.fuelTitle} data-reveal>Why webtoon is the perfect start.</h2>
+            <p className={styles.fuelLede} data-reveal>
+              A finished webtoon already has a complete character, a written story, and finished art.
+              That means we can skip months of blank-page development and move straight into premium AI animation — better, faster, and at scale.
+            </p>
+          </div>
+
+          {/* Overlapping Parallax cards */}
+          <div className={styles.fuelStack} data-depth-stack>
+            {WEBTOON_POINTS.map((pt) => (
+              <div key={pt.n} className={styles.fuelCard} data-depth-card data-depth={pt.depth}>
+                <span className={styles.fuelCardNum}>{pt.n}</span>
+                <h3 className={styles.fuelCardTitle}>{pt.title}</h3>
+                <p className={styles.fuelCardBody}>{pt.body}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className={styles.fuelSoftLine} data-reveal>
+            Korea leads global webtoon culture — a ready-made engine of stories the world already loves.
+          </p>
+          <p className={styles.fuelPipeline} data-reveal>
+            Finished webtoon → Specialist + AI production → High quality, fraction of traditional cost.
           </p>
         </div>
       </section>
 
-      {/* ============ 5. WEBTOON — before/after scene + scene rows ============ */}
-      <section className={styles.section} data-theme-section="dark">
-        <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="04 — The foundation"
-            title="Why webtoon is the perfect start."
-            lede="A finished webtoon already has a complete character, a written story, and finished art. That means we can skip months of blank-page development and move straight into premium AI animation — better, faster, and at scale."
-          />
-          <div className={styles.webtoonGrid}>
-            <div className={styles.webtoonMedia} data-reveal>
-              <MediaFrame
-                slot="webtoon-before"
-                label="WEBTOON PANEL"
-                spec="Source art · 900×1200 PNG/WebP"
-                ratio="4/5"
-              />
-              <MediaFrame
-                slot="webtoon-after"
-                label="ANIMATION STILL"
-                spec="Output frame · 900×1200 PNG/WebP"
-                ratio="4/5"
-              />
-            </div>
-            <ol className={styles.sceneRows} data-stagger>
-              {WEBTOON_POINTS.map((p) => (
-                <SceneRow key={p.n} n={p.n} title={p.title} body={p.body} />
-              ))}
-            </ol>
-          </div>
-          <p className={styles.softLine} data-reveal>
-            Korea leads global webtoon culture — a ready-made engine of
-            stories the world already loves.
-          </p>
-          <p className={styles.pipelineMicro} data-reveal>
-            Finished webtoon → Specialist + AI production → High quality,
-            fraction of traditional cost.
-          </p>
-        </div>
-      </section>
+      <DashedLine className={styles.layout} />
 
-      {/* ============ 6. VERSUS — cinema moment (no cards) ============ */}
-      <section className={styles.versusBand} data-theme-section="dark">
-        <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="05 — The leap"
-            title={
-              <>
-                Same ambition.
-                <br />A smarter path.
-              </>
-            }
-            lede="Korea already proved the webtoon → global hit pipeline. Our mission is to run that path with AI — less time, lower cost, same cinematic ambition."
-          />
-          <div className={styles.versus} data-stagger>
-            <div className={styles.versusCol}>
-              <p className={styles.versusTag}>Old way</p>
-              <p className={styles.versusLead}>Slower. Expensive. Outdated.</p>
-              <ol className={styles.versusSteps}>
+      {/* ============ 6. VERSUS — "The Leap" ============ */}
+      <section className={styles.leapSection} data-curtain-wipe>
+        <div className={styles.leapSticky}>
+          {/* Static Section Header */}
+          <div className={styles.leapHeader}>
+            <p className={styles.leapEyebrow}>05 — The leap</p>
+            <h2 className={styles.leapTitle}>Same ambition. A smarter path.</h2>
+            <p className={styles.leapLede}>
+              Korea already proved the webtoon → global hit pipeline. Our mission is to run that path with AI — less time, lower cost, same cinematic ambition.
+            </p>
+          </div>
+
+          <div className={styles.leapCanvas}>
+            {/* Old Way Panel */}
+            <div className={styles.leapOld} data-curtain-old>
+              <p className={styles.leapTag}>Old way</p>
+              <p className={styles.leapLead}>Slower. Expensive. Outdated.</p>
+              <ol className={styles.leapSteps}>
                 <li>Webtoon</li>
                 <li>Physical drama</li>
                 <li>Traditional platforms</li>
                 <li>Global hit</li>
               </ol>
-              <p className={styles.versusMeta}>Years · Millions in cost</p>
+              <p className={styles.leapMeta}>Years · Millions in cost</p>
             </div>
-            <span className={styles.versusDivider} aria-hidden />
-            <div className={`${styles.versusCol} ${styles.versusColHot}`}>
-              <p className={styles.versusTag}>CultX way</p>
-              <p className={styles.versusLead}>
-                Faster. Smarter. Game changer.
-              </p>
-              <ol className={styles.versusSteps}>
-                <li>Webtoon</li>
-                <li>AI drama</li>
-                <li>CultX</li>
-                <li>Viral global reach</li>
-              </ol>
-              <p className={styles.versusMeta}>
-                Weeks-scale ambition · Fraction of traditional cost
-              </p>
+
+            {/* Sweep border separator */}
+            <div className={styles.leapDivider} data-curtain-divider />
+
+            {/* CultX Way Panel (Swept on top of Old Way) */}
+            <div className={styles.leapNew} data-curtain-new>
+              <div className={styles.leapNewContent}>
+                <p className={`${styles.leapTag} ${styles.leapNewTag}`}>CultX way</p>
+                <p className={styles.leapLead}>Faster. Smarter. Game changer.</p>
+                <ol className={styles.leapSteps}>
+                  <li>Webtoon</li>
+                  <li>AI drama</li>
+                  <li>CultX</li>
+                  <li>Viral global reach</li>
+                </ol>
+                <p className={styles.leapMeta}>Weeks-scale ambition · Fraction of traditional cost</p>
+              </div>
             </div>
           </div>
-          <p className={styles.missionBar} data-reveal>
-            Our mission is to create a K-digital culture entertainment empire
-            — globally.
-          </p>
         </div>
       </section>
 
-      {/* ============ 7. CAPABILITY KIT ============ */}
-      <section className={styles.section} data-theme-section="dark">
+      {/* Mission banner */}
+      <div className={styles.layout} style={{ position: "relative" }}>
+        <p className={styles.leapMission} data-reveal>
+          Our mission is to create a K-digital culture entertainment empire — globally.
+        </p>
+      </div>
+
+      {/* ============ 7. CAPABILITY KIT — "The Arsenal" ============ */}
+      <section className={styles.arsenalSection}>
         <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="06 — Inside the platform"
-            title="Tools for legends."
-            lede="AI tools to create. A content hub to publish. Community to engage. Analytics to grow. Crypto rewards to earn. Not five separate apps — one CultX surface."
-          />
-          <ul className={styles.chipRow} data-stagger>
-            {KIT_STRIP.map((k) => (
-              <li key={k} className={styles.chip}>
-                {k}
+          <div className={styles.arsenalHeader}>
+            <p className={styles.arsenalEyebrow}>06 — Inside the platform</p>
+            <h2 className={styles.arsenalTitle} data-reveal>Tools for legends.</h2>
+            <p className={styles.arsenalLede} data-reveal>
+              AI tools to create. A content hub to publish. Community to engage. Analytics to grow. Crypto rewards to earn. Not five separate apps — one CultX surface.
+            </p>
+          </div>
+
+          {/* Pentagon Constellation Diagram (Desktop Only) */}
+          <div className={styles.arsenalDiagram} data-constellation>
+            <div className={styles.arsenalCenter}>CultX</div>
+
+            {/* Node elements */}
+            {ARSENAL_NODES.map((node, idx) => (
+              <div key={idx} className={styles.arsenalNode} data-constellation-node>
+                <div className={styles.arsenalNodeDot} />
+                <span className={styles.arsenalNodeLabel}>{node.label}</span>
+              </div>
+            ))}
+
+            {/* Connecting SVG Lines */}
+            <svg className={styles.arsenalLines} width="100%" height="100%" viewBox="0 0 640 640">
+              <defs>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="4" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              {/* pentagon node coordinates in SVG space:
+                  Center: (320, 320), Radius: 220px
+                  Angles: 90 (0, -220), 162 (209, 68), 234 (129, 178), 306 (-129, 178), 18 (-209, 68) relative to center
+                  Absolute:
+                    Node 1: (320, 100)
+                    Node 2: (518.5, 244.5)
+                    Node 3: (442.5, 498)
+                    Node 4: (197.5, 498)
+                    Node 5: (76.5, 244.5)
+              */}
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="320" y2="100" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="519" y2="245" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="443" y2="498" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="198" y2="498" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="77" y2="245" data-constellation-line />
+            </svg>
+          </div>
+
+          {/* Simple list fallback (Mobile Only) */}
+          <ul className={styles.arsenalList}>
+            {ARSENAL_NODES.map((node, idx) => (
+              <li key={idx} className={styles.arsenalListItem}>
+                <div className={styles.arsenalListItemDot} />
+                <span className={styles.arsenalListItemLabel}>{node.label}</span>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* ============ 8. CTA ============ */}
+      {/* ============ 8. CTA BAND ============ */}
       <CtaBand
         title="Ready to build your IP?"
         body="Join the waitlist for creator access and early universe updates."
@@ -346,6 +390,9 @@ export function PlatformPage() {
 
       {/* ============ 9. FOOTER ============ */}
       <SiteFooter />
+
+      {/* Client-side animations trigger script */}
+      <PlatformAnimations />
     </main>
   );
 }

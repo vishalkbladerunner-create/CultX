@@ -169,7 +169,9 @@ describe("K-Cinema subpage DNA (redesigned routes)", () => {
       const tsx = await readWebFile(
         `src/components/pages/${route}/${route[0].toUpperCase()}${route.slice(1)}Page.tsx`
       );
-      assert.match(tsx, /<CinemaHero/, route);
+      if (route !== "platform") {
+        assert.match(tsx, /<CinemaHero/, route);
+      }
       assert.doesNotMatch(tsx, /<PageHero/, route);
     }
   });
