@@ -86,27 +86,38 @@ export function ScrollDriver() {
         });
       });
 
-      /* ---- M03 — section theme flip on the header ---- */
+      /* ---- M03 — section theme flip on the header ----
+         Never guess from one section's leave direction (that stranded the
+         header in "light" on dark pages → invisible logo text). On every
+         scroll update, recompute the theme from the section actually under
+         the 29px line; nested sections resolve to the deepest match. */
       const header = document.querySelector<HTMLElement>("[data-site-header]");
       if (header) {
-        gsap.utils
-          .toArray<HTMLElement>("[data-theme-section]")
-          .forEach((section) => {
-            const theme =
-              section.dataset.themeSection === "light" ? "light" : "dark";
-            ScrollTrigger.create({
-              trigger: section,
-              start: `top ${HEADER_THEME_OFFSET}px`,
-              end: `bottom ${HEADER_THEME_OFFSET}px`,
-              onEnter: () => header.setAttribute("data-theme", theme),
-              onEnterBack: () => header.setAttribute("data-theme", theme),
-              onLeaveBack: () =>
-                header.setAttribute(
-                  "data-theme",
-                  theme === "dark" ? "light" : "dark"
-                ),
-            });
-          });
+        const themeSections = gsap.utils.toArray<HTMLElement>(
+          "[data-theme-section]"
+        );
+        const applyHeaderTheme = () => {
+          let theme: "dark" | "light" = "dark";
+          const y = HEADER_THEME_OFFSET;
+          for (const section of themeSections) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= y && rect.bottom >= y) {
+              theme =
+                section.dataset.themeSection === "light" ? "light" : "dark";
+            }
+          }
+          if (header.getAttribute("data-theme") !== theme) {
+            header.setAttribute("data-theme", theme);
+          }
+        };
+        ScrollTrigger.create({
+          trigger: document.body,
+          start: 0,
+          end: "max",
+          onUpdate: applyHeaderTheme,
+          onRefresh: applyHeaderTheme,
+          onToggle: applyHeaderTheme,
+        });
       }
 
       /* ---- M06 — viewport reveals ---- */

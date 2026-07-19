@@ -1,8 +1,8 @@
 import { GradientDome } from "@/components/background/GradientDome";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
-import { DashedLine } from "@/components/chrome/DashedLine";
 import { UIButton } from "@/components/chrome/UIButton";
 import { CtaBand } from "@/components/kit/CtaBand";
+import { MediaFrame } from "@/components/kit/MediaFrame";
 import { PlatformAnimations } from "./PlatformAnimations";
 import styles from "./PlatformPage.module.css";
 
@@ -75,11 +75,11 @@ const WEBTOON_POINTS = [
 ];
 
 const ARSENAL_NODES = [
-  { label: "AI Tools", angle: 90 },
-  { label: "Content Hub", angle: 162 },
-  { label: "Community", angle: 234 },
-  { label: "Analytics", angle: 306 },
-  { label: "Crypto Rewards", angle: 18 },
+  { label: "AI Tools" },
+  { label: "Content Hub" },
+  { label: "Community" },
+  { label: "Analytics" },
+  { label: "Crypto Rewards" },
 ];
 
 export function PlatformPage() {
@@ -93,11 +93,11 @@ export function PlatformPage() {
   };
 
   return (
-    <main className={styles.main} id="top" data-theme-section="dark">
+    <main className={styles.main} id="top">
       {/* ============ 1. HERO — "The Gateway" ============ */}
-      <section className={styles.hero} data-platform-hero>
-        {/* Top atmospheric dome */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "100%", pointerEvents: "none", zIndex: 0 }} aria-hidden>
+      <section className={styles.hero} data-platform-hero data-theme-section="dark">
+        {/* Top atmospheric dome, mask-faded at both edges (seam-free) */}
+        <div className={styles.heroDomeHost} aria-hidden>
           <GradientDome position="top" />
         </div>
 
@@ -121,19 +121,10 @@ export function PlatformPage() {
             <UIButton href="/pillars" label="Explore Pillars" variant="secondary" withIcon={false} />
           </div>
         </div>
-
-        {/* Empty placeholder asset area - NO placeholder text */}
-        <div className={styles.heroAsset} data-media-slot="platform-hero-asset" />
-
-        {/* Scroll Indicator */}
-        <div className={styles.heroScroll}>
-          <div className={styles.heroScrollDot} />
-          <span className={styles.heroScrollLabel}>Scroll</span>
-        </div>
       </section>
 
       {/* ============ 2. DEFINITION — "The Core" ============ */}
-      <section className={styles.coreSection} data-scroll-fill>
+      <section className={styles.coreSection} data-platform-fill data-theme-section="dark">
         <div className={styles.layout}>
           <div className={styles.coreInner}>
             <p className={styles.coreEyebrow}>
@@ -149,7 +140,7 @@ export function PlatformPage() {
       </section>
 
       {/* ============ 3. UI VISION — "The Surface" ============ */}
-      <section className={styles.surfaceSection}>
+      <section className={styles.surfaceSection} data-theme-section="dark">
         <div className={styles.layout}>
           <div className={styles.surfaceHeader}>
             <p className={styles.surfaceEyebrow}>02 — The experience</p>
@@ -161,8 +152,14 @@ export function PlatformPage() {
           </div>
 
           <div className={styles.surfaceMockWrap}>
-            {/* Empty UI Mock space - NO text inside */}
-            <div className={styles.surfaceMock} data-perspective-tilt data-media-slot="platform-ui-mock" />
+            <div className={styles.surfaceMockTilt} data-perspective-tilt>
+              <MediaFrame
+                slot="platform-ui-mock"
+                label="Platform UI"
+                spec="App surface mock · 2100×900"
+                ratio="21/9"
+              />
+            </div>
           </div>
 
           {/* Floated capability labels */}
@@ -176,10 +173,8 @@ export function PlatformPage() {
         </div>
       </section>
 
-      <DashedLine className={styles.layout} />
-
       {/* ============ 4. JOURNEY — "The Engine" ============ */}
-      <section className={styles.engineSection} data-h-timeline>
+      <section className={styles.engineSection} data-h-timeline data-theme-section="dark">
         <div className={styles.engineSticky}>
           <div className={styles.layout}>
             {/* Engine Header */}
@@ -208,8 +203,14 @@ export function PlatformPage() {
                     data-h-timeline-step
                     {...(idx === 0 ? { "data-active": "true" } : {})}
                   >
-                    {/* Empty media slot container — NO placeholder text inside */}
-                    <div className={styles.engineStepAsset} data-media-slot={step.slot} />
+                    <div className={styles.engineStepAsset}>
+                      <MediaFrame
+                        slot={step.slot}
+                        label="UI Still"
+                        spec={step.spec}
+                        ratio="16/9"
+                      />
+                    </div>
                     <span className={styles.engineStepNum}>{step.n}</span>
                     <h3 className={styles.engineStepTitle}>{step.title}</h3>
                     <p className={styles.engineStepBody}>{step.body}</p>
@@ -229,7 +230,7 @@ export function PlatformPage() {
       </div>
 
       {/* ============ 5. WEBTOON — "The Fuel" ============ */}
-      <section className={styles.fuelSection}>
+      <section className={styles.fuelSection} data-theme-section="dark">
         <div className={styles.layout}>
           <div className={styles.fuelHeader}>
             <p className={styles.fuelEyebrow}>04 — The foundation</p>
@@ -240,7 +241,7 @@ export function PlatformPage() {
             </p>
           </div>
 
-          {/* Overlapping Parallax cards */}
+          {/* Parallax staircase — opaque noir cards, no text overlap */}
           <div className={styles.fuelStack} data-depth-stack>
             {WEBTOON_POINTS.map((pt) => (
               <div key={pt.n} className={styles.fuelCard} data-depth-card data-depth={pt.depth}>
@@ -260,10 +261,8 @@ export function PlatformPage() {
         </div>
       </section>
 
-      <DashedLine className={styles.layout} />
-
       {/* ============ 6. VERSUS — "The Leap" ============ */}
-      <section className={styles.leapSection} data-curtain-wipe>
+      <section className={styles.leapSection} data-curtain-wipe data-theme-section="dark">
         <div className={styles.leapSticky}>
           {/* Static Section Header */}
           <div className={styles.leapHeader}>
@@ -288,10 +287,7 @@ export function PlatformPage() {
               <p className={styles.leapMeta}>Years · Millions in cost</p>
             </div>
 
-            {/* Sweep border separator */}
-            <div className={styles.leapDivider} data-curtain-divider />
-
-            {/* CultX Way Panel (Swept on top of Old Way) */}
+            {/* CultX Way Panel (Swept on top of Old Way — no divider line) */}
             <div className={styles.leapNew} data-curtain-new>
               <div className={styles.leapNewContent}>
                 <p className={`${styles.leapTag} ${styles.leapNewTag}`}>CultX way</p>
@@ -317,7 +313,7 @@ export function PlatformPage() {
       </div>
 
       {/* ============ 7. CAPABILITY KIT — "The Arsenal" ============ */}
-      <section className={styles.arsenalSection}>
+      <section className={styles.arsenalSection} data-theme-section="dark">
         <div className={styles.layout}>
           <div className={styles.arsenalHeader}>
             <p className={styles.arsenalEyebrow}>06 — Inside the platform</p>
@@ -327,10 +323,10 @@ export function PlatformPage() {
             </p>
           </div>
 
-          {/* Pentagon Constellation Diagram (Desktop Only) */}
+          {/* Pentagon Constellation Diagram (Desktop Only)
+              Node elements come FIRST so :nth-child positions line up
+              with the SVG spoke order (center is stacked above via z). */}
           <div className={styles.arsenalDiagram} data-constellation>
-            <div className={styles.arsenalCenter}>CultX</div>
-
             {/* Node elements */}
             {ARSENAL_NODES.map((node, idx) => (
               <div key={idx} className={styles.arsenalNode} data-constellation-node>
@@ -339,33 +335,17 @@ export function PlatformPage() {
               </div>
             ))}
 
-            {/* Connecting SVG Lines */}
-            <svg className={styles.arsenalLines} width="100%" height="100%" viewBox="0 0 640 640">
-              <defs>
-                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="4" result="blur" />
-                  <feMerge>
-                    <feMergeNode in="blur" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              {/* pentagon node coordinates in SVG space:
-                  Center: (320, 320), Radius: 220px
-                  Angles: 90 (0, -220), 162 (209, 68), 234 (129, 178), 306 (-129, 178), 18 (-209, 68) relative to center
-                  Absolute:
-                    Node 1: (320, 100)
-                    Node 2: (518.5, 244.5)
-                    Node 3: (442.5, 498)
-                    Node 4: (197.5, 498)
-                    Node 5: (76.5, 244.5)
-              */}
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="320" y2="100" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="519" y2="245" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="443" y2="498" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="198" y2="498" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="77" y2="245" data-constellation-line />
+            {/* Connecting SVG Lines — exact pentagon spokes, shortened 6%
+                so each line tip lands on its node dot (r=220, 640 box) */}
+            <svg className={styles.arsenalLines} width="100%" height="100%" viewBox="0 0 640 640" aria-hidden>
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="320" y2="113" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="517" y2="256" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="442" y2="487" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="198" y2="487" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="123" y2="256" data-constellation-line />
             </svg>
+
+            <div className={styles.arsenalCenter}>CultX</div>
           </div>
 
           {/* Simple list fallback (Mobile Only) */}
