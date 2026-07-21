@@ -1,322 +1,672 @@
 /**
- * CultX /pillars — "Four Channels" (K-Cinema language).
+ * PillarsPage.module.css — Redesigned Pillars page styling.
  *
- * One continuous background canvas: the universe chapter dome bleeds
- * past its section and mask-fades at both edges; NO solid panels —
- * chapters are transparent editorial scenes with per-format accents.
+ * Implements high-end, responsive layout systems following
+ * the CultX noir-green brand identity.
  */
 
 .main {
   position: relative;
-  z-index: 1;
+  z-index: var(--ck-z-content);
   width: 100%;
-  margin: 0;
-  padding: 0;
+  background: var(--ck-void);
+  overflow-x: hidden;
 }
 
 .layout {
   position: relative;
-  z-index: var(--ck-z-content);
+  z-index: 2;
   margin: 0 var(--ck-layout-margin);
+  max-width: 1200px;
+  width: calc(100% - 2 * var(--ck-layout-margin));
+}
+
+@media (min-width: 1400px) {
+  .layout {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .section {
   position: relative;
-  padding: 16vh 0 10vh;
+  padding: 12vh 0;
   overflow: visible;
 }
 
 .chapter {
   position: relative;
-  padding: 18vh 0;
-  overflow: visible;
+  padding: 16vh 0;
+  overflow: hidden;
+  border-top: 1px solid var(--ck-white-5);
 }
 
 /* ---------------------------------------------------------------- */
-/* 2. OVERVIEW — the index rail (full-width hairline rows)           */
+/* Chapter Wipes & Overlays                                          */
 /* ---------------------------------------------------------------- */
 
-.rail {
+.wipeOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.08;
+  transition: opacity 0.5s ease;
+  background: linear-gradient(135deg, var(--ck-action) 0%, transparent 70%);
+}
+
+/* ---------------------------------------------------------------- */
+/* Embla Showcase Carousel                                           */
+/* ---------------------------------------------------------------- */
+
+.carouselContainer {
+  position: relative;
+  margin-top: 6vh;
+  width: 100%;
+}
+
+.viewport {
+  overflow: hidden;
+  width: 100%;
+  cursor: grab;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.container {
+  display: flex;
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+  transition: transform 0.6s var(--ck-ease-out-expo);
+}
+
+@media (min-width: 600px) {
+  .slide {
+    flex: 0 0 50%;
+  }
+}
+
+@media (min-width: 900px) {
+  .slide {
+    flex: 0 0 33.333%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .slide {
+    flex: 0 0 25%;
+  }
+}
+
+/* Borderless Card Selector */
+.formatCard {
+  position: relative;
+  background: transparent;
+  padding: 30px 10px;
+  min-height: 240px;
   display: flex;
   flex-direction: column;
-  margin-top: 6vh;
-}
-
-.railRow {
-  position: relative;
-  display: grid;
-  grid-template-columns: 48px 1fr auto;
-  align-items: baseline;
-  gap: 20px;
-  padding: 26px 0;
-  border-top: 1px solid var(--ck-white-10);
-  text-decoration: none;
-  color: var(--ck-off-white);
-  transition: background-color 0.35s var(--ck-ease-out-quad);
-}
-
-.railRow:last-child {
+  justify-content: space-between;
+  transition: transform 0.4s var(--ck-ease-out-quad);
+  cursor: pointer;
   border-bottom: 1px solid var(--ck-white-10);
 }
 
-.railRow:hover,
-.railRow:focus-visible {
-  background: var(--ck-white-5);
+.slide:hover .formatCard {
+  transform: translateY(-4px);
+  border-bottom-color: var(--ck-action);
 }
 
-.railNum {
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardNum {
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
-  letter-spacing: 0.08em;
-  color: var(--ck-green-300);
+  letter-spacing: 0.12em;
+  color: var(--ck-action);
 }
 
-.railRow[data-accent="cyan"] .railNum { color: var(--ck-accent-cyan); }
-.railRow[data-accent="magenta"] .railNum { color: var(--ck-chartreuse); }
-.railRow[data-accent="purple"] .railNum { color: var(--ck-neon-green); }
-.railRow[data-accent="orange"] .railNum { color: var(--ck-accent-orange); }
-
-.railTitle {
+.cardTitle {
   font-family: var(--ck-font-display);
-  font-size: 24px;
-  font-weight: 400;
-  letter-spacing: -0.4px;
-  line-height: 1.1;
+  font-size: 26px;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
-@media (min-width: 800px) {
-  .railRow {
-    grid-template-columns: 64px minmax(0, 1.2fr) minmax(0, 1fr) 32px;
-    padding: 30px 0;
-  }
-
-  .railTitle {
-    font-size: var(--ck-h4-size);
-    letter-spacing: var(--ck-h4-tracking);
-  }
-}
-
-.railLine {
-  display: none;
-  font-size: 14px;
+.cardLine {
+  font-size: 15px;
   line-height: 1.5;
   color: var(--ck-muted);
+  min-height: 48px;
 }
 
-@media (min-width: 800px) {
-  .railLine {
-    display: block;
-  }
+.cardAction {
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ck-action);
+  opacity: 0.5;
+  margin-top: auto;
+  transition: opacity 0.3s ease;
 }
 
-.railJump {
-  justify-self: end;
-  font-size: 16px;
-  color: var(--ck-muted);
-  transition:
-    transform 0.35s var(--ck-ease-out-quad),
-    color 0.35s var(--ck-ease-out-quad);
-}
-
-.railRow:hover .railJump,
-.railRow:focus-visible .railJump {
-  transform: translateY(4px);
-  color: var(--ck-green-300);
+.slide:hover .cardAction {
+  opacity: 1;
 }
 
 /* ---------------------------------------------------------------- */
-/* Chapter scenes                                                    */
+/* Split Header Layout                                              */
 /* ---------------------------------------------------------------- */
 
-.chapterGrid {
+.splitHeader {
+  position: relative;
+  padding: 40px 0;
+  width: 100%;
+}
+
+.splitHeaderGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 48px;
-  margin-top: 8vh;
+  gap: 24px;
+  margin-top: 24px;
 }
 
 @media (min-width: 800px) {
-  .chapterGrid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  .splitHeaderGrid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     gap: 64px;
-    align-items: start;
+    align-items: baseline;
   }
 }
 
-.morphMedia {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.sceneRows {
-  list-style: none;
+.splitHeaderTitle {
+  font-family: var(--ck-font-display);
+  font-size: var(--ck-h2-size);
+  font-weight: 400;
+  line-height: var(--ck-h2-leading);
+  letter-spacing: var(--ck-h2-tracking);
+  color: #ffffff;
   margin: 0;
-  padding: 0;
-  margin-top: 6vh;
 }
 
-@media (min-width: 800px) {
-  .sceneRows {
-    margin-top: 0;
-  }
+.splitHeaderLede {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin: 0;
+  max-width: 600px;
 }
 
-.chapter > .layout > .sceneRows {
-  margin-top: 8vh;
-}
-
-.proofLine {
-  margin: 10vh 0 0;
-  max-width: 640px;
-  font-size: var(--ck-lede-size);
-  font-weight: 500;
-  line-height: var(--ck-lede-leading);
-  color: var(--ck-muted);
-}
-
-.footerLine {
-  margin: 8vh 0 0;
-  max-width: 640px;
-  font-size: var(--ck-lede-size);
-  font-weight: 500;
-  line-height: var(--ck-lede-leading);
-  color: var(--ck-muted);
-}
-
-.chipRow {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 40px 0 0;
-  padding: 0;
-}
-
-.chip {
+.eyebrow {
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ck-off-white);
-  padding: 10px 16px;
-  border: 1px dashed var(--ck-white-20);
+  color: var(--ck-action);
+  margin-bottom: 12px;
 }
 
-.linkRow {
-  margin-top: 40px;
-}
-
-.textLink {
-  display: inline-block;
-  font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--ck-off-white);
-  border-bottom: 1px solid var(--ck-white-20);
-  padding-bottom: 4px;
-  transition:
-    color 0.35s var(--ck-ease-out-quad),
-    border-color 0.35s var(--ck-ease-out-quad);
-}
-
-.textLink:hover {
-  color: var(--ck-green-300);
-  border-color: var(--ck-green-300);
-}
-
-/* ---- Universe chapter: dome + stage ---- */
-
-.universeDomeHost {
+.lineTop {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 120%;
-  pointer-events: none;
-  z-index: 0;
-  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+/* ---------------------------------------------------------------- */
+/* Balanced Stack Layout (Comic)                                    */
+/* ---------------------------------------------------------------- */
+
+.chapterVisualSection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 4vh;
+}
+
+.wideMediaWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.morphMedia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.stepsRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin: 48px 0 24px;
+  width: 100%;
+}
+
+@media (min-width: 800px) {
+  .stepsRow {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+  }
+}
+
+.stepColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stepNum {
+  font-family: var(--ck-font-label);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--ck-action);
+  border-left: 2px solid var(--ck-action);
+  padding-left: 10px;
+  line-height: 1.1;
+}
+
+.stepTitle {
+  font-family: var(--ck-font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+}
+
+.stepBody {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  margin: 0;
+}
+
+/* Wins Split Block (Left: Proof Text & Link, Right: Bullet Points) */
+.winsSplitBlock {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-top: 48px;
+  align-items: start;
+}
+
+@media (min-width: 800px) {
+  .winsSplitBlock {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+}
+
+.winsSplitLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.winsSplitRight {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 800px) {
+  .winsSplitRight {
+    align-items: flex-end;
+  }
+}
+
+.winsRow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  max-width: 400px;
+  width: 100%;
+}
+
+.winItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 16px;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.winBullet {
+  color: var(--ck-action);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.winText {
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------- */
+/* Spotlight Stage (Universe)                                       */
+/* ---------------------------------------------------------------- */
+
+.spotlightStage {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 4vh;
+}
+
+.badgeWrapper {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .badge {
   display: inline-block;
-  margin: 24px 0 0;
   padding: 8px 14px;
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ck-chartreuse);
-  border: 1px solid rgb(212 255 0 / 0.35);
+  color: var(--ck-action);
+  border: 1px solid rgba(166, 255, 13, 0.35);
 }
 
 .stageMedia {
   position: relative;
-  z-index: var(--ck-z-content);
-  margin-top: 6vh;
+  z-index: 2;
+  width: 100%;
 }
 
-.disclaimer {
-  margin: 32px 0 0;
-  max-width: 640px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--ck-muted);
-  opacity: 0.75;
-}
-
-/* ---- Short chapter: phone trio ---- */
-
-.phonesGrid {
+/* Symmetrical stats grid (spanning the full width) */
+.statsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 8vh;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 40px 0;
+  width: 100%;
 }
 
-@media (min-width: 800px) {
-  .phonesGrid {
-    gap: 24px;
-    max-width: 1080px;
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
   }
 }
 
-/* ---- Drama chapter: player + series card ---- */
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.statNumber {
+  font-family: var(--ck-font-display);
+  font-size: clamp(48px, 6vw, 76px);
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1;
+  text-align: center;
+}
+
+.statLabel {
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ck-action);
+  text-align: center;
+}
+
+.statsFooterRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+@media (min-width: 800px) {
+  .statsFooterRow {
+    grid-template-columns: 1.2fr 1fr;
+    gap: 64px;
+    align-items: baseline;
+  }
+}
+
+.starsLinkWrapper {
+  display: flex;
+}
+
+@media (min-width: 800px) {
+  .starsLinkWrapper {
+    justify-content: flex-end;
+  }
+}
+
+.disclaimer {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  opacity: 0.6;
+  margin: 0;
+  max-width: 600px;
+}
+
+/* Ambient Media Backlight */
+.ambientMediaBackground {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(166, 255, 13, 0.05) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------- */
+/* Restored Phone Reel (Short - First Redesign Layout)              */
+/* ---------------------------------------------------------------- */
+
+.phoneReel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 6vh;
+  margin-bottom: 8vh;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.phoneFrame {
+  position: relative;
+  background: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+  border: 4px solid var(--ck-white-10);
+  transition: border-color 0.3s ease;
+  z-index: 2;
+}
+
+.phoneFrame:hover {
+  border-color: var(--ck-action);
+}
+
+/* 4-Column benefits grid for AI Short (No numbers, no sceneRows) */
+.shortsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 8vh;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .shortsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .shortsGrid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+}
+
+.shortBenefitItem {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 24px;
+  border: 1px dashed var(--ck-white-10);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.shortBenefitItem:hover {
+  border-color: var(--ck-action);
+  transform: translateY(-2px);
+}
+
+.shortBenefitHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shortBenefitBullet {
+  color: var(--ck-action);
+  font-size: 16px;
+}
+
+.shortBenefitTitle {
+  font-family: var(--ck-font-display);
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+}
+
+.shortBenefitBody {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+  margin: 0;
+}
+
+.shortBenefitMicro {
+  font-family: var(--ck-font-label);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ck-action);
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* Centered Callout Banner */
+.shortsCallout {
+  position: relative;
+  margin-top: 8vh;
+  padding: 48px 0;
+  width: 100%;
+  text-align: center;
+}
+
+.shortsCalloutText {
+  font-family: var(--ck-font-display);
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  max-width: 900px;
+  margin: 0 auto;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.calloutLineTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.calloutLineBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* ---------------------------------------------------------------- */
+/* Cinematic Player (Drama)                                         */
+/* ---------------------------------------------------------------- */
+
+.dramaBg {
+  background: transparent; /* Keep it completely transparent to let background dome flow continuously */
+}
+
+.playerStage {
+  position: relative;
+  margin-top: 6vh;
+  margin-bottom: 6vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .playerWrap {
   position: relative;
-  margin-top: 8vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.9);
 }
 
 .seriesCard {
-  margin-top: 16px;
-  padding: 22px 0 26px;
-  border-top: 1px solid var(--ck-accent-orange);
+  position: relative;
+  margin-top: 24px;
+  padding: 16px 0;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 6px;
+  gap: 12px;
+  border-top: none;
+  background: transparent; /* Transparent background for seamless glow */
 }
 
 @media (min-width: 800px) {
   .seriesCard {
     grid-template-columns: auto 1fr auto auto;
-    align-items: baseline;
-    gap: 28px;
+    align-items: center;
+    gap: 32px;
   }
 }
 
 .seriesTitle {
   margin: 0;
   font-family: var(--ck-font-display);
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 500;
   letter-spacing: 0.06em;
-  color: var(--ck-off-white);
+  color: #ffffff;
 }
 
 .seriesTagline {
@@ -335,19 +685,360 @@
   color: var(--ck-muted);
 }
 
-.seriesCta {
-  margin: 8px 0 0;
+.drawerTrigger {
+  background: transparent;
+  border: 1px solid var(--ck-action);
+  color: var(--ck-action);
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ck-accent-orange);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease;
+  justify-self: start;
+}
+
+.drawerTrigger:hover {
+  background: var(--ck-action);
+  color: var(--ck-action-ink);
 }
 
 @media (min-width: 800px) {
-  .seriesCta {
-    margin: 0;
+  .drawerTrigger {
     justify-self: end;
+  }
+}
+
+/* Editorial 2-Column Prose layout for Drama */
+.proseRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin: 6vh 0 4vh;
+}
+
+@media (min-width: 800px) {
+  .proseRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+  }
+}
+
+.proseColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.proseTitle {
+  font-family: var(--ck-font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9); /* shadows to make text pop over background glow */
+}
+
+.proseText {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ffffff; /* high contrast white */
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* ---------------------------------------------------------------- */
+/* Shared Chapter Elements & Layouts                                */
+/* ---------------------------------------------------------------- */
+
+.readabilityBlock {
+  max-width: 640px;
+  width: 100%;
+}
+
+.proofLine {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin: 0;
+}
+
+.footerLine {
+  margin-top: 6vh;
+  max-width: 640px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+.chipRow {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+}
+
+.chip {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding: 10px 16px;
+  border: 1px dashed var(--ck-white-20);
+  background: rgba(255,255,255,0.02);
+}
+
+.linkRow {
+  margin: 0;
+}
+
+.textLink {
+  display: inline-block;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff;
+  border-bottom: 1px solid var(--ck-white-20);
+  padding-bottom: 4px;
+  transition:
+    color 0.35s var(--ck-ease-out-quad),
+    border-color 0.35s var(--ck-ease-out-quad);
+}
+
+.textLink:hover {
+  color: var(--ck-action);
+  border-color: var(--ck-action);
+}
+
+.sceneRows {
+  list-style: none;
+  margin: 6vh 0 0;
+  padding: 0;
+}
+
+.universeDomeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+/* ---------------------------------------------------------------- */
+/* M14 Side Drawer Panel                                            */
+/* ---------------------------------------------------------------- */
+
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.drawer {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  background: #000000;
+  border-left: 1px solid var(--ck-white-10);
+  box-shadow: -20px 0 50px rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  animation: slideIn 0.4s var(--ck-ease-out-expo) forwards;
+}
+
+.drawerClose {
+  background: transparent;
+  border: 1px solid var(--ck-white-20);
+  color: var(--ck-muted);
+  font-family: var(--ck-font-label);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: 
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.drawerClose:hover {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.drawerContent {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.drawerEyebrow {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-action);
+}
+
+.drawerTitle {
+  font-family: var(--ck-font-display);
+  font-size: 40px;
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1;
+}
+
+.drawerTagline {
+  font-size: 18px;
+  color: var(--ck-muted);
+  margin: 0;
+}
+
+.drawerDivider {
+  height: 1px;
+  background: var(--ck-white-10);
+  margin: 24px 0;
+}
+
+.drawerSectionHeader {
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--ck-white-40);
+  margin: 0 0 16px 0;
+}
+
+/* Episodes list in drawer */
+.episodeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.episodeItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--ck-white-5);
+  border-radius: 4px;
+}
+
+.episodeNum {
+  font-family: var(--ck-font-label);
+  font-size: 14px;
+  color: var(--ck-action);
+}
+
+.episodeInfo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.episodeTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.episodeDuration {
+  font-size: 12px;
+  color: var(--ck-muted);
+}
+
+.episodePlay {
+  background: transparent;
+  border: none;
+  color: var(--ck-action);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+}
+
+/* Format details in drawer */
+.drawerBenefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.drawerBenefit {
+  display: flex;
+  gap: 16px;
+}
+
+.benefitNum {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  color: var(--ck-action);
+  margin-top: 2px;
+}
+
+.benefitTitle {
+  font-family: var(--ck-font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.benefitBody {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+  margin: 6px 0 0 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawerOverlay, .drawer {
+    animation: none;
   }
 }

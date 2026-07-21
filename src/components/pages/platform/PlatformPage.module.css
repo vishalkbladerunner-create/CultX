@@ -113,22 +113,14 @@
 
 .coreSection {
   position: relative;
-  min-height: 120vh;
-  padding: 16vh 0;
-  display: flex;
-  align-items: flex-start;
+  padding: 24vh 0;
 }
 
-/* Sticky needs travel room: the layout wrapper must fill the section's
-   height, otherwise it shrink-wraps the inner text and the pin never
-   engages (text scrolls past instead of holding mid-viewport). */
 .coreSection > .layout {
-  align-self: stretch;
+  width: 100%;
 }
 
 .coreInner {
-  position: sticky;
-  top: 30vh;
   width: 100%;
 }
 
@@ -318,14 +310,14 @@
 .engineCounter {
   font-family: var(--ck-font-display);
   font-weight: 400;
-  color: var(--ck-off-white);
+  color: var(--ck-action);
   font-size: 72px;
   letter-spacing: -4px;
   line-height: 1;
-  opacity: 0.05;
+  opacity: 0.85;
   position: absolute;
   top: 50%;
-  right: var(--ck-layout-margin);
+  right: calc(var(--ck-layout-margin) + 8%);
   transform: translateY(-50%);
   z-index: 1;
   pointer-events: none;
@@ -377,14 +369,16 @@
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  padding-right: 10%;
+  padding-left: 8%;
+  padding-right: 12%;
   opacity: 0.15;
   transition: opacity 0.5s var(--ck-ease-out-quad);
 }
 
 @media (min-width: 800px) {
   .engineStep {
-    padding-right: 25%;
+    padding-left: 8%;
+    padding-right: 18%;
   }
 }
 
@@ -679,6 +673,25 @@
   box-sizing: border-box;
 }
 
+.leapGrid {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+@media (min-width: 800px) {
+  .leapGrid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    align-items: center;
+    gap: 8vw;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 var(--ck-layout-margin);
+  }
+}
+
 .leapHeader {
   position: absolute;
   top: 8vh;
@@ -686,6 +699,17 @@
   right: 0;
   z-index: 10;
   padding: 0 var(--ck-layout-margin);
+}
+
+@media (min-width: 800px) {
+  .leapHeader {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    padding: 0;
+    max-width: 480px;
+  }
 }
 
 .leapEyebrow {
@@ -732,6 +756,19 @@
   z-index: 1;
 }
 
+@media (min-width: 800px) {
+  .leapCanvas {
+    position: relative;
+    inset: auto;
+    height: 56vh;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--ck-white-8);
+    border-radius: 8px;
+    background-color: var(--ck-void);
+  }
+}
+
 .leapOld,
 .leapNew {
   width: 100%;
@@ -743,17 +780,26 @@
   box-sizing: border-box;
 }
 
+@media (min-width: 800px) {
+  .leapOld,
+  .leapNew {
+    padding: 32px;
+    position: absolute;
+    inset: 0;
+  }
+}
+
 .leapOld {
-  background-color: var(--ck-void);
-  opacity: 0.9;
+  background-color: #0c0808; /* Warmer dark amber-red void */
+  opacity: 0.95;
 }
 
 /* Clipped overlays */
 .leapNew {
   position: absolute;
   inset: 0;
-  background-color: var(--ck-void);
-  clip-path: inset(0 100% 0 0); /* starts fully hidden */
+  background-color: #080c08; /* Cooler dark green success void */
+  clip-path: inset(100% 0 0 0); /* starts fully hidden at bottom */
   will-change: clip-path;
   z-index: 2;
 }
@@ -772,12 +818,15 @@
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ck-muted);
+  color: #ff5555; /* Warning red color for old way */
+  opacity: 0.7;
   margin: 0 0 12px 0;
 }
 
 .leapNewTag {
   color: var(--ck-action);
+  opacity: 1;
+  text-transform: none;
 }
 
 .leapLead {
@@ -786,8 +835,13 @@
   font-weight: 400;
   letter-spacing: -0.4px;
   line-height: 1.15;
-  color: var(--ck-off-white);
+  color: var(--ck-muted); /* Faded lead text for old way */
   margin: 0 0 24px 0;
+}
+
+.leapNewContent .leapLead {
+  color: var(--ck-off-white);
+  text-shadow: 0 0 12px rgba(166, 255, 13, 0.2);
 }
 
 @media (min-width: 800px) {
@@ -804,7 +858,7 @@
   list-style: none;
   font-size: 15px;
   line-height: 2;
-  color: var(--ck-muted);
+  color: #665555; /* Faded step text for old way */
   max-width: 440px;
 }
 
@@ -827,11 +881,32 @@
   font-size: var(--ck-label-size);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ck-muted);
+  color: #665555;
 }
 
 .leapNewContent .leapMeta {
   color: var(--ck-action);
+}
+
+.leapDivider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ck-action) 15%, var(--ck-action) 85%, transparent);
+  box-shadow: 0 0 15px var(--ck-action-glow), 0 0 5px var(--ck-action);
+  z-index: 3;
+  pointer-events: none;
+  transform: translateY(-50%);
+  will-change: top;
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .leapDivider {
+    display: block;
+  }
 }
 
 .leapMission {
@@ -975,13 +1050,9 @@
   }
 }
 
-/* Whisper of atmosphere behind the diagram — no neon wash */
+/* Whisper of atmosphere behind the diagram — removed hemispherical glow */
 .arsenalDiagram::before {
-  content: "";
-  position: absolute;
-  inset: -10%;
-  background: radial-gradient(circle, rgb(166 255 13 / 0.045), transparent 62%);
-  pointer-events: none;
+  display: none;
 }
 
 .arsenalCenter {
@@ -992,37 +1063,35 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 1px solid var(--ck-action-line);
+  border: 2px solid var(--ck-action);
   background-color: var(--ck-void);
-  box-shadow: 0 0 14px var(--ck-action-soft);
+  box-shadow: 0 0 35px var(--ck-action-glow), inset 0 0 15px var(--ck-action-soft);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--ck-font-label);
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ck-action);
+  text-shadow: 0 0 8px var(--ck-action-glow);
   z-index: 10;
   pointer-events: none;
 }
 
 .arsenalNode {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
   transform: translate(-50%, -50%);
   z-index: 5;
-  width: 140px;
-  text-align: center;
+  width: 16px;
+  height: 16px;
   opacity: 0;
   will-change: transform, opacity;
 }
 
 /* exact pentagon (r=220 in a 640 box), first node at top, clockwise */
-.arsenalNode:nth-child(1) { top: 15.6%; left: 50%; }
+.arsenalNode:nth-child(1) { top: 15.625%; left: 50%; }
 .arsenalNode:nth-child(2) { top: 39.4%; left: 82.7%; }
 .arsenalNode:nth-child(3) { top: 77.8%; left: 70.2%; }
 .arsenalNode:nth-child(4) { top: 77.8%; left: 29.8%; }
@@ -1032,28 +1101,71 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 1px solid var(--ck-white-20);
+  border: 1.5px solid var(--ck-white-20);
   background-color: var(--ck-void);
   transition: all 0.5s ease;
+  box-sizing: border-box;
 }
 
 .arsenalNode[data-active] .arsenalNodeDot {
   border-color: var(--ck-action);
   background-color: var(--ck-action);
-  box-shadow: 0 0 10px var(--ck-action-glow);
+  box-shadow: 0 0 15px var(--ck-action-glow);
 }
 
 .arsenalNodeLabel {
+  position: absolute;
   font-family: var(--ck-font-label);
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ck-muted);
   transition: color 0.5s ease;
+  white-space: nowrap;
+}
+
+/* Node 1 (top): text centered ABOVE dot */
+.arsenalNode:nth-child(1) .arsenalNodeLabel {
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Node 2 (top-right): text offset to the right and vertically centered */
+.arsenalNode:nth-child(2) .arsenalNodeLabel {
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+/* Node 3 (bottom-right): text offset to the right and vertically centered */
+.arsenalNode:nth-child(3) .arsenalNodeLabel {
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+/* Node 4 (bottom-left): text offset to the left and vertically centered */
+.arsenalNode:nth-child(4) .arsenalNodeLabel {
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
+}
+
+/* Node 5 (top-left): text offset to the left and vertically centered */
+.arsenalNode:nth-child(5) .arsenalNodeLabel {
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: right;
 }
 
 .arsenalNode[data-active] .arsenalNodeLabel {
   color: var(--ck-off-white);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
 }
 
 .arsenalLines {
@@ -1066,12 +1178,14 @@
 /* Hairline spokes — the draw scrub (JS) lights them; no filter glow */
 .arsenalLine {
   stroke: var(--ck-white-15);
-  stroke-width: 1;
-  transition: stroke 0.4s ease;
+  stroke-width: 1.5;
+  transition: all 0.4s ease;
 }
 
 .arsenalLine[data-active] {
-  stroke: var(--ck-action-line);
+  stroke: var(--ck-action);
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px var(--ck-action-glow));
 }
 
 /* Mobile responsive fallback (simple clean list with green bullet points) */

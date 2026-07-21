@@ -48,12 +48,12 @@ export function PlatformAnimations() {
       }
 
       // -------------------------------------------------------------
-      // 2. DEFINITION FILL — short early window (kills scroll lag)
-      //    Fill completes by the time the section top reaches 15% viewport,
-      //    while the pinned text sits mid-screen — fully colored.
+      // 2. DEFINITION FILL — unpinned scroll window
+      //    Fills the words sequentially as the section scrolls normally.
       // -------------------------------------------------------------
       const coreSection = document.querySelector("[data-platform-fill]");
       if (coreSection) {
+        const coreCopy = coreSection.querySelector("p:not([class*='coreEyebrow'])") || coreSection;
         const words = coreSection.querySelectorAll("[data-fill-word]");
         if (words.length) {
           gsap.fromTo(
@@ -64,9 +64,9 @@ export function PlatformAnimations() {
               stagger: 0.08,
               ease: "none",
               scrollTrigger: {
-                trigger: coreSection,
-                start: "top 65%",
-                end: "top 15%",
+                trigger: coreCopy,
+                start: "top 75%",
+                end: "bottom 52%",
                 scrub: true,
               },
             }
@@ -108,27 +108,60 @@ export function PlatformAnimations() {
         const stepCount = steps.length;
 
         if (track && stepCount > 0) {
-          /* Steps are flex 0 0 100% of the track, and the track itself is
-             exactly one step wide (flex container does not grow to fit
-             overflow) — so the slide needs (stepCount − 1) × 100% of the
-             track's own width. Verified against a full-runway pass:
-             every step rests centered, step 5 lands at runway end. */
           const totalSlidePercent = -(stepCount - 1) * 100;
 
-          gsap.fromTo(
-            track,
-            { xPercent: 0 },
-            {
-              xPercent: totalSlidePercent,
-              ease: "none",
-              scrollTrigger: {
-                trigger: timelineScope,
-                start: "top top",
-                end: "bottom bottom",
-                scrub: true,
-              },
+          // Set initial card opacities and blur
+          gsap.set(steps, { opacity: 0.1, filter: "blur(6px)" });
+          gsap.set(steps[0], { opacity: 1, filter: "blur(0px)" });
+
+          const mainTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: timelineScope,
+              start: "top top",
+              end: "bottom bottom",
+              scrub: true,
             }
-          );
+          });
+
+          // Hold the first slide for the first 8% of scroll distance
+          mainTimeline.to(track, {
+            xPercent: 0,
+            duration: 0.08,
+          });
+
+          // Animate track sliding and card opacity step-by-step
+          const transitionDuration = 0.92 / (stepCount - 1);
+          for (let i = 0; i < stepCount - 1; i++) {
+            const nextIdx = i + 1;
+            const slideEndPercent = -(nextIdx * 100);
+
+            // Move the track
+            mainTimeline.to(track, {
+              xPercent: slideEndPercent,
+              ease: "none",
+              duration: transitionDuration,
+            }, `step-${i}`);
+
+            // Fade out and blur current step card quickly (first 30% of transition)
+            mainTimeline.to(steps[i], {
+              opacity: 0.1,
+              filter: "blur(6px)",
+              ease: "power1.out",
+              duration: transitionDuration * 0.3,
+            }, `step-${i}`);
+
+            // Fade in and sharpen next step card (starts after 35% of transition, takes 40% duration)
+            mainTimeline.fromTo(steps[nextIdx],
+              { opacity: 0.1, filter: "blur(6px)" },
+              {
+                opacity: 1,
+                filter: "blur(0px)",
+                ease: "power2.inOut",
+                duration: transitionDuration * 0.4,
+              },
+              `step-${i}+=${transitionDuration * 0.35}`
+            );
+          }
 
           // Progress bar fill (0 -> 1)
           if (progressFill) {
@@ -156,10 +189,14 @@ export function PlatformAnimations() {
             scrub: true,
             onUpdate: (self) => {
               const progress = self.progress;
-              const activeIndex = Math.min(
-                stepCount - 1,
-                Math.floor(progress * stepCount)
-              );
+              let activeIndex = 0;
+              if (progress > 0.08) {
+                const slideProgress = (progress - 0.08) / 0.92;
+                activeIndex = Math.min(
+                  stepCount - 1,
+                  Math.round(slideProgress * (stepCount - 1))
+                );
+              }
 
               steps.forEach((step, idx) => {
                 if (idx === activeIndex) {
@@ -210,43 +247,69 @@ export function PlatformAnimations() {
       }
 
       // -------------------------------------------------------------
-      // 6. CURTAIN WIPE (Desktop Only >= 800px) — no divider line;
-      //    the new panel sweeps in while content counter-slides softly
+      // 6. CURTAIN WIPE (Desktop Only >= 800px) — vertical swipe up;
+      //    the new panel wipes up from the bottom with a glowing divider line,
+      //    completing 90% of the transition before the section unpins.
       // -------------------------------------------------------------
       const wipeScope = document.querySelector("[data-curtain-wipe]");
       if (wipeScope && window.innerWidth >= 800) {
         const newPanel = wipeScope.querySelector("[data-curtain-new]");
         const oldPanel = wipeScope.querySelector("[data-curtain-old]");
-        const wipeTrigger = {
-          trigger: wipeScope,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: true,
-        } as const;
+        const divider = wipeScope.querySelector("[data-curtain-divider]");
 
-        if (newPanel) {
-          gsap.fromTo(
-            newPanel,
-            { clipPath: "inset(0 100% 0 0)" },
-            { clipPath: "inset(0 0% 0 0)", ease: "none", scrollTrigger: wipeTrigger }
+        const wipeTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: wipeScope,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true,
+          }
+        });
+
+        if (newPanel && oldPanel && divider) {
+          // Slide old panel out slightly (vertically) and dim it
+          wipeTimeline.fromTo(oldPanel,
+            { opacity: 1, y: 0 },
+            { opacity: 0.25, y: -30, duration: 0.8, ease: "none" },
+            0
           );
+
+          // Wipe new panel up to 90% at 80% progress
+          wipeTimeline.fromTo(newPanel,
+            { clipPath: "inset(100% 0 0 0)" },
+            { clipPath: "inset(10% 0 0 0)", duration: 0.8, ease: "none" },
+            0
+          );
+
+          // Move glowing divider to 90% at 80% progress
+          wipeTimeline.fromTo(divider,
+            { top: "100%" },
+            { top: "10%", duration: 0.8, ease: "none" },
+            0
+          );
+
+          // Complete the remaining 10% from progress 0.8 to 1.0
+          wipeTimeline.to(newPanel, {
+            clipPath: "inset(0% 0 0 0)",
+            duration: 0.2,
+            ease: "none"
+          }, 0.8);
+
+          wipeTimeline.to(divider, {
+            top: "0%",
+            duration: 0.2,
+            ease: "none"
+          }, 0.8);
 
           const newContent = newPanel.firstElementChild;
           if (newContent) {
-            gsap.fromTo(
-              newContent,
-              { x: -56 },
-              { x: 0, ease: "none", scrollTrigger: wipeTrigger }
+            // Slide content in vertically
+            wipeTimeline.fromTo(newContent,
+              { y: 40 },
+              { y: 0, duration: 0.8, ease: "none" },
+              0
             );
           }
-        }
-
-        if (oldPanel) {
-          gsap.fromTo(
-            oldPanel,
-            { opacity: 1, x: 0 },
-            { opacity: 0.35, x: -40, ease: "none", scrollTrigger: wipeTrigger }
-          );
         }
       }
 
@@ -296,19 +359,18 @@ export function PlatformAnimations() {
           scrub: true,
           onUpdate: (self) => {
             const p = self.progress;
-            const count = nodes.length;
 
             nodes.forEach((node, idx) => {
               const line = lines[idx];
-              const local = gsap.utils.clamp(0, 1, p * count - idx);
+              const local = p; // All lines grow simultaneously from center to outer edge
               if (line) {
                 line.style.strokeDashoffset = String(
                   line.getTotalLength() * (1 - local)
                 );
-                if (local >= 1) line.setAttribute("data-active", "true");
+                if (local >= 0.95) line.setAttribute("data-active", "true");
                 else line.removeAttribute("data-active");
               }
-              if (local >= 1) node.setAttribute("data-active", "true");
+              if (local >= 0.95) node.setAttribute("data-active", "true");
               else node.removeAttribute("data-active");
             });
           },

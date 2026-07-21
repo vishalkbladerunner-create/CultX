@@ -1,51 +1,44 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import useEmblaCarousel from "embla-carousel-react";
+import { DashedLine } from "@/components/chrome/DashedLine";
 import { GradientDome } from "@/components/background/GradientDome";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { MediaFrame } from "@/components/kit/MediaFrame";
 import { CtaBand } from "@/components/kit/CtaBand";
 import { CinemaHero } from "@/components/cinema/CinemaHero";
 import { CinemaHeading } from "@/components/cinema/CinemaHeading";
-import { SceneRow } from "@/components/cinema/SceneRow";
+import { PillarsAnimations } from "./PillarsAnimations";
 import styles from "./PillarsPage.module.css";
-
-/**
- * CultX /pillars — "Four Channels" (K-Cinema language).
- *
- * Zapping between four cinema screens: title card → the index rail →
- * four chapters, each with its own masked intertitle, per-format accent
- * and scene (before/after morph, stage, phone trio, series player) —
- * benefits read as scene rows, never benefit cards. Copy verbatim from
- * cult/content-strategy/05-pillars.md.
- */
-
-/* Verbatim copy — cult/content-strategy/05-pillars.md */
 
 const OVERVIEW = [
   {
     n: "01",
     anchor: "comic",
-    accent: "cyan",
+    accent: "green",
     title: "AI Comic / Webtoon",
     line: "Finished pages → premium AI animation",
   },
   {
     n: "02",
     anchor: "universe",
-    accent: "magenta",
+    accent: "green",
     title: "Star IP Universe",
     line: "Iconic characters. Studio-grade AI. Movie-length stories.",
   },
   {
     n: "03",
     anchor: "short",
-    accent: "purple",
+    accent: "green",
     title: "AI Short",
     line: "Small format. Massive reach.",
   },
   {
     n: "04",
     anchor: "drama",
-    accent: "orange",
+    accent: "green",
     title: "AI Drama",
     line: "Long form. Deep emotion. Global binge.",
   },
@@ -75,27 +68,11 @@ const COMIC_WINS = [
   "Built for scale without abandoning craft",
 ];
 
-const UNIVERSE_CHIPS = [
-  {
-    n: "01",
-    title: "Studio-level quality",
-    body: "Cinematic AI content that aims at the bar of top animation studios.",
-  },
-  {
-    n: "02",
-    title: "Fraction of the cost",
-    body: "Produce at a tiny fraction of traditional animation cost.",
-  },
-  {
-    n: "03",
-    title: "10× faster ambition",
-    body: "From months to days — content at the speed of AI.",
-  },
-  {
-    n: "04",
-    title: "World-class IP power",
-    body: "Built on IPs with massive fanbases and proven reach.",
-  },
+const UNIVERSE_STATS = [
+  { number: "10x", label: "Faster Ambition" },
+  { number: "<0.5%", label: "Traditional Cost" },
+  { number: "100%", label: "Studio-Grade Quality" },
+  { number: "4+", label: "Confirmed Star IPs" },
 ];
 
 const SHORT_BENEFITS = [
@@ -125,37 +102,48 @@ const SHORT_BENEFITS = [
   },
 ];
 
-const DRAMA_BENEFITS = [
-  {
-    n: "01",
-    title: "High demand, high retention",
-    body: "Long-form dramas keep viewers watching episode after episode.",
-    micro: "More watch time. More loyalty.",
-  },
-  {
-    n: "02",
-    title: "Premium content, premium value",
-    body: "Epic stories with drama, action, romance, and thrill.",
-    micro: "Higher perceived value. Stronger monetization.",
-  },
-  {
-    n: "03",
-    title: "Global appeal, K-drama power",
-    body: "Korean-style storytelling with global emotions.",
-    micro: "Cross-border audience. Massive fandom.",
-  },
-  {
-    n: "04",
-    title: "AI-powered production",
-    body: "Cinematic quality with faster production and lower cost.",
-    micro: "More content. More revenue.",
-  },
+const DRAMA_EPISODES = [
+  { n: "01", title: "The Spark of Rebellion", duration: "42 min" },
+  { n: "02", title: "Shadow Play", duration: "38 min" },
+  { n: "03", title: "The Gangnam Connection", duration: "45 min" },
 ];
 
 export function PillarsPage() {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "center",
+    skipSnaps: false,
+  });
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setActiveSlide(emblaApi.selectedScrollSnap());
+    };
+    emblaApi.on("select", onSelect);
+    onSelect();
+  }, [emblaApi]);
+
+  const handleCardClick = (idx: number, anchor: string) => {
+    if (emblaApi) {
+      emblaApi.scrollTo(idx);
+    }
+    const targetEl = document.getElementById(anchor);
+    if (targetEl) {
+      if (window.__lenis) {
+        window.__lenis.scrollTo(targetEl, { offset: -60 });
+      } else {
+        targetEl.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <main className={styles.main} id="top">
-      {/* ============ 1. HERO — title card ============ */}
+      {/* ============ 1. HERO ============ */}
       <CinemaHero
         eyebrow="Four Experiences"
         title={"Four formats.\nOne CultX."}
@@ -165,166 +153,206 @@ export function PillarsPage() {
         media={{
           slot: "hero-video-pillars",
           label: "HERO VIDEO",
-          spec: "1920×1080 · WebM + MP4 (hvc1) · muted loop ≤8s",
+          spec: "1920×1080 · WebM + MP4 · muted loop ≤8s",
         }}
       />
 
-      {/* ============ 2. OVERVIEW — the index rail ============ */}
+      {/* ============ 2. OVERVIEW ============ */}
       <section className={styles.section} data-theme-section="dark">
         <div className={styles.layout}>
           <CinemaHeading eyebrow="00 — Map" title="Pick your stage." />
-          <div className={styles.rail} data-stagger>
-            {OVERVIEW.map((o) => (
-              <a
-                key={o.n}
-                href={`#${o.anchor}`}
-                className={styles.railRow}
-                data-accent={o.accent}
-              >
-                <span className={styles.railNum}>{o.n}</span>
-                <span className={styles.railTitle}>{o.title}</span>
-                <span className={styles.railLine}>{o.line}</span>
-                <span className={styles.railJump} aria-hidden>
-                  ↓
-                </span>
-              </a>
-            ))}
+          
+          <div className={styles.carouselContainer}>
+            <div className={styles.viewport} ref={emblaRef}>
+              <div className={styles.container}>
+                {OVERVIEW.map((o, idx) => (
+                  <div
+                    key={o.n}
+                    className={`${styles.slide} ${idx === activeSlide ? styles.activeSlide : ""}`}
+                    onClick={() => handleCardClick(idx, o.anchor)}
+                  >
+                    <div className={styles.formatCard} data-accent={o.accent}>
+                      <div className={styles.cardContent}>
+                        <span className={styles.cardNum}>{o.n}</span>
+                        <h3 className={styles.cardTitle}>{o.title}</h3>
+                        <p className={styles.cardLine}>{o.line}</p>
+                        <span className={styles.cardAction}>Jump to chapter →</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 3. CHAPTER 01 — AI COMIC / WEBTOON ============ */}
+      {/* ============ 3. CHAPTER 01 — AI COMIC / WEBTOON (Split Header & Balanced Stack) ============ */}
       <section
-        className={styles.chapter}
+        className={`${styles.chapter} ${styles.comicBg}`}
         id="comic"
         data-theme-section="dark"
+        data-chapter-wipe
       >
+        <div className={styles.wipeOverlay} data-wipe-overlay />
         <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="01 — AI Comic / Webtoon"
-            accent="cyan"
-            title={
-              <>
+          {/* Split Header: H2 left, lede right */}
+          <div className={styles.splitHeader}>
+            <DashedLine className={styles.lineTop} />
+            <p className={styles.eyebrow} data-reveal>01 — AI Comic / Webtoon</p>
+            <div className={styles.splitHeaderGrid}>
+              <h2 className={styles.splitHeaderTitle} data-reveal>
                 From webtoon
                 <br />
                 to animation.
-              </>
-            }
-            lede="We turn finished webtoons into high-quality AI comic animation — fast, simple, and at a fraction of traditional cost. Story, characters, world, and art are already there. We bring them to motion."
-          />
-          <div className={styles.chapterGrid}>
-            <div className={styles.morphMedia} data-reveal>
-              <MediaFrame
-                slot="comic-before"
-                label="WEBTOON PANEL"
-                spec="Source art · 900×1200 PNG/WebP"
-                ratio="4/5"
-              />
-              <MediaFrame
-                slot="comic-after"
-                label="ANIMATION STILL"
-                spec="Output frame · 900×1200 PNG/WebP"
-                ratio="4/5"
-              />
+              </h2>
+              <p className={styles.splitHeaderLede} data-reveal>
+                We turn finished webtoons into high-quality AI comic animation — fast, simple, and at a fraction of traditional cost. Story, characters, world, and art are already there. We bring them to motion.
+              </p>
             </div>
-            <ol className={styles.sceneRows} data-stagger>
-              {COMIC_STEPS.map((s) => (
-                <SceneRow
-                  key={s.n}
-                  n={s.n}
-                  title={s.title}
-                  body={s.body}
-                  accent="cyan"
-                />
-              ))}
-            </ol>
           </div>
-          <p className={styles.proofLine} data-reveal>
-            Korea’s webtoon culture produced tens of thousands of complete
-            stories — a massive head start for creators ready to move.
-          </p>
-          <ul className={styles.chipRow} data-stagger>
-            {COMIC_WINS.map((w) => (
-              <li key={w} className={styles.chip}>
-                {w}
-              </li>
-            ))}
-          </ul>
-          <div className={styles.linkRow} data-reveal>
-            <Link className={styles.textLink} href="/platform">
-              See the full platform loop →
-            </Link>
+
+          <div className={styles.chapterVisualSection}>
+            {/* Visual block sits directly below heading, spanning the width */}
+            <div className={styles.wideMediaWrapper}>
+              <div className={styles.ambientMediaBackground} />
+              <div className={styles.morphMedia}>
+                <MediaFrame
+                  slot="comic-before"
+                  label="WEBTOON PANEL"
+                  spec="Source art · 900×1200"
+                  ratio="4/5"
+                />
+                <MediaFrame
+                  slot="comic-after"
+                  label="ANIMATION STILL"
+                  spec="Output frame · 900×1200"
+                  ratio="4/5"
+                />
+              </div>
+            </div>
+
+            {/* Horizontal Steps Row: 3 horizontal columns, borderless */}
+            <div className={styles.stepsRow}>
+              {COMIC_STEPS.map((s) => (
+                <div key={s.n} className={styles.stepColumn}>
+                  <span className={styles.stepNum}>{s.n}</span>
+                  <h4 className={styles.stepTitle}>{s.title}</h4>
+                  <p className={styles.stepBody}>{s.body}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Wins Split Block (Left: Proof Text & Link, Right: Bullet Points) */}
+            <div className={styles.winsSplitBlock}>
+              <div className={styles.winsSplitLeft}>
+                <p className={styles.proofLine}>
+                  Korea’s webtoon culture produced tens of thousands of complete
+                  stories — a massive head start for creators ready to move.
+                </p>
+                <div className={styles.linkRow}>
+                  <Link className={styles.textLink} href="/platform">
+                    See the full platform loop →
+                  </Link>
+                </div>
+              </div>
+              
+              <div className={styles.winsSplitRight}>
+                <div className={styles.winsRow}>
+                  {COMIC_WINS.map((w, idx) => (
+                    <div key={idx} className={styles.winItem}>
+                      <span className={styles.winBullet}>✦</span>
+                      <span className={styles.winText}>{w}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 4. CHAPTER 02 — STAR IP UNIVERSE ============ */}
+      {/* ============ 4. CHAPTER 02 — STAR IP UNIVERSE (Split Header & Symmetrical Metrics) ============ */}
       <section
-        className={styles.chapter}
+        className={`${styles.chapter} ${styles.universeBg}`}
         id="universe"
         data-theme-section="dark"
+        data-chapter-wipe
       >
-        {/* Top dome bleeds 20% past the chapter, mask-faded edges */}
+        <div className={styles.wipeOverlay} data-wipe-overlay />
         <div className={styles.universeDomeHost} aria-hidden>
           <GradientDome position="top" />
         </div>
         <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="02 — Star IP Universe"
-            accent="magenta"
-            title={
-              <>
+          {/* Split Header: H2 left, lede right */}
+          <div className={styles.splitHeader}>
+            <DashedLine className={styles.lineTop} />
+            <p className={styles.eyebrow} data-reveal>02 — Star IP Universe</p>
+            <div className={styles.splitHeaderGrid}>
+              <h2 className={styles.splitHeaderTitle} data-reveal>
                 Iconic characters.
                 <br />
                 Studio-grade AI.
-              </>
-            }
-            lede="Bring beloved characters to life with studio-level AI production and movie-length storytelling. Partner energy. Global fans. Legends with a head start."
-          />
-          <p className={styles.badge} data-reveal>
-            Studio-grade production
-          </p>
-          <div className={styles.stageMedia} data-reveal>
-            <MediaFrame
-              slot="universe-stage"
-              label="STAR IP STAGE"
-              spec="Character group on stage · 2160×960 PNG/WebP"
-              ratio="21/9"
-            />
+              </h2>
+              <p className={styles.splitHeaderLede} data-reveal>
+                Bring beloved characters to life with studio-level AI production and movie-length storytelling. Partner energy. Global fans. Legends with a head start.
+              </p>
+            </div>
           </div>
-          <ol className={styles.sceneRows} data-stagger>
-            {UNIVERSE_CHIPS.map((c) => (
-              <SceneRow
-                key={c.n}
-                n={c.n}
-                title={c.title}
-                body={c.body}
-                accent="magenta"
+          
+          <div className={styles.spotlightStage}>
+            <div className={styles.badgeWrapper}>
+              <p className={styles.badge}>Studio-grade production</p>
+            </div>
+            
+            <div className={styles.stageMedia}>
+              <div className={styles.ambientMediaBackground} />
+              <MediaFrame
+                slot="universe-stage"
+                label="STAR IP STAGE"
+                spec="Character group on stage · 2160×960"
+                ratio="21/9"
               />
-            ))}
-          </ol>
-          <p className={styles.disclaimer}>
-            Quality and cost comparisons are product vision from the deck —
-            ambitious targets, not third-party audited guarantees.
-          </p>
-          <div className={styles.linkRow} data-reveal>
-            <Link className={styles.textLink} href="/stars">
-              Meet the confirmed star IPs — Pucca, B.Duck, Ponke, Mew. →
-            </Link>
+            </div>
+
+            {/* Symmetrical stats grid (spanning the full width) */}
+            <div className={styles.statsGrid}>
+              {UNIVERSE_STATS.map((stat, idx) => (
+                <div key={idx} className={styles.statItem}>
+                  <span className={styles.statNumber}>{stat.number}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Symmetrical footer layout */}
+            <div className={styles.statsFooterRow}>
+              <p className={styles.disclaimer}>
+                Quality and cost comparisons are product vision from the deck —
+                ambitious targets, not third-party audited guarantees.
+              </p>
+              <div className={styles.starsLinkWrapper}>
+                <Link className={styles.textLink} href="/stars">
+                  Meet the confirmed star IPs — Pucca, B.Duck, Ponke, Mew. →
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ 5. CHAPTER 03 — AI SHORT ============ */}
+      {/* ============ 5. CHAPTER 03 — AI SHORT (Restored Redesign & Horizontal Grid) ============ */}
       <section
-        className={styles.chapter}
+        className={`${styles.chapter} ${styles.shortBg}`}
         id="short"
         data-theme-section="dark"
+        data-chapter-wipe
       >
+        <div className={styles.wipeOverlay} data-wipe-overlay />
         <div className={styles.layout}>
           <CinemaHeading
             eyebrow="03 — AI Short"
-            accent="purple"
+            accent="gold"
             title={
               <>
                 Small format.
@@ -334,83 +362,123 @@ export function PillarsPage() {
             }
             lede="We turn AI animation into short, viral-ready videos that grab attention in seconds. Short content. Big reach. Real growth for every IP."
           />
-          <div className={styles.phonesGrid} data-stagger>
+
+          {/* Magnetic Parallax Grid */}
+          <div className={styles.phoneReel} data-phone-reel>
             {[1, 2, 3].map((i) => (
-              <MediaFrame
-                key={i}
-                slot={`short-phone-${i}`}
-                label={`PHONE FYP ${i}`}
-                spec="Vertical short · 1080×1920"
-                ratio="9/16"
-              />
+              <div key={i} className={styles.phoneFrame} data-phone-frame>
+                <MediaFrame
+                  slot={`short-phone-${i}`}
+                  label={`PHONE FYP ${i}`}
+                  spec="Vertical short · 1080×1920"
+                  ratio="9/16"
+                />
+              </div>
             ))}
           </div>
-          <ol className={styles.sceneRows} data-stagger>
+
+          {/* Symmetrical 4-Column Benefits Grid (No Numbers) */}
+          <div className={styles.shortsGrid}>
             {SHORT_BENEFITS.map((b) => (
-              <SceneRow
-                key={b.n}
-                n={b.n}
-                title={b.title}
-                body={b.body}
-                micro={b.micro}
-                accent="purple"
-              />
+              <div key={b.n} className={styles.shortBenefitItem}>
+                <div className={styles.shortBenefitHeader}>
+                  <span className={styles.shortBenefitBullet}>✦</span>
+                  <h4 className={styles.shortBenefitTitle}>{b.title}</h4>
+                </div>
+                <p className={styles.shortBenefitBody}>{b.body}</p>
+                <span className={styles.shortBenefitMicro}>{b.micro}</span>
+              </div>
             ))}
-          </ol>
-          <p className={styles.footerLine} data-reveal>
-            Short videos are the new normal. AI Shorts help your IP go viral,
-            grow faster, and earn more.
-          </p>
+          </div>
+
+          {/* Premium Centerpiece Callout Banner */}
+          <div className={styles.shortsCallout}>
+            <DashedLine className={styles.calloutLineTop} />
+            <p className={styles.shortsCalloutText}>
+              Short videos are the new normal. AI Shorts help your IP go viral,
+              grow faster, and earn more.
+            </p>
+            <DashedLine className={styles.calloutLineBottom} />
+          </div>
         </div>
       </section>
 
-      {/* ============ 6. CHAPTER 04 — AI DRAMA ============ */}
+      {/* ============ 6. CHAPTER 04 — AI DRAMA (Split Header & Editorial Narrative Prose) ============ */}
       <section
-        className={styles.chapter}
+        className={`${styles.chapter} ${styles.dramaBg}`}
         id="drama"
         data-theme-section="dark"
+        data-chapter-wipe
       >
+        <div className={styles.wipeOverlay} data-wipe-overlay />
         <div className={styles.layout}>
-          <CinemaHeading
-            eyebrow="04 — AI Drama"
-            accent="orange"
-            title={
-              <>
+          {/* Split Header: H2 left, lede right */}
+          <div className={styles.splitHeader}>
+            <DashedLine className={styles.lineTop} />
+            <p className={styles.eyebrow} data-reveal>04 — AI Drama</p>
+            <div className={styles.splitHeaderGrid}>
+              <h2 className={styles.splitHeaderTitle} data-reveal>
                 Long format.
                 <br />
                 Endless possibilities.
-              </>
-            }
-            lede="Cinematic, story-driven AI dramas that audiences love to watch — and keep coming back to. Bigger stories. Deeper emotions. Global impact."
-          />
-          <div className={styles.playerWrap} data-reveal>
-            <MediaFrame
-              slot="drama-player"
-              label="SERIES PLAYER"
-              spec="Episode player chrome · 1920×1080"
-              ratio="16/9"
-            />
-            {/* Illustrative series card (marketing only) */}
+              </h2>
+              <p className={styles.splitHeaderLede} data-reveal>
+                Cinematic, story-driven AI dramas that audiences love to watch — and keep coming back to. Bigger stories. Deeper emotions. Global impact.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.playerStage}>
+            {/* Rounded player container - ONLY contains the widescreen player */}
+            <div className={styles.playerWrap}>
+              <div className={styles.ambientMediaBackground} />
+              <MediaFrame
+                slot="drama-player"
+                label="SERIES PLAYER"
+                spec="Episode player chrome · 1920×1080"
+                ratio="16/9"
+              />
+            </div>
+            
+            {/* Illustrative series card (marketing only) - moved outside player container for continuous background glow */}
             <div className={styles.seriesCard}>
               <p className={styles.seriesTitle}>REBORN</p>
               <p className={styles.seriesTagline}>Betrayal. Power. Revenge.</p>
               <p className={styles.seriesMeta}>Drama · 12 Episodes · HD</p>
-              <p className={styles.seriesCta}>Play Episode 1</p>
+              
+              <button
+                onClick={() => setDrawerOpen(true)}
+                className={styles.drawerTrigger}
+              >
+                Explore Details & Episodes →
+              </button>
             </div>
           </div>
-          <ol className={styles.sceneRows} data-stagger>
-            {DRAMA_BENEFITS.map((b) => (
-              <SceneRow
-                key={b.n}
-                n={b.n}
-                title={b.title}
-                body={b.body}
-                micro={b.micro}
-                accent="orange"
-              />
-            ))}
-          </ol>
-          <p className={styles.footerLine} data-reveal>
+
+          {/* Editorial 2-Column Narrative Prose: No numbered points or scene rows */}
+          <div className={styles.proseRow}>
+            <div className={styles.proseColumn}>
+              <h4 className={styles.proseTitle}>Binge Culture & Audience Retention</h4>
+              <p className={styles.proseText}>
+                Modern audiences thrive on continuity and depth. Long-form AI dramas capture attention
+                and foster deep community loyalty, keeping viewers hooked episode after episode. By building
+                premium stories rich in drama, action, romance, and suspense, CultX creators capture the highly
+                coveted global audience attention, driving superior watch time and community engagement.
+              </p>
+            </div>
+            
+            <div className={styles.proseColumn}>
+              <h4 className={styles.proseTitle}>Global Appeal & AI-Powered Scaling</h4>
+              <p className={styles.proseText}>
+                Leveraging the global K-drama phenomenon, CultX combines Korean-style emotional hooks with
+                universal themes to build cross-border fandoms. By scaling production through specialized
+                AI pipelines, creators can publish cinematic-quality episodic series at a fraction of traditional
+                Hollywood costs, dramatically reducing time-to-market and unlocking higher monetization paths.
+              </p>
+            </div>
+          </div>
+
+          <p className={styles.footerLine}>
             Stories that stay with people. AI Drama turns imagination into
             unforgettable experiences.
           </p>
@@ -425,8 +493,70 @@ export function PillarsPage() {
         secondary={{ href: "/monetize", label: "Turn creations into income" }}
       />
 
-      {/* ============ 8. FOOTER ============ */}
+      {/* ============ 8. M14 SIDE DRAWER ============ */}
+      {drawerOpen && (
+        <div className={styles.drawerOverlay} onClick={() => setDrawerOpen(false)}>
+          <div className={styles.drawer} onClick={(e) => e.stopPropagation()}>
+            <button
+              className={styles.drawerClose}
+              onClick={() => setDrawerOpen(false)}
+              aria-label="Close details"
+            >
+              ✕ CLOSE
+            </button>
+            
+            <div className={styles.drawerContent}>
+              <span className={styles.drawerEyebrow}>Drama Showcase</span>
+              <h3 className={styles.drawerTitle}>REBORN</h3>
+              <p className={styles.drawerTagline}>Betrayal. Power. Revenge.</p>
+              
+              <div className={styles.drawerDivider} />
+              
+              <h4 className={styles.drawerSectionHeader}>EPISODES</h4>
+              <ul className={styles.episodeList}>
+                {DRAMA_EPISODES.map((ep) => (
+                  <li key={ep.n} className={styles.episodeItem}>
+                    <span className={styles.episodeNum}>{ep.n}</span>
+                    <div className={styles.episodeInfo}>
+                      <span className={styles.episodeTitle}>{ep.title}</span>
+                      <span className={styles.episodeDuration}>{ep.duration}</span>
+                    </div>
+                    <button className={styles.episodePlay} aria-label="Play episode">
+                      ▶
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <div className={styles.drawerDivider} />
+
+              <h4 className={styles.drawerSectionHeader}>FORMAT VALUES</h4>
+              <ul className={styles.drawerBenefits}>
+                <li className={styles.drawerBenefit}>
+                  <span className={styles.benefitNum}>01</span>
+                  <div>
+                    <span className={styles.benefitTitle}>High demand, high retention</span>
+                    <p className={styles.benefitBody}>Long-form dramas keep viewers watching episode after episode. More watch time. More loyalty.</p>
+                  </div>
+                </li>
+                <li className={styles.drawerBenefit}>
+                  <span className={styles.benefitNum}>02</span>
+                  <div>
+                    <span className={styles.benefitTitle}>Premium content, premium value</span>
+                    <p className={styles.benefitBody}>Epic stories with drama, action, romance, and thrill. Higher perceived value. Stronger monetization.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ============ 9. FOOTER ============ */}
       <SiteFooter />
+
+      {/* Client-side animations trigger script */}
+      <PillarsAnimations onOpenDrawer={() => setDrawerOpen(true)} />
     </main>
   );
 }

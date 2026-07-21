@@ -264,42 +264,49 @@ export function PlatformPage() {
       {/* ============ 6. VERSUS — "The Leap" ============ */}
       <section className={styles.leapSection} data-curtain-wipe data-theme-section="dark">
         <div className={styles.leapSticky}>
-          {/* Static Section Header */}
-          <div className={styles.leapHeader}>
-            <p className={styles.leapEyebrow}>05 — The leap</p>
-            <h2 className={styles.leapTitle}>Same ambition. A smarter path.</h2>
-            <p className={styles.leapLede}>
-              Korea already proved the webtoon → global hit pipeline. Our mission is to run that path with AI — less time, lower cost, same cinematic ambition.
-            </p>
-          </div>
-
-          <div className={styles.leapCanvas}>
-            {/* Old Way Panel */}
-            <div className={styles.leapOld} data-curtain-old>
-              <p className={styles.leapTag}>Old way</p>
-              <p className={styles.leapLead}>Slower. Expensive. Outdated.</p>
-              <ol className={styles.leapSteps}>
-                <li>Webtoon</li>
-                <li>Physical drama</li>
-                <li>Traditional platforms</li>
-                <li>Global hit</li>
-              </ol>
-              <p className={styles.leapMeta}>Years · Millions in cost</p>
+          <div className={styles.leapGrid}>
+            {/* Static Section Header */}
+            <div className={styles.leapHeader}>
+              <p className={styles.leapEyebrow}>05 — The leap</p>
+              <h2 className={styles.leapTitle}>
+                Same Ambition<br />Smarter Path
+              </h2>
+              <p className={styles.leapLede}>
+                Korea already proved the webtoon → global hit pipeline. Our mission is to run that path with AI — less time, lower cost, same cinematic ambition.
+              </p>
             </div>
 
-            {/* CultX Way Panel (Swept on top of Old Way — no divider line) */}
-            <div className={styles.leapNew} data-curtain-new>
-              <div className={styles.leapNewContent}>
-                <p className={`${styles.leapTag} ${styles.leapNewTag}`}>CultX way</p>
-                <p className={styles.leapLead}>Faster. Smarter. Game changer.</p>
+            <div className={styles.leapCanvas}>
+              {/* Old Way Panel */}
+              <div className={styles.leapOld} data-curtain-old>
+                <p className={styles.leapTag}>Old way</p>
+                <p className={styles.leapLead}>Slower. Expensive. Outdated.</p>
                 <ol className={styles.leapSteps}>
                   <li>Webtoon</li>
-                  <li>AI drama</li>
-                  <li>CultX</li>
-                  <li>Viral global reach</li>
+                  <li>Physical drama</li>
+                  <li>Traditional platforms</li>
+                  <li>Global hit</li>
                 </ol>
-                <p className={styles.leapMeta}>Weeks-scale ambition · Fraction of traditional cost</p>
+                <p className={styles.leapMeta}>Years · Millions in cost</p>
               </div>
+
+              {/* CultX Way Panel (Swept on top of Old Way — no divider line) */}
+              <div className={styles.leapNew} data-curtain-new>
+                <div className={styles.leapNewContent}>
+                  <p className={`${styles.leapTag} ${styles.leapNewTag}`}>CultX way</p>
+                  <p className={styles.leapLead}>Faster. Smarter. Game changer.</p>
+                  <ol className={styles.leapSteps}>
+                    <li>Webtoon</li>
+                    <li>AI drama</li>
+                    <li>CultX</li>
+                    <li>Viral global reach</li>
+                  </ol>
+                  <p className={styles.leapMeta}>Weeks-scale ambition · Fraction of traditional cost</p>
+                </div>
+              </div>
+
+              {/* Glowing curtain line */}
+              <div className={styles.leapDivider} data-curtain-divider />
             </div>
           </div>
         </div>
@@ -335,14 +342,13 @@ export function PlatformPage() {
               </div>
             ))}
 
-            {/* Connecting SVG Lines — exact pentagon spokes, shortened 6%
-                so each line tip lands on its node dot (r=220, 640 box) */}
+            {/* Connecting SVG Lines — exact pentagon spokes, pointing exactly to the centers of the dots */}
             <svg className={styles.arsenalLines} width="100%" height="100%" viewBox="0 0 640 640" aria-hidden>
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="320" y2="113" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="517" y2="256" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="442" y2="487" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="198" y2="487" data-constellation-line />
-              <line className={styles.arsenalLine} x1="320" y1="320" x2="123" y2="256" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="320" y2="100" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="529.2" y2="252" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="449.3" y2="498" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="190.7" y2="498" data-constellation-line />
+              <line className={styles.arsenalLine} x1="320" y1="320" x2="110.8" y2="252" data-constellation-line />
             </svg>
 
             <div className={styles.arsenalCenter}>CultX</div>
