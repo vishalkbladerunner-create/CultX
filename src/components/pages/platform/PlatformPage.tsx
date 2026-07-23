@@ -21,35 +21,40 @@ const JOURNEY = [
     title: "Create IP",
     body: "Build your characters, stories, and worlds using AI tools.",
     slot: "journey-step-01",
-    spec: "Product/UI still · 1200×900"
+    spec: "Product/UI still · 1200×900",
+    imageSrc: "/images/platform/journey-01.jpg",
   },
   {
     n: "02",
     title: "Publish Content",
     body: "Turn ideas into animations, webtoons, shorts, or dramas.",
     slot: "journey-step-02",
-    spec: "Product/UI still · 1200×900"
+    spec: "Product/UI still · 1200×900",
+    imageSrc: "/images/platform/journey-02.jpg",
   },
   {
     n: "03",
     title: "Grow Audience",
     body: "Fans discover, follow, and support your IP. Top IPs rise together.",
     slot: "journey-step-03",
-    spec: "Product/UI still · 1200×900"
+    spec: "Product/UI still · 1200×900",
+    imageSrc: "/images/platform/journey-03.jpg",
   },
   {
     n: "04",
     title: "Engage Community",
     body: "Build a loyal community. Fans interact, support, and help your IP grow.",
     slot: "journey-step-04",
-    spec: "Product/UI still · 1200×900"
+    spec: "Product/UI still · 1200×900",
+    imageSrc: "/images/platform/journey-04.jpg",
   },
   {
     n: "05",
     title: "Monetize & Earn",
     body: "Earn through content sales, IP tokens, and ads. Get rewarded in crypto.",
     slot: "journey-step-05",
-    spec: "Product/UI still · 1200×900"
+    spec: "Product/UI still · 1200×900",
+    imageSrc: "/images/platform/journey-05.jpg",
   },
 ];
 
@@ -99,6 +104,13 @@ export function PlatformPage() {
         {/* Top atmospheric dome, mask-faded at both edges (seam-free) */}
         <div className={styles.heroDomeHost} aria-hidden>
           <GradientDome position="top" />
+        </div>
+
+        {/* Gateway key visual — unique to /platform: the portal into every
+            world, no character (home owns the heroine). Bottom mask-fade. */}
+        <div className={styles.heroMedia} aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/platform/hero-gateway.jpg" alt="" />
         </div>
 
         <div className={styles.heroContent}>
@@ -158,6 +170,8 @@ export function PlatformPage() {
                 label="Platform UI"
                 spec="App surface mock · 2100×900"
                 ratio="21/9"
+                imageSrc="/images/platform/ui-mock.jpg"
+                alt="CultX platform surface — streaming hub with AI Animation, AI Drama, AI Shorts, Star IP Universe and IP Token"
               />
             </div>
           </div>
@@ -209,6 +223,7 @@ export function PlatformPage() {
                         label="UI Still"
                         spec={step.spec}
                         ratio="16/9"
+                        imageSrc={step.imageSrc}
                       />
                     </div>
                     <span className={styles.engineStepNum}>{step.n}</span>
@@ -250,6 +265,24 @@ export function PlatformPage() {
                 <p className={styles.fuelCardBody}>{pt.body}</p>
               </div>
             ))}
+            {/* Star IP cameos — Ponke + Mew enter the staircase bottom-left,
+                Pucca + B.Duck arrive top-right (desktop only, decorative;
+                appended after the cards so :nth-child staircase is intact) */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/platform/fuel-enter.jpg"
+              alt=""
+              aria-hidden
+              className={`${styles.fuelCameo} ${styles.fuelCameoEnter}`}
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/platform/fuel-arrive.jpg"
+              alt=""
+              aria-hidden
+              className={`${styles.fuelCameo} ${styles.fuelCameoArrive}`}
+            />
+            <span className={styles.fuelGlow} aria-hidden />
           </div>
 
           <p className={styles.fuelSoftLine} data-reveal>

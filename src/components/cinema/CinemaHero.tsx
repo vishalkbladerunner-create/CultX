@@ -16,7 +16,7 @@ export type CinemaHeroProps = {
   /** Bottom-left meta line */
   meta?: string;
   /** Full-bleed media slot behind the hero content (future video/art) */
-  media?: { slot: string; label: string; spec: string };
+  media?: { slot: string; label: string; spec: string; imageSrc?: string };
 };
 
 /**
@@ -49,6 +49,7 @@ export function CinemaHero({
             label={media.label}
             spec={media.spec}
             fill
+            imageSrc={media.imageSrc}
           />
         </div>
       )}

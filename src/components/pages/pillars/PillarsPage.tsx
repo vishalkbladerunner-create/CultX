@@ -154,6 +154,7 @@ export function PillarsPage() {
           slot: "hero-video-pillars",
           label: "HERO VIDEO",
           spec: "1920×1080 · WebM + MP4 · muted loop ≤8s",
+          imageSrc: "/images/pillars/hero-quad.jpg",
         }}
       />
 
@@ -220,14 +221,16 @@ export function PillarsPage() {
                 <MediaFrame
                   slot="comic-before"
                   label="WEBTOON PANEL"
-                  spec="Source art · 900×1200"
+                  spec="Source art · 960×1200 (4:5)"
                   ratio="4/5"
+                  imageSrc="/images/pillars/comic-before.jpg"
                 />
                 <MediaFrame
                   slot="comic-after"
                   label="ANIMATION STILL"
-                  spec="Output frame · 900×1200"
+                  spec="Output frame · 960×1200 (4:5)"
                   ratio="4/5"
+                  imageSrc="/images/pillars/comic-after.jpg"
                 />
               </div>
             </div>
@@ -310,8 +313,9 @@ export function PillarsPage() {
               <MediaFrame
                 slot="universe-stage"
                 label="STAR IP STAGE"
-                spec="Character group on stage · 2160×960"
+                spec="Character group on stage · 2240×960 (21:9)"
                 ratio="21/9"
+                imageSrc="/images/pillars/universe-stage.jpg"
               />
             </div>
 
@@ -372,6 +376,7 @@ export function PillarsPage() {
                   label={`PHONE FYP ${i}`}
                   spec="Vertical short · 1080×1920"
                   ratio="9/16"
+                  imageSrc={`/images/pillars/short-phone-${i}.jpg`}
                 />
               </div>
             ))}
@@ -437,6 +442,7 @@ export function PillarsPage() {
                 label="SERIES PLAYER"
                 spec="Episode player chrome · 1920×1080"
                 ratio="16/9"
+                imageSrc="/images/pillars/drama-player.jpg"
               />
             </div>
             

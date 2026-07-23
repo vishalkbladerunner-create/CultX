@@ -51,6 +51,21 @@
   mask-image: linear-gradient(to bottom, black 72%, transparent 97%);
 }
 
+/* Scrim — keeps the H1 + CTAs readable over owner-supplied hero art
+   (left-weighted: content column lives on the left). */
+.heroMedia::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0.68) 0%,
+    rgb(0 0 0 / 0.32) 48%,
+    rgb(0 0 0 / 0.10) 100%
+  );
+}
+
 .heroContent {
   margin: 0 var(--ck-layout-margin);
   max-width: 940px;
