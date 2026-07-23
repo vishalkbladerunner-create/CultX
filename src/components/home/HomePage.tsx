@@ -10,6 +10,7 @@ import { StarCarousel } from "@/components/cinema/StarCarousel";
 import type { StarSlide } from "@/components/cinema/StarCarousel";
 import { FormatStage } from "./FormatStage";
 import { AiCenterSection } from "./AiCenterSection";
+import { HeroVideo } from "./HeroVideo";
 import styles from "./HomePage.module.css";
 
 /**
@@ -163,28 +164,8 @@ export function HomePage() {
         <div className={styles.heroDomeHost} aria-hidden>
           <GradientDome position="top" />
         </div>
-        {/* z0.5 — hero cinema (M08): muted loop video over poster still;
-            reduced-motion users get the poster only */}
-        <div className={styles.heroMedia} aria-hidden>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/hero/hero-poster.jpg"
-            alt=""
-            className={styles.heroPoster}
-          />
-          <video
-            className={styles.heroVideo}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/images/hero/hero-poster.jpg"
-          >
-            <source src="/video/hero.webm" type="video/webm" />
-            <source src="/video/hero.mp4" type="video/mp4" />
-          </video>
-        </div>
+        {/* z0.5 — hero cinema (M08): muted loop video at 0.75x speed */}
+        <HeroVideo />
         {/* z1 — hero overlay vignette (pure CSS, atmosphere.css) */}
         <div className={`${styles.heroOverlay} ck-vignette-home`} aria-hidden />
         {/* z2 — content */}
