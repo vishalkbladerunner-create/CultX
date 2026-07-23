@@ -11,6 +11,10 @@ export type MediaFrameProps = {
   ratio?: "21/9" | "16/9" | "4/3" | "1/1" | "4/5" | "9/16";
   /** Fill an absolutely-positioned host instead of sizing by ratio */
   fill?: boolean;
+  /** Optional image URL to render inside the frame */
+  imageSrc?: string;
+  /** Accessible alt text for image */
+  alt?: string;
   className?: string;
 };
 
@@ -25,6 +29,8 @@ export function MediaFrame({
   spec,
   ratio = "16/9",
   fill = false,
+  imageSrc,
+  alt,
   className,
 }: MediaFrameProps) {
   return (
@@ -36,12 +42,21 @@ export function MediaFrame({
       role="img"
       aria-label={`${label} — media placeholder (${spec})`}
     >
+      {imageSrc ? (
+        <img
+          src={imageSrc}
+          alt={alt ?? label}
+          className={styles.image}
+        />
+      ) : null}
       <span className={styles.pinTL} aria-hidden />
       <span className={styles.pinBR} aria-hidden />
-      <div className={styles.center}>
-        <span className={styles.label}>{label}</span>
-        <span className={styles.spec}>{spec}</span>
-      </div>
+      {!imageSrc && (
+        <div className={styles.center}>
+          <span className={styles.label}>{label}</span>
+          <span className={styles.spec}>{spec}</span>
+        </div>
+      )}
     </div>
   );
 }

@@ -29,6 +29,8 @@ export type StarSlide = {
   slot: string;
   /** MediaFrame role label (uppercase) */
   frameLabel: string;
+  /** Optional image URL */
+  imageSrc?: string;
 };
 
 export type StarCarouselProps = {
@@ -91,10 +93,40 @@ export function StarCarousel({
 }: StarCarouselProps) {
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
-  const clock = useRef({ elapsed: 0, hovering: false });
+  const clock = useRef({ elapsed: 0 });
   const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const nameRefs = useRef<(HTMLHeadingElement | null)[]>([]);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inViewRef = useRef(false);
   const reduced = usePrefersReducedMotion();
+
+  /* IntersectionObserver: Start from first slide (Pucca) whenever user scrolls into section */
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!inViewRef.current) {
+            setActive(0);
+            activeRef.current = 0;
+            clock.current.elapsed = 0;
+            fillRefs.current.forEach((fill) => {
+              if (fill) fill.style.width = "0%";
+            });
+          }
+          inViewRef.current = true;
+        } else {
+          inViewRef.current = false;
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   /* Masked name swap on every activation (M15 mechanics, per P5). */
   useEffect(() => {
@@ -110,7 +142,7 @@ export function StarCarousel({
   }, [active, reduced]);
 
   /* RAF autoplay + progress sweep. Progress is written straight to the
-     fill nodes — no per-frame React re-render. */
+     fill nodes — no per-frame React re-render. Does not pause on hover. */
   useEffect(() => {
     if (reduced) return;
     let raf = 0;
@@ -118,18 +150,18 @@ export function StarCarousel({
     const loop = (now: number) => {
       const dt = now - last;
       last = now;
-      const c = clock.current;
-      if (!c.hovering) {
+      if (inViewRef.current) {
+        const c = clock.current;
         c.elapsed += dt;
         if (c.elapsed >= DURATION) {
           c.elapsed = 0;
           setActive((a) => (a + 1) % slides.length);
         }
+        const pct = Math.min(100, (c.elapsed / DURATION) * 100);
+        fillRefs.current.forEach((el, i) => {
+          if (el) el.style.width = i === activeRef.current ? `${pct}%` : "0%";
+        });
       }
-      const pct = Math.min(100, (c.elapsed / DURATION) * 100);
-      fillRefs.current.forEach((el, i) => {
-        if (el) el.style.width = i === activeRef.current ? `${pct}%` : "0%";
-      });
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
@@ -146,16 +178,11 @@ export function StarCarousel({
 
   return (
     <div
+      ref={rootRef}
       className={styles.root}
       role="region"
       aria-roledescription="carousel"
       aria-label={ariaLabel}
-      onMouseEnter={() => {
-        clock.current.hovering = true;
-      }}
-      onMouseLeave={() => {
-        clock.current.hovering = false;
-      }}
     >
       <div className={styles.viewport}>
         {slides.map((s, i) => {
@@ -174,6 +201,8 @@ export function StarCarousel({
                   label={s.frameLabel}
                   spec={portraitSpec}
                   fill
+                  imageSrc={s.imageSrc}
+                  alt={`${s.name} portrait`}
                 />
               </div>
               <div className={styles.slideMeta}>

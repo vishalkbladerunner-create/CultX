@@ -20,7 +20,17 @@ import styles from "./FormatStage.module.css";
  * Copy: four pillars verbatim from cult/content-strategy/03-home.md §3.
  */
 
-const FORMATS = [
+const FORMATS: readonly {
+  n: string;
+  anchor: string;
+  accent: keyof typeof ACCENTS;
+  slot: string;
+  frameLabel: string;
+  title: string;
+  body: string;
+  /** Owner-supplied key visual; frame renders placeholder chrome until set */
+  imageSrc?: string;
+}[] = [
   {
     n: "01",
     anchor: "comic",
@@ -29,6 +39,7 @@ const FORMATS = [
     frameLabel: "COMIC KEY VISUAL",
     title: "AI Comic / Webtoon",
     body: "Finished webtoons become premium AI comic animation — fast, and at scale.",
+    imageSrc: "/images/formats/comic.jpg",
   },
   {
     n: "02",
@@ -38,6 +49,7 @@ const FORMATS = [
     frameLabel: "UNIVERSE KEY VISUAL",
     title: "AI Star IP Universe",
     body: "Iconic characters brought to life with studio-level AI production and movie-length storytelling.",
+    imageSrc: "/images/formats/universe.jpg",
   },
   {
     n: "03",
@@ -47,6 +59,7 @@ const FORMATS = [
     frameLabel: "SHORT KEY VISUAL",
     title: "AI Short",
     body: "Viral short-form built for social platforms — TikTok, Reels, Shorts.",
+    imageSrc: "/images/formats/short.jpg",
   },
   {
     n: "04",
@@ -56,10 +69,11 @@ const FORMATS = [
     frameLabel: "DRAMA KEY VISUAL",
     title: "AI Drama",
     body: "Cinematic long-form AI series with K-drama emotion and retention.",
+    imageSrc: "/images/formats/drama.jpg",
   },
-] as const;
+];
 
-const POSTER_SPEC = "Poster · 1200×1800 PNG/WebP";
+const POSTER_SPEC = "Key visual · 1600×1200 PNG/WebP";
 
 const ACCENTS = {
   cyan: styles.accentCyan,
@@ -107,6 +121,7 @@ export function FormatStage() {
                         label={f.frameLabel}
                         spec={POSTER_SPEC}
                         fill
+                        imageSrc={f.imageSrc}
                       />
                     </div>
                   </div>
@@ -138,6 +153,7 @@ export function FormatStage() {
                     label={f.frameLabel}
                     spec={POSTER_SPEC}
                     fill
+                    imageSrc={f.imageSrc}
                   />
                 </div>
                 <span className={`${styles.stepNum} ${ACCENTS[f.accent]}`}>

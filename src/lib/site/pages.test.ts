@@ -10,11 +10,11 @@ async function readWebFile(rel: string): Promise<string> {
   return readFileSync(join(webRoot, rel), "utf8");
 }
 
-const ROUTES = ["platform", "pillars", "monetize", "stars", "about", "faq"];
+const ROUTES = ["platform", "pillars", "monetize", "stars", "about", "faq", "kdrama"];
 
 /* Routes rebuilt in the K-Cinema language (cinema/* primitives).
-   All six subpages propagated; gates below keep the redesign honest. */
-const K_CINEMA_ROUTES = ["platform", "pillars", "monetize", "stars", "about", "faq"];
+   All subpages propagated; gates below keep the redesign honest. */
+const K_CINEMA_ROUTES = ["platform", "pillars", "monetize", "stars", "about", "faq", "kdrama"];
 
 describe("site routes — real pages, per-page architecture", () => {
   it("every route has a page.tsx wired to its own page component (no SubPage)", async () => {

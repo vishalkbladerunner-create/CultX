@@ -8,6 +8,7 @@ import styles from "./SiteHeader.module.css";
 const NAV = [
   { href: "/platform", label: "Platform" },
   { href: "/pillars", label: "Pillars" },
+  { href: "/kdrama", label: "K-Drama" },
   { href: "/monetize", label: "Monetize" },
   { href: "/stars", label: "Star IPs" },
   { href: "/about", label: "AI Center" },

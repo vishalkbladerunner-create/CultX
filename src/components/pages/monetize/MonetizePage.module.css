@@ -1,10 +1,8 @@
 /**
- * CultX /monetize — "The Payoff" (K-Cinema language).
+ * CultX /monetize — Custom Subpage Architecture & Styling.
  *
- * One continuous background canvas: the paths dome bleeds past its band
- * and mask-fades at both edges. The token loop is a scrub-drawn chain
- * (data-chain): the line draws, steps light up in sequence. Terminal is
- * a framed device scene — no solid opaque panels anywhere.
+ * Noir Cinema System with Signature Action Green (#a6ff0d) Highlights.
+ * Pitch Black Canvas (#000), 3D Spatial Pacing, Glassmorphism, and Dynamic Motion.
  */
 
 .main {
@@ -23,17 +21,141 @@
 
 .section {
   position: relative;
+  padding: 14vh 0;
+  overflow: visible;
+}
+
+/* ---------------------------------------------------------------- */
+/* DASHED TECHNICAL SEPARATORS & CENTERPIECE BANNERS                */
+/* ---------------------------------------------------------------- */
+
+.dashedSeparator {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ck-stroke-light-subtle) 0,
+    var(--ck-stroke-light-subtle) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.centerpieceBanner {
+  margin: 6vh 0 8vh;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  text-align: center;
+}
+
+.centerpieceText {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ck-action);
+  text-shadow: 0 0 24px var(--ck-action-glow);
+}
+
+/* ---------------------------------------------------------------- */
+/* 01. VALUE STREAM MATRIX                                         */
+/* ---------------------------------------------------------------- */
+
+.matrixContainer {
+  position: relative;
+  margin-top: 6vh;
+}
+
+.matrixSvg {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .matrixSvg {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+.matrixGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 800px) {
+  .matrixGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+.matrixNode {
+  position: relative;
+  padding: 32px 24px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-15);
+  backdrop-filter: blur(12px);
+  border-radius: 4px;
+  transition: border-color 0.4s var(--ck-ease-out-quad), box-shadow 0.4s var(--ck-ease-out-quad);
+}
+
+.matrixNode:hover {
+  border-color: var(--ck-action-line);
+  box-shadow: 0 0 24px var(--ck-action-soft);
+}
+
+.nodeIcon {
+  font-size: 24px;
+  color: var(--ck-action);
+  margin-bottom: 12px;
+}
+
+.nodeTag {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.nodeTitle {
+  margin: 8px 0 6px;
+  font-family: var(--ck-font-display);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ck-off-white);
+}
+
+.nodeDesc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* 02. REVENUE PATH STAGES                                         */
+/* ---------------------------------------------------------------- */
+
+.pathsBand {
+  position: relative;
   padding: 16vh 0;
   overflow: visible;
 }
 
-.pathsBand {
-  position: relative;
-  padding: 20vh 0;
-  overflow: visible;
-}
-
-/* Top dome — percentage host, mask-faded at both edges (seam-free) */
 .pathsDomeHost {
   position: absolute;
   top: 0;
@@ -45,230 +167,386 @@
   mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
 }
 
-/* ---------------------------------------------------------------- */
-/* 3. REVENUE SCREENS — gold hairline + scene + text (not cards)     */
-/* ---------------------------------------------------------------- */
-
-.screenRow {
+.pathStageGrid {
   position: relative;
   z-index: var(--ck-z-content);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  margin-top: 8vh;
+}
+
+@media (min-width: 900px) {
+  .pathStageGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+}
+
+.pathCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.4s var(--ck-ease-out-quad), border-color 0.4s var(--ck-ease-out-quad), box-shadow 0.4s var(--ck-ease-out-quad);
+}
+
+.pathCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--ck-action-line);
+  box-shadow: 0 12px 32px var(--ck-action-soft);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ck-white-10);
+  background: var(--ck-black-40);
+}
+
+.cardNum {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--ck-action);
+}
+
+.cardLabel {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ck-muted);
+}
+
+.mediaWrap {
+  position: relative;
+  width: 100%;
+}
+
+.microSim {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--ck-action-line);
+  backdrop-filter: blur(8px);
+  border-radius: 4px;
+}
+
+.simBadge {
+  font-family: var(--ck-font-label);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ck-action);
+}
+
+.simTitle {
+  margin-top: 4px;
+  font-family: var(--ck-font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ck-off-white);
+}
+
+.simFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.simMetric {
+  font-family: var(--ck-font-label);
+  font-weight: 600;
+  color: var(--ck-action);
+}
+
+.simAction {
+  font-family: var(--ck-font-label);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 2px 6px;
+  background: var(--ck-action-soft);
+  color: var(--ck-action);
+  border-radius: 2px;
+}
+
+.cardContent {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.pathTitle {
+  margin: 0 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+  color: var(--ck-off-white);
+}
+
+.pathBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ck-muted);
+  flex-grow: 1;
+}
+
+.closerBadge {
+  margin-top: 20px;
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ck-action);
+}
+
+/* ---------------------------------------------------------------- */
+/* 03. IP GROWTH FLYWHEEL                                          */
+/* ---------------------------------------------------------------- */
+
+.flywheelLayout {
   display: grid;
   grid-template-columns: 1fr;
   gap: 48px;
   margin-top: 8vh;
 }
 
-@media (min-width: 800px) {
-  .screenRow {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+@media (min-width: 900px) {
+  .flywheelLayout {
+    grid-template-columns: 360px 1fr;
+    gap: 64px;
   }
 }
 
-.screen {
+.flywheelVisualContainer {
+  position: relative;
+}
+
+@media (min-width: 900px) {
+  .flywheelVisualContainer {
+    position: sticky;
+    top: 140px;
+    height: max-content;
+  }
+}
+
+.orbitalEngine {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbitalSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.engineCore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: var(--ck-black-60);
+  border: 1px dashed var(--ck-action-line);
+  box-shadow: 0 0 32px var(--ck-action-soft);
+}
+
+.coreTag {
+  font-family: var(--ck-font-label);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ck-muted);
+}
+
+.coreNum {
+  font-family: var(--ck-font-display);
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ck-action);
+}
+
+.coreStatus {
+  font-family: var(--ck-font-label);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ck-action);
+}
+
+.flywheelContentContainer {
   display: flex;
   flex-direction: column;
 }
 
-.goldRule {
-  display: block;
-  width: 100%;
-  height: 1px;
-  margin-bottom: 18px;
-  background: linear-gradient(
-    90deg,
-    rgb(255 208 0 / 0.55),
-    rgb(255 208 0 / 0.1)
-  );
-}
-
-.screenLabel {
-  margin: 20px 0 8px;
+.columnSubhead {
+  margin: 0 0 24px;
   font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  font-weight: 500;
+  font-size: 14px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ck-muted);
+  color: var(--ck-action);
 }
 
-.screenTitle {
-  margin: 0 0 10px;
-  font-family: var(--ck-font-display);
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.4px;
-  line-height: 1.15;
-  color: var(--ck-off-white);
-}
-
-.screenBody {
-  margin: 0;
-  max-width: 420px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--ck-muted);
-}
-
-.screenCloser {
-  margin: 16px 0 0;
-  font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ck-accent-gold);
-}
-
-/* ---------------------------------------------------------------- */
-/* 4. TOKEN LOOP — the scrub-drawn chain (data-chain)                */
-/* ---------------------------------------------------------------- */
-
-.chain {
-  position: relative;
-  margin-top: 10vh;
-}
-
-/* Horizontal progress rail — hidden on mobile (steps stack) */
-.chainTrack {
-  display: none;
-}
-
-@media (min-width: 800px) {
-  .chainTrack {
-    display: block;
-    position: absolute;
-    top: 5px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--ck-white-10);
-  }
-
-  .chainLine {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--ck-chartreuse), var(--ck-accent-gold));
-    transform: scaleX(0);
-    transform-origin: left;
-  }
-}
-
-.chainSteps {
+.flywheelStepList {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-@media (min-width: 800px) {
-  .chainSteps {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 20px;
-  }
+.flywheelStepItem {
+  padding: 20px 24px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 4px;
+  transition: border-color 0.4s var(--ck-ease-out-quad), background 0.4s var(--ck-ease-out-quad);
 }
 
-.chainStep {
-  position: relative;
-  padding-top: 28px;
-  opacity: 0.35;
-  transition: opacity 0.5s var(--ck-ease-out-quad);
+.flywheelStepItem[data-active="true"] {
+  background: var(--ck-action-soft);
+  border-color: var(--ck-action);
+  box-shadow: 0 0 20px var(--ck-action-soft);
 }
 
-.chainStep[data-active] {
-  opacity: 1;
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.chainDot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 11px;
-  height: 11px;
-  background: transparent;
-  border: 1px solid var(--ck-white-20);
-  transition:
-    background-color 0.4s var(--ck-ease-out-quad),
-    border-color 0.4s var(--ck-ease-out-quad),
-    box-shadow 0.4s var(--ck-ease-out-quad);
+.stepDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ck-white-40);
+  transition: background 0.3s ease;
 }
 
-.chainStep[data-active] .chainDot {
-  background: var(--ck-chartreuse);
-  border-color: var(--ck-chartreuse);
-  box-shadow: 0 0 12px rgb(212 255 0 / 0.5);
+.flywheelStepItem[data-active="true"] .stepDot {
+  background: var(--ck-action);
+  box-shadow: 0 0 10px var(--ck-action);
 }
 
-.chainNum {
+.stepNum {
   font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  letter-spacing: 0.08em;
-  color: var(--ck-accent-gold);
+  font-size: 13px;
+  color: var(--ck-action);
 }
 
-.chainTitle {
-  margin: 10px 0 8px;
+.stepTitle {
+  margin: 0;
   font-family: var(--ck-font-display);
   font-size: 18px;
   font-weight: 500;
-  letter-spacing: -0.2px;
-  line-height: 1.2;
   color: var(--ck-off-white);
 }
 
-.chainBody {
-  margin: 0;
+.stepBody {
+  margin: 8px 0 0 20px;
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.5;
   color: var(--ck-muted);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .chainStep,
-  .chainDot {
-    transition: none;
+.vectorGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 600px) {
+  .vectorGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+.vectorCard {
+  padding: 20px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.vectorCard[data-active="true"] {
+  border-color: var(--ck-action-line);
+}
+
+.vectorNum {
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  color: var(--ck-action);
+}
+
+.vectorTitle {
+  margin: 6px 0;
+  font-family: var(--ck-font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ck-off-white);
+}
+
+.vectorBody {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}
+
+.mantraContainer {
+  margin-top: 10vh;
 }
 
 .loopLine {
-  margin: 10vh 0 0;
-  max-width: 720px;
+  margin: 0 0 32px;
   font-family: var(--ck-font-display);
-  font-size: 22px;
-  letter-spacing: -0.24px;
-  line-height: 1.3;
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.4;
+  color: var(--ck-off-white);
+  text-align: center;
+}
+
+.mantraBanner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.mantraText {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: clamp(22px, 3.5vw, 36px);
+  font-weight: 500;
   color: var(--ck-off-white);
 }
 
-.sceneRows {
-  list-style: none;
-  margin: 8vh 0 0;
-  padding: 0;
-}
-
-.mantra {
-  margin: 8vh 0 0;
-  font-family: var(--ck-font-display);
-  font-size: 26px;
-  letter-spacing: -0.4px;
-  line-height: 1.25;
-  color: var(--ck-off-white);
-  text-wrap: balance;
-}
-
-@media (min-width: 800px) {
-  .mantra {
-    max-width: 880px;
-    font-size: var(--ck-h4-size);
-    letter-spacing: var(--ck-h4-tracking);
-  }
-}
-
-.disclaimer {
-  margin: 32px 0 0;
-  max-width: 640px;
+.disclaimerText {
+  margin-top: 36px;
   font-size: 12px;
   line-height: 1.6;
   color: var(--ck-muted);
@@ -276,179 +554,338 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* 5. TERMINAL — framed device scene                                 */
+/* 04. IP TRADING TERMINAL CONSOLE                                 */
 /* ---------------------------------------------------------------- */
 
-.terminal {
-  position: relative;
-  z-index: var(--ck-z-content);
-  margin-top: 8vh;
+.terminalConsole {
+  margin-top: 6vh;
   border: 1px solid var(--ck-white-15);
-  background: rgb(0 0 0 / 0.35);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(16px);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.terminalBar {
+.terminalHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 14px 20px;
   border-bottom: 1px solid var(--ck-white-10);
+  background: var(--ck-black-60);
+}
+
+.terminalBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.greenPulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ck-action);
+  box-shadow: 0 0 10px var(--ck-action);
 }
 
 .terminalTitle {
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.14em;
   color: var(--ck-off-white);
 }
 
-.terminalBadge {
+.terminalMockBadge {
   font-family: var(--ck-font-label);
   font-size: 11px;
   letter-spacing: 0.12em;
-  padding: 4px 8px;
-  color: var(--ck-accent-gold);
-  border: 1px solid rgb(255 208 0 / 0.35);
+  padding: 4px 10px;
+  color: var(--ck-action);
+  border: 1px solid var(--ck-action-line);
+  border-radius: 2px;
 }
 
-.terminalBody {
+.terminalGrid {
   display: grid;
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 800px) {
-  .terminalBody {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+@media (min-width: 900px) {
+  .terminalGrid {
+    grid-template-columns: 2fr 1fr;
   }
 }
 
-.terminalChart {
-  padding: 20px 16px;
+.chartPane {
+  padding: 24px;
 }
 
-.terminalChart svg {
+.tickerTabs {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ck-white-10);
+}
+
+.tickerTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tickerTab:hover {
+  border-color: var(--ck-action-line);
+}
+
+.activeTab {
+  background: var(--ck-action-soft);
+  border-color: var(--ck-action);
+}
+
+.tabSymbol {
+  font-family: var(--ck-font-label);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ck-off-white);
+}
+
+.tabChange {
+  font-family: var(--ck-font-label);
+  font-size: 11px;
+  color: var(--ck-action);
+}
+
+.chartContainer {
+  margin-top: 20px;
+}
+
+.chartSvg {
   display: block;
   width: 100%;
-  height: auto;
+  height: 220px;
 }
 
-.chartGridLine {
+.chartGrid {
   stroke: var(--ck-white-10);
   stroke-width: 1;
 }
 
-.terminalStats {
+.statsStrip {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  margin-top: 20px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ck-white-10);
 }
 
-@media (min-width: 800px) {
-  .terminalStats {
+@media (min-width: 600px) {
+  .statsStrip {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.terminalStats span {
-  display: block;
+.statCell {
+  display: flex;
+  flex-direction: column;
+}
+
+.statLabel {
   font-family: var(--ck-font-label);
   font-size: 11px;
   letter-spacing: 0.12em;
   color: var(--ck-muted);
 }
 
-.terminalStats strong {
-  display: block;
-  margin-top: 6px;
+.statValue,
+.statGreen {
+  margin-top: 4px;
   font-family: var(--ck-font-display);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
-  letter-spacing: -0.2px;
   color: var(--ck-off-white);
 }
 
-.statUp {
-  color: var(--ck-neon-green) !important;
+.statGreen {
+  color: var(--ck-action) !important;
 }
 
-.terminalSide {
-  padding: 20px 16px;
+.featurePane {
+  padding: 24px;
   border-top: 1px solid var(--ck-white-10);
+  background: var(--ck-black-40);
 }
 
-@media (min-width: 800px) {
-  .terminalSide {
+@media (min-width: 900px) {
+  .featurePane {
     border-top: none;
     border-left: 1px solid var(--ck-white-10);
   }
 }
 
-.sideTitle {
-  margin: 0 0 12px;
+.paneTitle {
+  margin: 0 0 20px;
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--ck-muted);
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.featureItem {
+  display: flex;
+  gap: 16px;
+}
+
+.featureNum {
+  font-family: var(--ck-font-label);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ck-action);
+}
+
+.featureTitle {
+  margin: 0 0 4px;
+  font-family: var(--ck-font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ck-off-white);
+}
+
+.featureDesc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* 05. 3D PHYSICAL ASSET VAULT                                     */
+/* ---------------------------------------------------------------- */
+
+.vaultGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-top: 8vh;
+  perspective: 1000px;
+}
+
+@media (min-width: 800px) {
+  .vaultGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+}
+
+.vaultCard {
+  position: relative;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.4s var(--ck-ease-out-quad), border-color 0.4s var(--ck-ease-out-quad), box-shadow 0.4s var(--ck-ease-out-quad);
+}
+
+.vaultCard:hover {
+  transform: translateY(-6px) rotateX(4deg);
+  border-color: var(--ck-action-line);
+  box-shadow: 0 16px 36px var(--ck-action-soft);
+}
+
+.vaultMediaWrap {
+  position: relative;
+}
+
+.vaultCornerPin {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 6px;
+  height: 6px;
+  background: var(--ck-action);
+  box-shadow: 0 0 8px var(--ck-action);
+}
+
+.vaultContent {
+  padding: 20px;
+}
+
+.vaultTag {
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ck-muted);
+  color: var(--ck-action);
 }
 
-.gainerList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.gainerRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-top: 1px dashed var(--ck-white-10);
-  font-size: 14px;
+.vaultTitle {
+  margin: 6px 0 10px;
+  font-family: var(--ck-font-display);
+  font-size: 22px;
+  font-weight: 500;
   color: var(--ck-off-white);
 }
 
-.gainerRow:first-child {
-  border-top: none;
+.vaultBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ck-muted);
 }
 
 /* ---------------------------------------------------------------- */
-/* 7. SUMMARY STRIP                                                  */
+/* 06. SUMMARY STRIP                                                */
 /* ---------------------------------------------------------------- */
 
-.summary {
+.summarySection {
   position: relative;
-  padding: 14vh 0;
-  overflow: visible;
+  padding: 12vh 0;
+}
+
+.summaryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  text-align: center;
 }
 
 .summaryTitle {
   margin: 0;
   font-family: var(--ck-font-display);
-  font-size: 30px;
+  font-size: clamp(28px, 4.5vw, 52px);
   font-weight: 400;
-  letter-spacing: -0.5px;
-  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--ck-off-white);
-  text-wrap: balance;
-}
-
-@media (min-width: 800px) {
-  .summaryTitle {
-    font-size: var(--ck-h3-size);
-    letter-spacing: var(--ck-h3-tracking);
-    line-height: var(--ck-h3-leading);
-  }
 }
 
 .summaryBody {
-  margin: 28px 0 0;
-  max-width: 640px;
+  margin: 0 auto;
+  max-width: 680px;
   font-size: var(--ck-lede-size);
-  font-weight: 500;
   line-height: var(--ck-lede-leading);
   color: var(--ck-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .matrixNode,
+  .pathCard,
+  .vaultCard,
+  .tickerTab {
+    transition: none;
+  }
 }

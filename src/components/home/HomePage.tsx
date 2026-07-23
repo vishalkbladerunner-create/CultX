@@ -9,6 +9,7 @@ import { LetterReveal } from "@/components/cinema/LetterReveal";
 import { StarCarousel } from "@/components/cinema/StarCarousel";
 import type { StarSlide } from "@/components/cinema/StarCarousel";
 import { FormatStage } from "./FormatStage";
+import { AiCenterSection } from "./AiCenterSection";
 import styles from "./HomePage.module.css";
 
 /**
@@ -67,6 +68,7 @@ const EARN = [
     label: "Sell content",
     title: "Direct sales",
     closer: "Earn from every sale.",
+    imageSrc: "/images/monetize/sales.jpg",
   },
   {
     slot: "home-earn-token",
@@ -74,6 +76,7 @@ const EARN = [
     label: "Community ownership",
     title: "Launch an IP token",
     closer: "Earn as your community grows.",
+    imageSrc: "/images/monetize/token.jpg",
   },
   {
     slot: "home-earn-ads",
@@ -81,6 +84,7 @@ const EARN = [
     label: "Ad revenue",
     title: "Earn from attention",
     closer: "Earn from every view.",
+    imageSrc: "/images/monetize/ads.jpg",
   },
 ];
 
@@ -93,6 +97,7 @@ const HOME_STARS: readonly StarSlide[] = [
     role: "Flagship Korean character energy for the Star IP Universe.",
     slot: "home-star-pucca",
     frameLabel: "PUCCA PORTRAIT",
+    imageSrc: "/images/stars/pucca.png",
   },
   {
     id: "bduck",
@@ -102,6 +107,7 @@ const HOME_STARS: readonly StarSlide[] = [
     role: "Lifestyle IP with broad global recognition.",
     slot: "home-star-bduck",
     frameLabel: "B.DUCK PORTRAIT",
+    imageSrc: "/images/stars/bduck.png",
   },
   {
     id: "ponke",
@@ -111,6 +117,7 @@ const HOME_STARS: readonly StarSlide[] = [
     role: "Bridge between crypto-native fandom and entertainment formats.",
     slot: "home-star-ponke",
     frameLabel: "PONKE PORTRAIT",
+    imageSrc: "/images/stars/ponke.png",
   },
   {
     id: "mew",
@@ -120,6 +127,7 @@ const HOME_STARS: readonly StarSlide[] = [
     role: "Fast-growth character energy for shorts, merch, and community.",
     slot: "home-star-mew",
     frameLabel: "MEW PORTRAIT",
+    imageSrc: "/images/stars/mew.png",
   },
 ];
 
@@ -154,6 +162,28 @@ export function HomePage() {
         {/* z0 — CSS dome bg, mask-faded at both edges (seam-free) */}
         <div className={styles.heroDomeHost} aria-hidden>
           <GradientDome position="top" />
+        </div>
+        {/* z0.5 — hero cinema (M08): muted loop video over poster still;
+            reduced-motion users get the poster only */}
+        <div className={styles.heroMedia} aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/hero/hero-poster.jpg"
+            alt=""
+            className={styles.heroPoster}
+          />
+          <video
+            className={styles.heroVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/images/hero/hero-poster.jpg"
+          >
+            <source src="/video/hero.webm" type="video/webm" />
+            <source src="/video/hero.mp4" type="video/mp4" />
+          </video>
         </div>
         {/* z1 — hero overlay vignette (pure CSS, atmosphere.css) */}
         <div className={`${styles.heroOverlay} ck-vignette-home`} aria-hidden />
@@ -252,6 +282,11 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ============ 5. AI CENTER — cinematic campus section ============ */}
+      <div data-theme-section="dark">
+        <AiCenterSection />
+      </div>
+
       {/* ============ 5. MONETIZE — three revenue screens (M15) ============ */}
       <section
         className={styles.monetizeBand}
@@ -280,6 +315,7 @@ export function HomePage() {
                   label={e.frameLabel}
                   spec="Product scene · 1600×1200 PNG/WebP"
                   ratio="4/3"
+                  imageSrc={e.imageSrc}
                 />
                 <p className={styles.screenLabel}>{e.label}</p>
                 <h3 className={styles.screenTitle}>{e.title}</h3>
@@ -346,35 +382,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ============ 8. AI CENTER — editorial beat before the footer dome ============ */}
-      <section className={styles.section} id="about" data-theme-section="dark">
-        <div className={styles.layout}>
-          <div className={`${styles.sectionHead} ${styles.hasPinTopLeft}`}>
-            <DashedLine className={styles.lineTop} />
-            <p className={styles.eyebrow} data-reveal>
-              06 — THE HUB
-            </p>
-            <div className={styles.maskH2} data-mask-reveal>
-              <h2 className={styles.h2}>
-                From Korea
-                <br />
-                to the world.
-              </h2>
-            </div>
-          </div>
-          <p className={styles.lede} data-reveal>
-            The CultX AI Center in Gangnam, Seoul — a creator-first hub of
-            roughly 300 specialists, building a K-digital entertainment empire
-            with its community. Inspired by Nonce community culture.
-            K-culture, global impact.
-          </p>
-          <div className={styles.linkRow} data-reveal>
-            <Link className={styles.textLink} href="/about">
-              Inside the AI Center →
-            </Link>
-          </div>
-        </div>
-      </section>
+
 
       {/* ============ 9. FOOTER — shared backbone SiteFooter ============ */}
       <SiteFooter />

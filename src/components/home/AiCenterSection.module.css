@@ -1,0 +1,258 @@
+/**
+ * CultX Homepage — AI Center Teaser Section Styling.
+ * Pitch Black Canvas (#000), Signature Action Green (#a6ff0d) Ambient Dome Bloom,
+ * Minimalistic Glassmorphism Stat Pills, and Ultra-Wide Media Showcase.
+ */
+
+.section {
+  position: relative;
+  padding: 16vh 0;
+  overflow: visible;
+}
+
+/* Background Ambient Radial Action-Green Dome Bloom Host */
+.domeHost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent, black 12%, black 88%, transparent);
+}
+
+.layout {
+  position: relative;
+  z-index: var(--ck-z-content);
+  margin: 0 var(--ck-layout-margin);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------------- */
+/* SECTION HEADER & LOCATION BADGE                                  */
+/* ---------------------------------------------------------------- */
+
+.sectionHead {
+  position: relative;
+  padding-top: 28px;
+  margin-bottom: 36px;
+  width: 100%;
+  max-width: 880px;
+}
+
+.hasPinTopLeft {
+  position: relative;
+}
+
+.hasPinTopLeft::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--ck-action);
+  box-shadow: 0 0 10px var(--ck-action);
+  pointer-events: none;
+}
+
+.lineTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--ck-stroke-light-subtle);
+}
+
+.locationBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  padding: 6px 16px;
+  background: var(--ck-action-soft);
+  border: 1px solid var(--ck-action-line);
+  border-radius: 4px;
+  box-shadow: 0 0 20px var(--ck-action-soft);
+}
+
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ck-action);
+  box-shadow: 0 0 10px var(--ck-action);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+.badgeText {
+  font-family: var(--ck-font-label);
+  font-size: var(--ck-label-size);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--ck-action);
+}
+
+.maskH2 {
+  overflow: hidden;
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--ck-font-display);
+  font-size: clamp(32px, 4.8vw, 60px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ck-off-white);
+}
+
+.teaserLede {
+  margin: 20px auto 0;
+  max-width: 680px;
+  font-size: var(--ck-lede-size);
+  font-weight: 500;
+  line-height: var(--ck-lede-leading);
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* MINIMALISTIC 3-PILL STAT STRIP                                   */
+/* ---------------------------------------------------------------- */
+
+.statPillsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 48px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.statPill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-15);
+  border-radius: 6px;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.4s var(--ck-ease-out-quad), box-shadow 0.4s var(--ck-ease-out-quad);
+}
+
+.statPill:hover {
+  border-color: var(--ck-action-line);
+  box-shadow: 0 0 20px var(--ck-action-soft);
+}
+
+.pillIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ck-action-soft);
+  border: 1px solid var(--ck-action-line);
+}
+
+.pillSvg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.pillText {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.pillLabel {
+  font-family: var(--ck-font-label);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ck-muted);
+}
+
+.pillValue {
+  font-family: var(--ck-font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ck-off-white);
+}
+
+/* ---------------------------------------------------------------- */
+/* ULTRA-WIDE MEDIA SHOWCASE                                        */
+/* ---------------------------------------------------------------- */
+
+.mediaContainer {
+  width: 100%;
+  max-width: 1040px;
+  margin-bottom: 48px;
+}
+
+.mediaFrameWrap {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--ck-white-15);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+}
+
+.overlayBadge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid var(--ck-action-line);
+  backdrop-filter: blur(12px);
+  border-radius: 4px;
+}
+
+.greenDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ck-action);
+  box-shadow: 0 0 6px var(--ck-action);
+}
+
+.badgeLabel {
+  font-family: var(--ck-font-label);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--ck-action);
+}
+
+/* ---------------------------------------------------------------- */
+/* MAGNETIC CTA ROW                                                 */
+/* ---------------------------------------------------------------- */
+
+.ctaRow {
+  display: flex;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statPill,
+  .pulseDot {
+    transition: none;
+    animation: none;
+  }
+}

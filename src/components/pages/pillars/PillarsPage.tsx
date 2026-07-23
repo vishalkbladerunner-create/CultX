@@ -446,12 +446,12 @@ export function PillarsPage() {
               <p className={styles.seriesTagline}>Betrayal. Power. Revenge.</p>
               <p className={styles.seriesMeta}>Drama · 12 Episodes · HD</p>
               
-              <button
-                onClick={() => setDrawerOpen(true)}
+              <Link
+                href="/kdrama"
                 className={styles.drawerTrigger}
               >
-                Explore Details & Episodes →
-              </button>
+                Explore Dedicated K-Drama Engine →
+              </Link>
             </div>
           </div>
 

@@ -29,6 +29,7 @@ const STARS: readonly StarSlide[] = [
     role: "Flagship Korean character energy for the Star IP Universe.",
     slot: "star-pucca",
     frameLabel: "PUCCA PORTRAIT",
+    imageSrc: "/images/stars/pucca.png",
   },
   {
     id: "bduck",
@@ -38,6 +39,7 @@ const STARS: readonly StarSlide[] = [
     role: "Lifestyle IP with broad global recognition.",
     slot: "star-bduck",
     frameLabel: "B.DUCK PORTRAIT",
+    imageSrc: "/images/stars/bduck.png",
   },
   {
     id: "ponke",
@@ -47,6 +49,7 @@ const STARS: readonly StarSlide[] = [
     role: "Bridge between crypto-native fandom and entertainment formats.",
     slot: "star-ponke",
     frameLabel: "PONKE PORTRAIT",
+    imageSrc: "/images/stars/ponke.png",
   },
   {
     id: "mew",
@@ -56,6 +59,7 @@ const STARS: readonly StarSlide[] = [
     role: "Fast-growth character energy for shorts, merch, and community.",
     slot: "star-mew",
     frameLabel: "MEW PORTRAIT",
+    imageSrc: "/images/stars/mew.png",
   },
 ];
 

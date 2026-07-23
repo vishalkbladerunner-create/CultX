@@ -1,9 +1,7 @@
 /**
- * CultX /about — "The Studio" (K-Cinema language).
- *
- * Dark editorial on the continuous canvas: giant stat pulls, scene
- * rows, a culture cinema band, and the roadmap as a scrub-drawn
- * vertical timeline (data-timeline). No solid opaque panels.
+ * CultX /about — AI Center Subpage Styling.
+ * SharpLink Editorial Craft: Pitch Black Canvas (#000), Signature Action Green (#a6ff0d) Accents,
+ * Custom Vector SVG Badges, Glassmorphism, and Vertical Timeline Scrub.
  */
 
 .main {
@@ -22,13 +20,13 @@
 
 .section {
   position: relative;
-  padding: 16vh 0;
+  padding: 14vh 0;
   overflow: visible;
 }
 
 .cultureBand {
   position: relative;
-  padding: 20vh 0;
+  padding: 18vh 0;
   overflow: visible;
 }
 
@@ -45,57 +43,239 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* 2. STAT PULL — giant editorial numbers, not a card grid           */
+/* 01. EDITORIAL STAT PULLS WITH CUSTOM SVGS                        */
 /* ---------------------------------------------------------------- */
 
 .statGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px 24px;
-  margin: 8vh 0 0;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 6vh 0 8vh;
   padding: 0;
 }
 
-@media (min-width: 800px) {
+@media (min-width: 600px) {
+  .statGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
   .statGrid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.stat {
+.statCard {
   margin: 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--ck-white-10);
+  padding: 24px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 6px;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.4s var(--ck-ease-out-quad), box-shadow 0.4s var(--ck-ease-out-quad);
+}
+
+.statCard:hover {
+  border-color: var(--ck-action-line);
+  box-shadow: 0 0 24px var(--ck-action-soft);
+}
+
+.statIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 16px;
+  border-radius: 50%;
+  background: var(--ck-action-soft);
+  border: 1px solid var(--ck-action-line);
+}
+
+.statSvg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .statValue {
   margin: 0;
   font-family: var(--ck-font-display);
-  font-size: 30px;
-  font-weight: 400;
-  letter-spacing: -0.5px;
-  line-height: 1.05;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   color: var(--ck-off-white);
 }
 
-@media (min-width: 800px) {
-  .statValue {
-    font-size: var(--ck-h4-size);
-    letter-spacing: var(--ck-h4-tracking);
-  }
-}
-
 .statLabel {
-  margin: 12px 0 0;
+  margin: 10px 0 0;
   font-family: var(--ck-font-label);
   font-size: var(--ck-label-size);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ck-muted);
 }
 
 /* ---------------------------------------------------------------- */
-/* Scene rows + editorial lines                                      */
+/* 02. VALUES GRID WITH CUSTOM SVGS                                 */
+/* ---------------------------------------------------------------- */
+
+.valuesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 6vh;
+}
+
+@media (min-width: 600px) {
+  .valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .valuesGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.valueCard {
+  padding: 24px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 6px;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.4s var(--ck-ease-out-quad);
+}
+
+.valueCard:hover {
+  border-color: var(--ck-action-line);
+}
+
+.valueIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  background: var(--ck-action-soft);
+  border: 1px solid var(--ck-action-line);
+}
+
+.valueSvg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.valueTitle {
+  margin: 0 0 8px;
+  font-family: var(--ck-font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ck-off-white);
+}
+
+.valueBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* DASHED TECHNICAL SEPARATORS & VALUES BANNER                      */
+/* ---------------------------------------------------------------- */
+
+.dashedSeparator {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--ck-stroke-light-subtle) 0,
+    var(--ck-stroke-light-subtle) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.valuesBanner {
+  margin: 8vh 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  text-align: center;
+}
+
+.valuesText {
+  margin: 0;
+  font-family: var(--ck-font-label);
+  font-size: clamp(12px, 1.8vw, 16px);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ck-action);
+}
+
+/* ---------------------------------------------------------------- */
+/* 04. KOREA PIPELINE PROOF CARDS                                   */
+/* ---------------------------------------------------------------- */
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 6vh;
+}
+
+@media (min-width: 800px) {
+  .proofGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.proofCard {
+  padding: 24px;
+  background: var(--ck-white-5);
+  border: 1px solid var(--ck-white-10);
+  border-radius: 6px;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.4s ease;
+}
+
+.proofCard:hover {
+  border-color: var(--ck-action-line);
+}
+
+.proofNum {
+  font-family: var(--ck-font-label);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ck-action);
+}
+
+.proofTitle {
+  margin: 10px 0 8px;
+  font-family: var(--ck-font-display);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ck-off-white);
+}
+
+.proofBody {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ck-muted);
+}
+
+/* ---------------------------------------------------------------- */
+/* SCENE ROWS & TEXT LINES                                          */
 /* ---------------------------------------------------------------- */
 
 .sceneRows {
@@ -108,11 +288,14 @@
   position: relative;
   z-index: var(--ck-z-content);
   margin-top: 8vh;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
 }
 
 .softLine {
-  margin: 10vh 0 0;
-  max-width: 640px;
+  margin: 8vh 0 0;
+  max-width: 680px;
   font-size: var(--ck-lede-size);
   font-weight: 500;
   line-height: var(--ck-lede-leading);
@@ -120,28 +303,18 @@
 }
 
 .closingLine {
-  margin: 32px 0 0;
+  margin: 28px 0 0;
   max-width: 720px;
   font-family: var(--ck-font-display);
-  font-size: 24px;
-  letter-spacing: -0.24px;
+  font-size: 26px;
+  letter-spacing: -0.02em;
   line-height: 1.3;
   color: var(--ck-off-white);
 }
 
-.valuesStrip {
-  margin: 8vh 0 0;
-  font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ck-green-300);
-}
-
 .continuity {
   margin: 24px 0 0;
-  max-width: 640px;
+  max-width: 680px;
   font-size: 15px;
   line-height: 1.6;
   color: var(--ck-muted);
@@ -149,7 +322,7 @@
 
 .disclaimer {
   margin: 32px 0 0;
-  max-width: 640px;
+  max-width: 680px;
   font-size: 12px;
   line-height: 1.6;
   color: var(--ck-muted);
@@ -157,12 +330,11 @@
 }
 
 /* ---------------------------------------------------------------- */
-/* 6. MISSION — condensed versus rows (intertitle follows in a       */
-/* CinemaPanel between this section and the roadmap)                 */
+/* 06. MISSION COMPARE ROWS                                         */
 /* ---------------------------------------------------------------- */
 
 .missionCompare {
-  margin-top: 8vh;
+  margin-top: 6vh;
   display: flex;
   flex-direction: column;
 }
@@ -173,14 +345,14 @@
   gap: 20px;
   align-items: baseline;
   margin: 0;
-  padding: 22px 0;
+  padding: 24px 0;
   border-top: 1px solid var(--ck-white-10);
   opacity: 0.55;
 }
 
 .compareRowHot {
   opacity: 1;
-  border-top-color: var(--ck-chartreuse);
+  border-top-color: var(--ck-action);
 }
 
 .compareTag {
@@ -192,39 +364,32 @@
 }
 
 .compareRowHot .compareTag {
-  color: var(--ck-chartreuse);
+  color: var(--ck-action);
 }
 
 .compareText {
   font-family: var(--ck-font-display);
-  font-size: 20px;
-  letter-spacing: -0.24px;
+  font-size: clamp(20px, 2.8vw, 28px);
+  letter-spacing: -0.01em;
   line-height: 1.3;
   color: var(--ck-off-white);
 }
 
-@media (min-width: 800px) {
-  .compareText {
-    font-size: 24px;
-  }
-}
-
 /* ---------------------------------------------------------------- */
-/* 7. ROADMAP — vertical scrub-drawn timeline (data-timeline)        */
+/* 07. ROADMAP TIMELINE SCRUB                                       */
 /* ---------------------------------------------------------------- */
 
 .timeline {
   position: relative;
-  margin-top: 10vh;
+  margin-top: 8vh;
 }
 
-/* Vertical rail at the dot column */
 .timelineTrack {
   position: absolute;
   top: 8px;
   bottom: 8px;
   left: 5px;
-  width: 1px;
+  width: 1.5px;
   background: var(--ck-white-10);
 }
 
@@ -232,7 +397,8 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, var(--ck-chartreuse), var(--ck-green-300));
+  background: var(--ck-action);
+  box-shadow: 0 0 10px var(--ck-action);
   transform: scaleY(0);
   transform-origin: top;
 }
@@ -243,12 +409,12 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: 48px;
 }
 
 .timelineStep {
   position: relative;
-  padding-left: 40px;
+  padding-left: 44px;
   opacity: 0.35;
   transition: opacity 0.5s var(--ck-ease-out-quad);
 }
@@ -259,59 +425,58 @@
 
 .timelineDot {
   position: absolute;
-  top: 3px;
+  top: 4px;
   left: 0;
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
   background: transparent;
-  border: 1px solid var(--ck-white-20);
-  transition:
-    background-color 0.4s var(--ck-ease-out-quad),
-    border-color 0.4s var(--ck-ease-out-quad),
-    box-shadow 0.4s var(--ck-ease-out-quad);
+  border: 1.5px solid var(--ck-white-20);
+  transition: background-color 0.4s var(--ck-ease-out-quad), border-color 0.4s var(--ck-ease-out-quad), box-shadow 0.4s var(--ck-ease-out-quad);
 }
 
 .timelineStep[data-active] .timelineDot {
-  background: var(--ck-chartreuse);
-  border-color: var(--ck-chartreuse);
-  box-shadow: 0 0 12px rgb(212 255 0 / 0.5);
+  background: var(--ck-action);
+  border-color: var(--ck-action);
+  box-shadow: 0 0 14px var(--ck-action);
 }
 
-.timelineDate {
-  margin: 0;
+.timelineBadge {
+  display: inline-block;
+  padding: 4px 10px;
   font-family: var(--ck-font-label);
-  font-size: var(--ck-label-size);
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ck-green-300);
+  color: var(--ck-action);
+  background: var(--ck-action-soft);
+  border: 1px solid var(--ck-action-line);
+  border-radius: 4px;
 }
 
 .timelineTitle {
   margin: 10px 0 8px;
   font-family: var(--ck-font-display);
-  font-size: 24px;
+  font-size: clamp(22px, 3vw, 32px);
   font-weight: 500;
-  letter-spacing: -0.24px;
+  letter-spacing: -0.01em;
   line-height: 1.2;
   color: var(--ck-off-white);
 }
 
-@media (min-width: 800px) {
-  .timelineTitle {
-    font-size: 30px;
-  }
-}
-
 .timelineBody {
   margin: 0;
-  max-width: 560px;
+  max-width: 620px;
   font-size: 14px;
   line-height: 1.6;
   color: var(--ck-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .statCard,
+  .valueCard,
+  .proofCard,
   .timelineStep,
   .timelineDot {
     transition: none;

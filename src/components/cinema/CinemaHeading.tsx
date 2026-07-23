@@ -1,7 +1,7 @@
 import { DashedLine } from "@/components/chrome/DashedLine";
 import styles from "./CinemaHeading.module.css";
 
-export type CinemaAccent = "cyan" | "magenta" | "purple" | "orange" | "gold";
+export type CinemaAccent = "cyan" | "magenta" | "purple" | "orange" | "gold" | "green";
 
 export type CinemaHeadingProps = {
   eyebrow: string;

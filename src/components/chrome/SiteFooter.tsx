@@ -9,6 +9,7 @@ import styles from "./SiteFooter.module.css";
 const NAV = [
   { href: "/platform", label: "Platform" },
   { href: "/pillars", label: "Pillars" },
+  { href: "/kdrama", label: "K-Drama Engine" },
   { href: "/monetize", label: "Monetize" },
   { href: "/stars", label: "Star IPs" },
   { href: "/about", label: "AI Center" },

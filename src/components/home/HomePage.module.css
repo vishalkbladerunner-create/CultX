@@ -66,6 +66,43 @@
   }
 }
 
+/* z0.5 — hero cinema media (M08): poster still + muted loop video.
+   Bottom mask-fade dissolves the footage into the noir canvas so the
+   section keeps the seam-free invariant. Poster sits under the video
+   and becomes the final visual for prefers-reduced-motion. */
+.heroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 62%, transparent 96%);
+}
+
+.heroPoster,
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.heroPoster {
+  z-index: 0;
+}
+
+.heroVideo {
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroVideo {
+    display: none;
+  }
+}
+
 /* z1 — hero overlay vignette (noir twin of ref heroOverlay_homepage).
    Visual lives in atmosphere.css (.ck-vignette-home, global class applied
    on the element); this block keeps position/mask only. Extends over the

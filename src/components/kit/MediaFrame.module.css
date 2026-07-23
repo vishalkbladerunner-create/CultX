@@ -53,6 +53,7 @@
   height: 6px;
   background: var(--ck-green-300);
   pointer-events: none;
+  z-index: 2;
 }
 
 .pinTL {
@@ -63,6 +64,16 @@
 .pinBR {
   bottom: -1px;
   right: -1px;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
 }
 
 /*

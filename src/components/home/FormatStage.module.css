@@ -135,13 +135,12 @@
   box-sizing: border-box;
 }
 
-/* Stacked posters — aspect box establishes height; frames absolute-fill it */
+/* Stacked posters — 4:3 landscape, width-driven so the stage fills the
+   column; frames absolute-fill it. */
 .posterStack {
   position: relative;
   width: 100%;
-  aspect-ratio: 2 / 3;
-  /* Leave room for caption + equal vertical padding inside 100vh */
-  max-height: min(58vh, calc(100vh - 7rem));
+  aspect-ratio: 4 / 3;
 }
 
 .frame {
@@ -256,11 +255,11 @@
   }
 }
 
-/* Mobile-only poster above the step text (2:3, 48vh) */
+/* Mobile-only poster above the step text (4:3 landscape, full width) */
 .stepPosterHost {
   position: relative;
-  height: 48vh;
-  aspect-ratio: 2 / 3;
+  width: 100%;
+  aspect-ratio: 4 / 3;
   margin-bottom: 28px;
 }
 

@@ -26,6 +26,7 @@
 .eyebrow[data-accent="purple"] { color: var(--ck-neon-green); }
 .eyebrow[data-accent="orange"] { color: var(--ck-accent-orange); }
 .eyebrow[data-accent="gold"] { color: var(--ck-accent-gold); }
+.eyebrow[data-accent="green"] { color: var(--ck-action); }
 
 /* M15 mask wrapper — ScrollDriver slides the inner H2 up out of it */
 .maskH2 {

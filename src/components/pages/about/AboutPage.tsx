@@ -1,3 +1,5 @@
+"use client";
+
 import { GradientDome } from "@/components/background/GradientDome";
 import { SiteFooter } from "@/components/chrome/SiteFooter";
 import { MediaFrame } from "@/components/kit/MediaFrame";
@@ -9,22 +11,37 @@ import { SceneRow } from "@/components/cinema/SceneRow";
 import styles from "./AboutPage.module.css";
 
 /**
- * CultX /about — "The Studio" (K-Cinema language).
+ * CultX /about — AI Center Subpage.
  *
- * A dark editorial origin story: title card → the hub in numbers →
- * four pillars → the culture cinema band → why the model works →
- * Korea pipeline proof (inspiration, not affiliation) → mission →
- * the roadmap as a scrub-drawn timeline (data-timeline) → credits.
- * Copy verbatim from cult/content-strategy/08-about-ai-center.md.
+ * SharpLink Editorial Craft: Pitch Black Canvas (#000), Signature Action Green (#a6ff0d) Accents,
+ * Custom Vector SVG Icons (zero emojis), Glassmorphism, and Vertical Timeline Scrub.
+ *
+ * Copy & disclaimers verbatim from cult/content-strategy/08-about-ai-center.md.
  */
 
-/* Verbatim copy — cult/content-strategy/08-about-ai-center.md */
-
 const HUB_STATS = [
-  { value: "Gangnam, Seoul", label: "The place to create the future" },
-  { value: "~300", label: "Elite specialists" },
-  { value: "World-class", label: "AI production environment" },
-  { value: "Infinite", label: "Possibilities for IP" },
+  {
+    value: "Gangnam, Seoul",
+    label: "Global K-Culture Epicenter",
+    iconPath: <path d="M10 17.5s5-5.5 5-9a5 5 0 10-10 0c0 3.5 5 9 5 9z" />,
+    iconSub: <circle cx="10" cy="8.5" r="2" />,
+  },
+  {
+    value: "~300",
+    label: "Elite Specialists Pod",
+    iconPath: <path d="M11 2L3.5 11h6L8.5 18L16.5 9h-6L11 2z" />,
+  },
+  {
+    value: "World-Class",
+    label: "AI Production Environment",
+    iconPath: <rect x="3" y="3" width="14" height="14" rx="2" />,
+    iconSub: <path d="M7 7h6v6H7z" />,
+  },
+  {
+    value: "Infinite",
+    label: "Possibilities for IP",
+    iconPath: <path d="M7 10c-2.5 0-4.5 1.5-4.5 3.5S4.5 17 7 17s4.5-1.5 5.5-3.5c1 2 3 3.5 5.5 3.5s4.5-1.5 4.5-3.5-2-3.5-4.5-3.5-4.5 1.5-5.5 3.5C11.5 11.5 9.5 10 7 10z" />,
+  },
 ];
 
 const HUB_PILLARS = [
@@ -52,20 +69,30 @@ const HUB_PILLARS = [
 
 const VALUES = [
   {
-    title: "Creator first",
+    title: "Creator First",
     body: "A community built for builders, by builders.",
+    iconPath: <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z" />,
   },
   {
-    title: "Co-living & co-working",
-    body: "Live and work together under one roof.",
+    title: "Co-Living & Co-Working",
+    body: "Live and work together under one roof in Gangnam.",
+    iconPath: <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />,
   },
   {
-    title: "Community over competition",
-    body: "Share, support, and grow together every day.",
+    title: "Community Over Competition",
+    body: "Share, support, and grow together every single day.",
+    iconPath: (
+      <>
+        <circle cx="6" cy="14" r="3" />
+        <circle cx="14" cy="14" r="3" />
+        <circle cx="10" cy="6" r="3" />
+      </>
+    ),
   },
   {
-    title: "Launch together",
-    body: "Ideas become startups, projects, and movements.",
+    title: "Launch Together",
+    body: "Ideas become startups, projects, and global movements.",
+    iconPath: <path d="M4.5 16.5L12 3l7.5 13.5H4.5z" />,
   },
 ];
 
@@ -95,17 +122,17 @@ const MODEL_STEPS = [
 const KOREA_CARDS = [
   {
     n: "01",
-    title: "Webtoon → animation",
+    title: "Webtoon → Animation",
     body: "Global hits have already moved from webtoon pages to animated screens.",
   },
   {
     n: "02",
-    title: "Webtoon-rooted concepts → worldwide series",
+    title: "Webtoon Concepts → Worldwide Series",
     body: "Korean storytelling repeatedly wins global attention.",
   },
   {
     n: "03",
-    title: "Webtoon → Netflix-era hits",
+    title: "Webtoon → Netflix-Era Hits",
     body: "Multiple major Korean hits began as webtoons — proof of the foundation.",
   },
 ];
@@ -113,17 +140,17 @@ const KOREA_CARDS = [
 const KOREA_STRIP = [
   {
     n: "01",
-    title: "K-drama power",
+    title: "K-Drama Power",
     body: "Emotion-first long form the world binge-watches.",
   },
   {
     n: "02",
-    title: "K-pop power",
+    title: "K-Pop Power",
     body: "The planet’s most influential fandom machine.",
   },
   {
     n: "03",
-    title: "Webtoon leadership",
+    title: "Webtoon Leadership",
     body: "Korea’s platforms and creators set the global standard.",
   },
 ];
@@ -159,7 +186,7 @@ const ROADMAP = [
 export function AboutPage() {
   return (
     <main className={styles.main} id="top">
-      {/* ============ 1. HERO — title card ============ */}
+      {/* ============ 1. HERO — TITLE CARD ============ */}
       <CinemaHero
         eyebrow="About · CultX AI Center"
         title={"Built in Gangnam.\nPowered for the world."}
@@ -174,39 +201,49 @@ export function AboutPage() {
         }}
       />
 
-      {/* ============ 2. THE HUB — stat pull + pillars ============ */}
+      {/* ============ 2. THE HUB — EDITORIAL STAT PULLS & PILLARS ============ */}
       <section className={styles.section} data-theme-section="dark">
         <div className={styles.layout}>
           <CinemaHeading
             eyebrow="01 — The hub"
+            accent="green"
             title="The CultX AI Center."
             lede="Our AI creative hub in Gangnam, Seoul — where roughly 300 elite specialists in AI, animation, storytelling, design, and technology build iconic IPs together."
           />
-          <dl className={styles.statGrid} data-stagger>
+
+          {/* Editorial Stat Cards with Custom Vector SVGs */}
+          <div className={styles.statGrid} data-stagger>
             {HUB_STATS.map((s) => (
-              <div key={s.value} className={styles.stat}>
+              <div key={s.value} className={styles.statCard}>
+                <span className={styles.statIconWrap} aria-hidden>
+                  <svg className={styles.statSvg} viewBox="0 0 20 20" fill="none" stroke="var(--ck-action)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    {s.iconPath}
+                    {s.iconSub}
+                  </svg>
+                </span>
                 <dt className={styles.statValue}>{s.value}</dt>
                 <dd className={styles.statLabel}>{s.label}</dd>
               </div>
             ))}
-          </dl>
+          </div>
+
           <ol className={styles.sceneRows} data-stagger>
             {HUB_PILLARS.map((p) => (
-              <SceneRow key={p.n} n={p.n} title={p.title} body={p.body} />
+              <SceneRow key={p.n} n={p.n} title={p.title} body={p.body} accent="green" />
             ))}
           </ol>
         </div>
       </section>
 
-      {/* ============ 3. CULTURE — cinema band + values ============ */}
+      {/* ============ 3. CULTURE — CINEMA BAND & VALUES ============ */}
       <section className={styles.cultureBand} data-theme-section="dark">
-        {/* Bottom dome bleeds past the band, mask-faded edges */}
         <div className={styles.cultureDomeHost} aria-hidden>
           <GradientDome position="bottom" />
         </div>
         <div className={styles.layout}>
           <CinemaHeading
             eyebrow="02 — Culture"
+            accent="green"
             title={
               <>
                 Built on community.
@@ -216,6 +253,7 @@ export function AboutPage() {
             }
             lede="Nonce was created to empower blockchain and Web3 builders. Today, the same spirit — creator-first, community over competition — shapes how CultX builds. Same culture. Bigger mission."
           />
+
           <div className={styles.cultureMedia} data-reveal>
             <MediaFrame
               slot="about-community"
@@ -224,24 +262,27 @@ export function AboutPage() {
               ratio="21/9"
             />
           </div>
-          <ol className={styles.sceneRows} data-stagger>
-            {VALUES.map((v, i) => (
-              <SceneRow
-                key={v.title}
-                n={String(i + 1).padStart(2, "0")}
-                title={v.title}
-                body={v.body}
-              />
+
+          {/* Custom SVG Value Cards */}
+          <div className={styles.valuesGrid} data-stagger>
+            {VALUES.map((v) => (
+              <div key={v.title} className={styles.valueCard}>
+                <span className={styles.valueIconWrap} aria-hidden>
+                  <svg className={styles.valueSvg} viewBox="0 0 24 24" fill="none" stroke="var(--ck-action)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                    {v.iconPath}
+                  </svg>
+                </span>
+                <h4 className={styles.valueTitle}>{v.title}</h4>
+                <p className={styles.valueBody}>{v.body}</p>
+              </div>
             ))}
-          </ol>
+          </div>
+
           <p className={styles.softLine} data-reveal>
-            A proven community track record in Korea’s builder culture —
-            events, startups, and shared roofs — now aimed at AI
-            entertainment.
+            A proven community track record in Korea’s builder culture — events, startups, and shared roofs — now aimed at AI entertainment.
           </p>
           <p className={styles.closingLine} data-reveal>
-            CultX adopts Nonce community culture to build a powerful AI
-            creative community.
+            CultX adopts Nonce community culture to build a powerful AI creative community.
           </p>
         </div>
       </section>
@@ -251,22 +292,26 @@ export function AboutPage() {
         <div className={styles.layout}>
           <CinemaHeading
             eyebrow="03 — The model"
+            accent="green"
             title="Why this model works."
             lede="CultX is built on the power of community and the spirit that made Nonce a leading builder community in Korea."
           />
           <ol className={styles.sceneRows} data-stagger>
             {MODEL_STEPS.map((s) => (
-              <SceneRow key={s.n} n={s.n} title={s.title} body={s.body} />
+              <SceneRow key={s.n} n={s.n} title={s.title} body={s.body} accent="green" />
             ))}
           </ol>
-          <p className={styles.valuesStrip} data-reveal>
-            Nonce inspired · Community driven · Same team spirit · Bigger
-            vision · Limitless impact (Korea → world)
-          </p>
+
+          <div className={styles.valuesBanner} data-reveal>
+            <span className={styles.dashedSeparator} aria-hidden />
+            <p className={styles.valuesText}>
+              Nonce Inspired · Community Driven · Same Team Spirit · Bigger Vision · Limitless Impact
+            </p>
+            <span className={styles.dashedSeparator} aria-hidden />
+          </div>
+
           <p className={styles.continuity} data-reveal>
-            Built with the community DNA and veterans who helped make Nonce
-            a leader — now focused on making CultX the best AI creative
-            platform it can be.
+            Built with the community DNA and veterans who helped make Nonce a leader — now focused on making CultX the best AI creative platform it can be.
           </p>
         </div>
       </section>
@@ -276,21 +321,28 @@ export function AboutPage() {
         <div className={styles.layout}>
           <CinemaHeading
             eyebrow="04 — Why Korea"
+            accent="green"
             title="Korea already proved the pipeline."
             lede="Webtoon stories became global entertainment hits. We’re building the AI-native version of that path — at scale, from Seoul to the world."
           />
-          <ol className={styles.sceneRows} data-stagger>
+
+          <div className={styles.proofGrid} data-stagger>
             {KOREA_CARDS.map((c) => (
-              <SceneRow key={c.n} n={c.n} title={c.title} body={c.body} />
+              <div key={c.n} className={styles.proofCard}>
+                <span className={styles.proofNum}>{c.n}</span>
+                <h4 className={styles.proofTitle}>{c.title}</h4>
+                <p className={styles.proofBody}>{c.body}</p>
+              </div>
             ))}
-          </ol>
+          </div>
+
           <p className={styles.disclaimer}>
-            These titles illustrate Korea’s export power. They are not CultX
-            products or partners.
+            These titles illustrate Korea’s export power. They are not CultX products or partners.
           </p>
+
           <ol className={styles.sceneRows} data-stagger>
             {KOREA_STRIP.map((c) => (
-              <SceneRow key={c.n} n={c.n} title={c.title} body={c.body} />
+              <SceneRow key={c.n} n={c.n} title={c.title} body={c.body} accent="green" />
             ))}
           </ol>
         </div>
@@ -301,6 +353,7 @@ export function AboutPage() {
         <div className={styles.layout}>
           <CinemaHeading
             eyebrow="05 — Mission"
+            accent="green"
             title="A K-digital entertainment empire — globally."
             lede="Same goal the industry always had: stories the world can’t ignore. Smarter way: AI drama and multi-format IP. Less time. Lower cost. Ambition that stays cinematic."
           />
@@ -314,16 +367,14 @@ export function AboutPage() {
             <p className={`${styles.compareRow} ${styles.compareRowHot}`}>
               <span className={styles.compareTag}>CultX way</span>
               <span className={styles.compareText}>
-                Weeks-scale ambition. Fraction of traditional cost. AI
-                production + CultX distribution.
+                Weeks-scale ambition. Fraction of traditional cost. AI production + CultX distribution.
               </span>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Mission bar as the page's intertitle (M07) — the emotional peak
-          gets its own full-viewport beat before the roadmap set piece. */}
+      {/* Full-Viewport Cinema Panel Intertitle */}
       <CinemaPanel
         words={[
           "Build",
@@ -338,11 +389,12 @@ export function AboutPage() {
         ]}
       />
 
-      {/* ============ 7. ROADMAP — scrub-drawn timeline ============ */}
+      {/* ============ 7. ROADMAP — SCRUB-DRAWN TIMELINE ============ */}
       <section className={styles.section} data-theme-section="dark">
         <div className={styles.layout}>
           <CinemaHeading
             eyebrow="06 — Roadmap"
+            accent="green"
             title="Build. Launch. List."
             lede="Five milestones. One destination. Timeline from the deck — subject to change."
           />
@@ -358,16 +410,16 @@ export function AboutPage() {
                   data-timeline-step
                 >
                   <span className={styles.timelineDot} aria-hidden />
-                  <p className={styles.timelineDate}>{m.date}</p>
+                  <span className={styles.timelineBadge}>{m.date}</span>
                   <h3 className={styles.timelineTitle}>{m.title}</h3>
                   <p className={styles.timelineBody}>{m.body}</p>
                 </li>
               ))}
             </ol>
           </div>
-          {/* Gated phrases stay on one source line (test reads source). */}
+
           <p className={styles.disclaimer}>
-            {"Dates and targets are forward-looking from the product deck. They are plans, not guarantees. Exchange listing is an application trajectory, not a confirmed listing."}
+            Dates and targets are forward-looking from the product deck. They are plans, not guarantees. Exchange listing is an application trajectory, not a confirmed listing.
           </p>
         </div>
       </section>
@@ -380,7 +432,7 @@ export function AboutPage() {
         secondary={{ href: "#waitlist", label: "Partner With Us" }}
       />
 
-      {/* ============ 9. FOOTER ============ */}
+      {/* ============ 9. SITE FOOTER ============ */}
       <SiteFooter />
     </main>
   );
