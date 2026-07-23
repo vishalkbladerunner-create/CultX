@@ -221,8 +221,30 @@ export function HomePage() {
       {/* ============ 2. FORMATS — sticky stage set piece (M09 + M15) ============ */}
       <FormatStage />
 
-      {/* ============ 3. TENSION — full-viewport scroll-fill panel (M07) ============ */}
+      {/* ============ 3. TENSION — full-viewport scroll-fill panel (M07 + M08 video chapter) ============ */}
       <section className={styles.cinemaPanel} data-theme-section="dark">
+        {/* z0 — ashen content-graveyard ambient loop (M08 chapter,
+            same pattern as hero but darker scrim for text readability) */}
+        <div className={styles.cinemaMedia} aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/video/tension/tension-poster.jpg"
+            alt=""
+            className={styles.cinemaPoster}
+          />
+          <video
+            className={styles.cinemaVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/video/tension/tension-poster.jpg"
+          >
+            <source src="/video/tension/tension.webm" type="video/webm" />
+            <source src="/video/tension/tension.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div className={styles.cinemaInner}>
           <p className={styles.fillLine} data-scroll-fill>
             {["Massive", "creation.", "Broken", "monetization."].map((w) => (
@@ -240,10 +262,32 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ============ 4. MANIFESTO — full-viewport scroll-fill panel ============
+      {/* ============ 4. MANIFESTO — full-viewport scroll-fill panel (M07 + M08 video chapter) ============
           The answer to the tension above fills in BRIGHT ACTION GREEN:
           problem stays ashen, the CultX loop blazes on the noir canvas. */}
       <section className={styles.cinemaPanel} data-theme-section="dark">
+        {/* z0 — green ignition ambient loop (M08 chapter): orbiting panels,
+            light dome, poppy green energy behind the loop words */}
+        <div className={styles.cinemaMedia} aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/video/manifesto/manifesto-poster.jpg"
+            alt=""
+            className={styles.cinemaPoster}
+          />
+          <video
+            className={styles.cinemaVideo}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/video/manifesto/manifesto-poster.jpg"
+          >
+            <source src="/video/manifesto/manifesto.webm" type="video/webm" />
+            <source src="/video/manifesto/manifesto.mp4" type="video/mp4" />
+          </video>
+        </div>
         <div className={styles.cinemaInner}>
           <p className={styles.fillLine} data-scroll-fill>
             {["Create.", "Watch.", "Engage.", "Own."].map((w) => (
