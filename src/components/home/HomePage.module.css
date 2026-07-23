@@ -439,45 +439,7 @@
   overflow: visible;
 }
 
-/* z0 — full-bleed ambient video behind the scroll-fill text (M08 chapter).
-   A dark scrim keeps the large centered text readable; poster stays visible
-   for load state and reduced-motion fallback. */
-.cinemaMedia {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.cinemaMedia::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: radial-gradient(ellipse 70% 60% at center, transparent 30%, rgb(0 0 0 / 0.65) 100%);
-}
-
-.cinemaPoster,
-.cinemaVideo {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.cinemaPoster { z-index: 0; }
-.cinemaVideo { z-index: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-  .cinemaVideo { display: none; }
-}
-
 .cinemaInner {
-  position: relative;
-  z-index: 1;
   margin: 0 var(--ck-layout-margin);
   max-width: 1120px;
 }
